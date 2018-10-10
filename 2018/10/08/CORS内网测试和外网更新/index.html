@@ -108,23 +108,25 @@
 
 
 
-  <meta name="description" content="热爱技术 热爱思考">
-<meta property="og:type" content="website">
-<meta property="og:title" content="断线风筝">
-<meta property="og:url" content="https://drgonroot.github.io/index.html">
+  <meta name="description" content="解释CORS的定义CORS （Cross-origin resource sharing）跨域资源共享问题，是W3C的标准。      当某一资源在自己的资源服务器上的不同域或者端口请求另一个资源时，那么该资源会发起一次跨域请求. (Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP heade">
+<meta name="keywords" content="后端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CORS内网测试和外网更新">
+<meta property="og:url" content="https://drgonroot.github.io/2018/10/08/CORS内网测试和外网更新/index.html">
 <meta property="og:site_name" content="断线风筝">
-<meta property="og:description" content="热爱技术 热爱思考">
+<meta property="og:description" content="解释CORS的定义CORS （Cross-origin resource sharing）跨域资源共享问题，是W3C的标准。      当某一资源在自己的资源服务器上的不同域或者端口请求另一个资源时，那么该资源会发起一次跨域请求. (Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP heade">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-10-10T01:05:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="断线风筝">
-<meta name="twitter:description" content="热爱技术 热爱思考">
+<meta name="twitter:title" content="CORS内网测试和外网更新">
+<meta name="twitter:description" content="解释CORS的定义CORS （Cross-origin resource sharing）跨域资源共享问题，是W3C的标准。      当某一资源在自己的资源服务器上的不同域或者端口请求另一个资源时，那么该资源会发起一次跨域请求. (Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP heade">
 
 
 
 
 
 
-  <link rel="canonical" href="https://drgonroot.github.io/"/>
+  <link rel="canonical" href="https://drgonroot.github.io/2018/10/08/CORS内网测试和外网更新/"/>
 
 
 
@@ -134,7 +136,7 @@
   };
 </script>
 
-  <title>断线风筝</title>
+  <title>CORS内网测试和外网更新 | 断线风筝</title>
   
 
 
@@ -181,8 +183,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -219,7 +220,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
     <a href="/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
   </li>
@@ -271,9 +272,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -305,11 +306,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/08/CORS内网测试和外网更新/" itemprop="url">
-                  CORS内网测试和外网更新
-                </a>
+          <h1 class="post-title" itemprop="name headline">CORS内网测试和外网更新
               
             
           </h1>
@@ -384,185 +381,68 @@
       
 
       
-        
-          <h5 id="解释CORS的定义"><a href="#解释CORS的定义" class="headerlink" title="解释CORS的定义"></a>解释CORS的定义</h5><p>CORS （Cross-origin resource sharing）跨域资源共享问题，是W3C的标准。    </p>
+        <h5 id="解释CORS的定义"><a href="#解释CORS的定义" class="headerlink" title="解释CORS的定义"></a>解释CORS的定义</h5><p>CORS （Cross-origin resource sharing）跨域资源共享问题，是W3C的标准。    </p>
 <blockquote>
 <p>当某一资源在自己的资源服务器上的不同域或者端口请求另一个资源时，那么该资源会发起一次跨域请求. (Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP headers to tell a browser to let a web application running at one origin (domain) have permission to access selected resources from a server at a different origin. A web application makes a cross-origin HTTP request when it requests a resource that has a different origin (domain, protocol, and port) than its own origin.)    </p>
 </blockquote>
-<p>个人理解：我（浏览器）在小明家（服务器）的正门（端口）借东西（资源）。突然还需要其他东西，但是不是小明给我，或者不是正门给我是在侧门给我，那我怎么能够相信这个东西有没有毒啊，有没有进过其他人的手。对于这种情况呢，我就给一个信物（Origin）给小明（服务器），只有小明（服务器）知道信物交换的秘密，正确的情况会把信物翻版（Access-Control-Allow-Origin）给我，不正确就直接不要。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/08/CORS内网测试和外网更新/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2018/10/06/speackEnglishWord/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="drgonroot">
-      <meta itemprop="description" content="热爱技术 热爱思考">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="断线风筝">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/06/speackEnglishWord/" itemprop="url">
-                  自定义程序朗读单词文本
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-10-06 12:44:58" itemprop="dateCreated datePublished" datetime="2018-10-06T12:44:58+08:00">2018-10-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-10-10 09:05:04" itemprop="dateModified" datetime="2018-10-10T09:05:04+08:00">2018-10-10</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="自定义程序朗读单词文本意思"><a href="#自定义程序朗读单词文本意思" class="headerlink" title="自定义程序朗读单词文本意思"></a>自定义程序朗读单词文本意思</h4><p>其核心内容是围绕Mac Terminal终端say命令展开的<br>让学习英语就像听歌一样简单</p>
-
-<h4 id="具体步骤："><a href="#具体步骤：" class="headerlink" title="具体步骤："></a>具体步骤：</h4><h5 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h5><ul>
-<li>简单使用say去读一小段的文本 say Hello World;</li>
-<li>学习使用say去读文件 say -f …/…/hello_world.txt|.csv</li>
-<li>详细使用可以输入命令 man say</li>
+<p>个人理解：我（浏览器）在小明家（服务器）的正门（端口）借东西（资源）。突然还需要其他东西，但是不是小明给我，或者不是正门给我是在侧门给我，那我怎么能够相信这个东西有没有毒啊，有没有进过其他人的手。对于这种情况呢，我就给一个信物（Origin）给小明（服务器），只有小明（服务器）知道信物交换的秘密，正确的情况会把信物翻版（Access-Control-Allow-Origin）给我，不正确就直接不要。<br><a id="more"></a></p>
+<h5 id="哪些情况会出现CORS的问题"><a href="#哪些情况会出现CORS的问题" class="headerlink" title="哪些情况会出现CORS的问题"></a>哪些情况会出现CORS的问题</h5><p>我遇到的HTTPS在CHROME浏览器出现跨域字体无法显示,在safari和HTTP的情况没有出现。<br><a href="https://segmentfault.com/a/1190000007326671" target="_blank" rel="noopener">详细介绍哪些情况会出现跨域的情况列链接</a>并前端的角度该如何解决问题。</p>
+<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><p>对于简单请求，浏览器直接发出 CORS 请求。具体来说，就是由浏览器自动在头信息中增加一个 Origin 字段。然后只需要在返回的相应上加上Access-Control-Allow-Origin:[Origin]|* 。<br><a href="https://zoctan.github.io/2018/07/21/%E5%AD%A6%E4%B9%A0/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB%20CORS%20%E8%AF%A6%E8%A7%A3%EF%BC%88%E8%BD%AC%EF%BC%89/" target="_blank" rel="noopener">前端详细介绍了解</a></p>
+<h5 id="接下来详细讲实际解决的情况"><a href="#接下来详细讲实际解决的情况" class="headerlink" title="接下来详细讲实际解决的情况"></a>接下来详细讲实际解决的情况</h5><ul>
+<li>需要让内网出现线上的情况</li>
+<li>按照网上解决方案去解决</li>
+<li>线上CDN资源需要让其失效</li>
 </ul>
-<h5 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h5><ul>
-<li>寻找合适单词翻译网站 通过复制粘贴的形式到文件中</li>
-<li>目前我使用的是<a href="https://www.shanbay.com/" target="_blank" rel="noopener">扇贝网站</a>的单词学习
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/06/speackEnglishWord/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<h6 id="内网配置出线上环境"><a href="#内网配置出线上环境" class="headerlink" title="内网配置出线上环境"></a>内网配置出线上环境</h6><p>我们内网是http协议，不支持httpsd的协议，没有出现线上的情况。</p>
+<ul>
+<li>先需要将线上的证书下载到本地，在上传到内网指定位置。</li>
+<li>先将内网的nginx的配置文本上加上https的443的端口访问处理。(/opt/nginx/conf/conf.d)</li>
+<li>证书和域名是一一对应，所有配置文件的server-name 为证书上的域名。<blockquote>
+<pre><code>server {
+  listen 443;
+  server_name #证书上的域名即线上的网址
+  access_log  #日志地址
+  ssl    on;
+  ssl_certificate   #证书地址
+  ssl_certificate_key    #证书地址
+  location ~ / {
+          proxy_http_version 1.1;
+          proxy_set_header Connection &quot;&quot;;
+          proxy_set_header  X-Real-IP  $remote_addr;
+          proxy_set_header  FORWARDED-FOR  $remote_addr;
+          proxy_pass #代理到Tomcat的服务器的域名+端口
+          include conf.d/proxy_params;}}
+</code></pre></blockquote>
+</li>
+</ul>
+<p>1.遇到问题只能通过线上域名访问，但是无法访问到内网的资源。<br>2.<a href="https://www.jianshu.com/p/4394aaf97492" target="_blank" rel="noopener">DNS 服务详细了解</a></p>
+<blockquote>
+<p>先了解客户端进行域名解析的流程：<br>先查hosts文件<br>若没有，查本地DNS缓存<br>若没有，再查DNS服务器：<br>先查DNS服务器的本地DNS缓存<br>若没有，再查DNS服务器的解析库<br>都没有，那DNS向根域发起请求，开始迭代查询<br>如果缓存的有效期为1天的话，能极大减轻DNS服务器的压力，所以对于DNS的架构，“缓存”是很重要的。</p>
+</blockquote>
+<p>3.在/etc/hosts文件加上ip和域名的强制映射(内网ip（nginx） 线上域名）。我们的nginx和tomcat服务器是在同一个服务器上。 接下来线上域名的访问都会转接到内网资源的访问。（另一个办法：通过Charles进行代理实现）<br>4.详细分析后，字体是加载进来的js代码发起的静态资源访问（CORS的访问，二级域名不一样）。折腾好久才想起来的，但是静态资源的访问是通过不同内外网环境进行变化的，内网静态资源都在内网服务器上，外网的静态资源在CDN缓存上和静态资源服务器上。<br>5.将加载js的代码写死，变成直接访问外网的静态资源。（与线上保持一致）<br>6.静态资源访问需要变成内网资源的访问。同样，先在hosts文件加上ip和静态资源的域名的强制映射（内网ip  线上域名）。<br>内网静态资源nginx配置         </p>
+<blockquote>
+<pre><code>server {
+           listen 443;
+           server_name #静态资源服务器
+           gzip on;
+   ssl    on;
+   ssl_certificate    /data/config/ssl/star.enjoymeet.com.chained;
+   ssl_certificate_key    #证书地址
+   access_log  #证书地址
+   location ~* \.(eot|ttf|woff|woff2)$ {
+          add_header  Access-Control-Allow-Origin * ;
+          add_header Access-Control-Allow-Methods GET;
+          proxy_pass #代理到Tomcat的服务器的域名+端口
+   }
+ }
+</code></pre></blockquote>
+<p>基本上实现在内网测试。<br>参考资料：在nginx上解决问题<br><a href="http://www.yunweipai.com/archives/9381.html" target="_blank" rel="noopener">Nginx通过CORS实现跨域1</a><br><a href="https://hk.saowen.com/a/bcc2bf629fad4037006703f159ec7927ef4cca06a0d7a2cf6d8932584754fa28" target="_blank" rel="noopener">Nginx通過CORS實現跨域2</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="noopener">HTTP访问控制（CORS）
+</a><br><a href="https://serverfault.com/questions/162429/how-do-i-add-access-control-allow-origin-in-nginx" target="_blank" rel="noopener">How do I add Access-Control-Allow-Origin in NGINX?</a></p>
+<h6 id="线上处理"><a href="#线上处理" class="headerlink" title="线上处理"></a>线上处理</h6><ul>
+<li>CDN 回源，我们回源的访问80端口欧，HTTP协议。</li>
+<li>CDN的资源让线上的资源失效。</li>
+</ul>
+
       
     </div>
 
@@ -580,14 +460,36 @@
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/后端/" rel="tag"># 后端</a>
+          
+        </div>
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/06/speackEnglishWord/" rel="next" title="自定义程序朗读单词文本">
+                <i class="fa fa-chevron-left"></i> 自定义程序朗读单词文本
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </div>
@@ -597,14 +499,19 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -625,8 +532,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -690,6 +606,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#解释CORS的定义"><span class="nav-number">1.</span> <span class="nav-text">解释CORS的定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#哪些情况会出现CORS的问题"><span class="nav-number">2.</span> <span class="nav-text">哪些情况会出现CORS的问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解决方案"><span class="nav-number">3.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#接下来详细讲实际解决的情况"><span class="nav-number">4.</span> <span class="nav-text">接下来详细讲实际解决的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#内网配置出线上环境"><span class="nav-number">4.1.</span> <span class="nav-text">内网配置出线上环境</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#线上处理"><span class="nav-number">4.2.</span> <span class="nav-text">线上处理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -817,6 +749,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
 
   
 
