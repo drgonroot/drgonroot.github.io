@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="perl 是脚本语言，在工作部署、编译等一些关于linux服务器上的事情都会跟perl打交道。写下自己学习路程，给自己日后总结。 文档查询perldoc -f xxxx perl数据类型字符串定义字符串变量: my $name (my: 定义变量 $: 表示字符串 name: 变量名)注意点           内插型字符串 其他变量的数据可以在插入字符串中展示">
+<meta name="keywords" content="perl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PERL学习">
+<meta property="og:url" content="https://drgonroot.github.io/2018/12/05/PERL学习/index.html">
+<meta property="og:site_name" content="断线风筝">
+<meta property="og:description" content="perl 是脚本语言，在工作部署、编译等一些关于linux服务器上的事情都会跟perl打交道。写下自己学习路程，给自己日后总结。 文档查询perldoc -f xxxx perl数据类型字符串定义字符串变量: my $name (my: 定义变量 $: 表示字符串 name: 变量名)注意点           内插型字符串 其他变量的数据可以在插入字符串中展示">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-19T02:39:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PERL学习">
+<meta name="twitter:description" content="perl 是脚本语言，在工作部署、编译等一些关于linux服务器上的事情都会跟perl打交道。写下自己学习路程，给自己日后总结。 文档查询perldoc -f xxxx perl数据类型字符串定义字符串变量: my $name (my: 定义变量 $: 表示字符串 name: 变量名)注意点           内插型字符串 其他变量的数据可以在插入字符串中展示">
+
+
+
+
+
+
+  <link rel="canonical" href="https://drgonroot.github.io/2018/12/05/PERL学习/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>PERL学习 | 断线风筝</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">断线风筝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2018/12/05/PERL学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="drgonroot">
+      <meta itemprop="description" content="热爱技术 热爱思考">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="断线风筝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">PERL学习
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-05 22:37:20" itemprop="dateCreated datePublished" datetime="2018-12-05T22:37:20+08:00">2018-12-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-19 10:39:52" itemprop="dateModified" datetime="2018-12-19T10:39:52+08:00">2018-12-19</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>perl 是脚本语言，在工作部署、编译等一些关于linux服务器上的事情都会跟perl打交道。写下自己学习路程，给自己日后总结。</p>
+<h3 id="文档查询"><a href="#文档查询" class="headerlink" title="文档查询"></a>文档查询</h3><p>perldoc -f xxxx</p>
+<h3 id="perl数据类型"><a href="#perl数据类型" class="headerlink" title="perl数据类型"></a>perl数据类型</h3><h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><p>定义字符串变量: my $name (my: 定义变量 $: 表示字符串 name: 变量名)<br><strong><em>注意点</em></strong>         </p>
+<ul>
+<li>内插型字符串<blockquote>
+<p>其他变量的数据可以在插入字符串中展示</p>
+</blockquote>
+</li>
+</ul>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my $name = &quot;Inigo MOntoya&quot;;</span><br><span class="line">print &quot;My name is $name&quot;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>非内插型字符串<blockquote>
+<p>无论什么字符都直接展示</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print &apos;You may have won $1,000,000&apos;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>转义字符<blockquote>
+<p>有些特殊字符需要转义才能正输出</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">my $email = &quot;andy@foo.com&quot;;</span><br><span class="line">print $email;</span><br><span class="line"># Prints &quot;andy.com&quot;</span><br><span class="line">解决方案:</span><br><span class="line">my $email = &quot;andy\@foo.com&quot;;</span><br></pre></td></tr></table></figure>
+<h4 id="字符串操作函数"><a href="#字符串操作函数" class="headerlink" title="字符串操作函数"></a>字符串操作函数</h4><ul>
+<li>length() 获取字符串长度</li>
+<li>subStr() 能够截取字符串</li>
+</ul>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><ul>
+<li>创建</li>
+<li>访问 $stooges[1]</li>
+<li>数组长度 @stooges  scalar @stooges</li>
+<li>数组特性<ul>
+<li>数组没有边界</li>
+<li>数组合并会平展元素</li>
+</ul>
+</li>
+<li>数组操作方法<ul>
+<li>shift 从数组开头移除元素</li>
+<li>unshift 将元素添加到数组开头</li>
+<li>push 将元素添加到数组的结尾</li>
+<li>pop 从数组的结尾移除元素</li>
+</ul>
+</li>
+<li><p>数组高级用法</p>
+<ul>
+<li><p>提取数组的部分元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my @a = &apos;a&apos;..&apos;z&apos;;</span><br><span class="line">my @vowels = @a[0, 4, 8, 14, 20];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>分配数组块 使用splice</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">使用场景 数组拼接</span><br><span class="line">my @a = qw(Steve Stu Stan);</span><br><span class="line">$a[1] = [&apos;Stewart&apos;, &apos;Zane&apos;];</span><br><span class="line"># @a = (&apos;Steve&apos;, ARRAY(0x841214c), &apos;Stan&apos;)</span><br><span class="line"></span><br><span class="line">my @a = qw(Steve Stu Stan);</span><br><span class="line">splice @a 1, 1, &apos;Stewart&apos;, &apos;Zane&apos;;</span><br><span class="line">#@a = (&apos;Steve&apos;, &apos;Stewart&apos;, &apos;Zane&apos;, &apos;Stan&apos;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>利用map处理数组 (<strong>map 本质上是返回列表的foreach 循环</strong>)map</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my @ARRAY = (1, 2, 3, 4, 5);</span><br><span class="line">my %hash = map &#123;$_ =&gt; $_ * 9&#125; @ARRAY;</span><br><span class="line"># %hash = (1 =&gt; 9, 2 =&gt; 18, 3 =&gt; 27, 4 =&gt; 36, 5 =&gt; 45)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>grep从数组中选择项目 (<strong>grep 本质上返回列表foreach循环</strong>)<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my @ARRAY = (1, 2, 3, 4, 5);</span><br><span class="line">my @NEWARRAY = grep &#123;$_ * 9&#125; @ARRAY</span><br><span class="line">&#123;&#125; 包含表达式的意思</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h4><p>哈希就是键值对</p>
+<ul>
+<li>创建</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1.方法一</span><br><span class="line">my %stooges = (</span><br><span class="line">  &apos;Moe&apos;, &apos;Howard&apos;,</span><br><span class="line">  &apos;Larry&apos;, &apos;Fine&apos;,</span><br><span class="line">  );</span><br><span class="line">2. 方法二</span><br><span class="line">my %stooges = (</span><br><span class="line">  Moe =&gt; &apos;Howard&apos;,</span><br><span class="line">  Larry =&gt; &apos;Fine&apos;,</span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+<ul>
+<li>哈希转数组</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my @hash_array = %stooges;</span><br><span class="line"># Contains (&apos;Moe&apos;, &apos;Howard&apos;, &apos;Larry&apos;, &apos;Fine&apos;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>使用{}操作哈希<br>输出哈希值 更改哈希值 删除哈希条目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">print $stooges&#123;&apos;Moe&apos;&#125;;</span><br><span class="line">#Prints &quot;Howard&quot;;</span><br><span class="line">$stooges&#123;&apos;Moe&apos;&#125; = &apos;NiHao&apos;;</span><br><span class="line">delete $stooges&#123;&apos;Moe&apos;&#125;;</span><br><span class="line">unlink $stooges&#123;&apos;Moe&apos;&#125;;</span><br><span class="line">delete 不会删除文件 unlink 为删除文件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>哈希的键/值数组</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">my @key = keys %stooges;</span><br><span class="line">my @value = values %stooges;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>哈希特点</p>
+<ul>
+<li>哈希是无序的</li>
+<li>无法排序</li>
+</ul>
+</li>
+<li><p>哈希define exist的差异</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/perl/" rel="tag"># perl</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/21/regular-expression/" rel="next" title="正则表达式（经典讲解）">
+                <i class="fa fa-chevron-left"></i> 正则表达式（经典讲解）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/18/phantomjs截图文字不显示/" rel="prev" title="phantomjs截图文字不显示">
+                phantomjs截图文字不显示 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="drgonroot" />
+            
+              <p class="site-author-name" itemprop="name">drgonroot</p>
+              <p class="site-description motion-element" itemprop="description">热爱技术 热爱思考</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#文档查询"><span class="nav-number">1.</span> <span class="nav-text">文档查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#perl数据类型"><span class="nav-number">2.</span> <span class="nav-text">perl数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串"><span class="nav-number">2.1.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串操作函数"><span class="nav-number">2.2.</span> <span class="nav-text">字符串操作函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组"><span class="nav-number">2.3.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#哈希"><span class="nav-number">2.4.</span> <span class="nav-text">哈希</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">drgonroot</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
