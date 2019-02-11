@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="MacOX安装JMgick原因和使用JMagick执行流程 目前对于图片处理，很少采用java去处理图片，性能不是很好。目前我们公司采用ImageMagick图片处理，有些采用Process执行cmd命令，有些采用jmagick的java接口进行处理。  ImageMagick官网通过jmagick调用native方法来调用JMagick的方法, 再由JMagick调用ImageMagick的方法">
+<meta name="keywords" content="后端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MacOX安装JMagick">
+<meta property="og:url" content="https://drgonroot.github.io/2019/01/29/MacOX安装JMagick/index.html">
+<meta property="og:site_name" content="断线风筝">
+<meta property="og:description" content="MacOX安装JMgick原因和使用JMagick执行流程 目前对于图片处理，很少采用java去处理图片，性能不是很好。目前我们公司采用ImageMagick图片处理，有些采用Process执行cmd命令，有些采用jmagick的java接口进行处理。  ImageMagick官网通过jmagick调用native方法来调用JMagick的方法, 再由JMagick调用ImageMagick的方法">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-02-11T07:42:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MacOX安装JMagick">
+<meta name="twitter:description" content="MacOX安装JMgick原因和使用JMagick执行流程 目前对于图片处理，很少采用java去处理图片，性能不是很好。目前我们公司采用ImageMagick图片处理，有些采用Process执行cmd命令，有些采用jmagick的java接口进行处理。  ImageMagick官网通过jmagick调用native方法来调用JMagick的方法, 再由JMagick调用ImageMagick的方法">
+
+
+
+
+
+
+  <link rel="canonical" href="https://drgonroot.github.io/2019/01/29/MacOX安装JMagick/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>MacOX安装JMagick | 断线风筝</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">断线风筝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2019/01/29/MacOX安装JMagick/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="drgonroot">
+      <meta itemprop="description" content="热爱技术 热爱思考">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="断线风筝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MacOX安装JMagick
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-29 21:51:21" itemprop="dateCreated datePublished" datetime="2019-01-29T21:51:21+08:00">2019-01-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-02-11 15:42:25" itemprop="dateModified" datetime="2019-02-11T15:42:25+08:00">2019-02-11</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h5 id="MacOX安装JMgick原因和使用JMagick执行流程"><a href="#MacOX安装JMgick原因和使用JMagick执行流程" class="headerlink" title="MacOX安装JMgick原因和使用JMagick执行流程"></a>MacOX安装JMgick原因和使用JMagick执行流程</h5><blockquote>
+<p>目前对于图片处理，很少采用java去处理图片，性能不是很好。目前我们公司采用ImageMagick图片处理，有些采用Process执行cmd命令，有些采用jmagick的java接口进行处理。</p>
+</blockquote>
+<p><a href="https://www.imagemagick.org/index.php" target="_blank" rel="noopener">ImageMagick官网</a><br>通过jmagick调用native方法来调用JMagick的方法, 再由JMagick调用ImageMagick的方法。jmagick使用Java代码写的。JMagick使用C语言写的，含有java JNI生成的头文件。ImageMagick使用C语言写的，没有含有java JNI生成的头文件。 <a href="https://elf8848.iteye.com/blog/455675" target="_blank" rel="noopener">ImageMagick介绍和执行流程原因解释</a>         </p>
+<ul>
+<li>执行流程:                     </li>
+<li>jmagick（java） –&gt; JMagick(C) –&gt; ImageMagick(C)</li>
+</ul>
+<a id="more"></a>
+<h5 id="本地MacOX执行遇到问题"><a href="#本地MacOX执行遇到问题" class="headerlink" title="本地MacOX执行遇到问题"></a>本地MacOX执行遇到问题</h5><p>new MagickInfo(“”); 调用时出现无法加载MagickLoader，实际无法加载资源JMagick；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ClassLoader.getSystemClassLoader().loadClass(&quot;magick.MagickLoader&quot;).newInstance();</span><br><span class="line">public class MagickLoader &#123;</span><br><span class="line">    static &#123;      </span><br><span class="line">        System.loadLibrary(&quot;JMagick&quot;);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>因为jmagick的接口都是本地调用，需要加载JNI的JMagick动态库。因此，接下来我们的主要任务是生成JMagick的动态库。<br>通过Brew install ImageMagick直接安装使用。但是JMagick只用源码包，需要进行编译安装。尽量将ImageMagick和JMagick安装在同一路径下。</p>
+<h6 id="Brew-install-ImageMagick-开始编译JMagick，生成JMagick动态库。"><a href="#Brew-install-ImageMagick-开始编译JMagick，生成JMagick动态库。" class="headerlink" title="Brew install ImageMagick,开始编译JMagick，生成JMagick动态库。"></a>Brew install ImageMagick,开始编译JMagick，生成JMagick动态库。</h6><ul>
+<li>遇到JMagick出现找不到api.h文件(实际上在ImageMagick-7是没有这个api.h文件，在ImageMagick-6是有api.h文件):<br>checking magick/api.h usability… no<br>checking magick/api.h presence… no<br>checking for magick/api.h… no<br>configure: error: ‘Unable to find ImageMagick header files’。</li>
+</ul>
+<p>出现这种情况通过pkg-config、修改configure的参数、查看configure源码，根据报错来修改文件路径，让其能够找到header files等等方法。这些方法都没有解决问题。    </p>
+<ul>
+<li><a href="http://promiselove.github.io/2017/11/30/Mac%E5%AE%89%E8%A3%85Imagemagick%E5%92%8CJMagick/" target="_blank" rel="noopener">该文章找到原因</a></li>
+</ul>
+<p>主要是因为JMagick版本老(最新版本是2013更新的)，无法跟上ImageMagick的节奏。ImageMagick的文件位置都发生了很大的变化。(注.看configure源码，可以看到一些文件路径不在了)。</p>
+<ul>
+<li><p>我们需要做的是：ImageMagick不要安装最新版本，安装旧版ImageMaick6相关版本，并且下载JMagick6.4.0版本。</p>
+</li>
+<li><p>根据configure的部分源码</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># Check whether --with-magick-home was given.</span><br><span class="line">if test &quot;$&#123;with_magick_home+set&#125;&quot; = set; then</span><br><span class="line">  withval=$with_magick_home; MAGICK_HOME=$&#123;withval&#125;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">for MPATH in /usr /usr/local /usr/local/ImageMagick /usr/local/ImageMagick-$&#123;VER_MAJOR&#125;.$&#123;VER_MINOR&#125;.$&#123;VER_MICRO&#125; $&#123;MAGICK_HOME&#125; ; do</span><br><span class="line">        # Location before IM 6.3.8.something</span><br><span class="line">        if  test -f $&#123;MPATH&#125;/include/magick/api.h  ; then</span><br><span class="line">                MAGICK_LIB_PATH=$&#123;MPATH&#125;/lib</span><br><span class="line">                MAGICK_LIBS=&quot;-L$&#123;MPATH&#125;/lib -lMagick&quot;</span><br><span class="line">                MAGICK_INCLUDES=-I$&#123;MPATH&#125;/include</span><br><span class="line">                MAGICK_REALHOME=$&#123;MPATH&#125;</span><br><span class="line">        fi</span><br><span class="line">        # Location after IM 6.3.8.something</span><br><span class="line">        if  test -f $&#123;MPATH&#125;/include/ImageMagick/magick/api.h  ; then</span><br><span class="line">                MAGICK_LIB_PATH=$&#123;MPATH&#125;/lib</span><br><span class="line">                MAGICK_LIBS=&quot;-L$&#123;MPATH&#125;/lib -lMagick&quot;</span><br><span class="line">                MAGICK_INCLUDES=-I$&#123;MPATH&#125;/include/ImageMagick</span><br><span class="line">                MAGICK_REALHOME=$&#123;MPATH&#125;</span><br><span class="line">        fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>因为编译的该文件的<code>${MPATH}/include/magick/api.h</code>。由于目前include路径下存放的文件多了一层Imagemagick-6，我们要将Imagemagick-6里的所有文件ln -s到include目录下。<br>eg:我的configure命令：</p>
+<ul>
+<li><p><code>JAVA_HOME=&quot;/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/&quot; CFLAGS=&quot;-I/Library/Java/JavaVirtualMachines/jdk1.8.0_74.jdk/Contents/Home/include/ -I/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/include/darwin&quot;  ./configure --with-magick-inc-dir=-I/usr/local/Cellar/imagemagick/6.9.10-14/include/ --with-magick-lib-dir=-L/usr/local/Cellar/imagemagick/6.9.10-14/lib/</code></p>
+</li>
+<li><p><code>./configure --with-java-home=</code>/usr/libexec/java_home<code>--with-java-includes=/System/Library/Frameworks/JavaVM.framework/Headers --with-magick-inc-dir=/usr/local/Cellar/imagemagick@6/6.9.10-14/include/ --with-magick-lib-dir=/usr/local/Cellar/imagemagick@6/6.9.10-14/lib/</code></p>
+</li>
+</ul>
+<p>接下来有些问题下面链接可以解决一部分由<br><a href="https://www.zybuluo.com/yibo/note/125940" target="_blank" rel="noopener">Mac OS X 安装JMagick</a>来解决我们configure的问题。<br>因为还有编译文件中的<code>withval=$with_magick_home; MAGICK_HOME=${withval}</code>,因此我们可以通过增加 – with_magick_home参数，解决某些问题。</p>
+<p>make过程中ERROR ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">make[1]: Entering directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src&apos;</span><br><span class="line">make[2]: Entering directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src/magick&apos;</span><br><span class="line">make[2]: *** No rule to make target `/usr/local/Cellar/imagemagick/6.9.10-14/include/magick/api.h&apos;, needed by `/usr/local/Cellar/jmagick-6.4.0/6.4.0/obj/magick/magick_PixelPacket.lo&apos;.  Stop.</span><br><span class="line">make[2]: Leaving directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src/magick&apos;</span><br><span class="line">make[1]: *** [dir_target] Error 2</span><br><span class="line">make[1]: Leaving directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src&apos;</span><br><span class="line">make: *** [dir_target] Error 2</span><br></pre></td></tr></table></figure></p>
+<p>因为api.h的路径不对，可以通过ln -s 下。eg: cd /usr/local/Cellar/ &amp;&amp; ln -s ./imagemagick\@6/ imagemagick<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">make[1]: Entering directory `/Users/yibo/Downloads/6.4.0/src&apos;</span><br><span class="line">make[2]: Entering directory `/Users/yibo/Downloads/6.4.0/src/magick&apos;</span><br><span class="line">../../Make.rules:175: *** missing separator.  Stop.</span><br><span class="line">make[2]: Leaving directory `/Users/yibo/Downloads/6.4.0/src/magick&apos;</span><br><span class="line">make[1]: *** [dir_target] Error 2</span><br><span class="line">make[1]: Leaving directory `/Users/yibo/Downloads/6.4.0/src&apos;</span><br><span class="line">make: *** [dir_target] Error 2</span><br></pre></td></tr></table></figure></p>
+<p>修改Make.rules, 175,176 四个空格换成tab，参见: <a href="http://stackoverflow.com/a/15880079/3368344" target="_blank" rel="noopener">http://stackoverflow.com/a/15880079/3368344</a></p>
+<h6 id="make-make-install-成功之后"><a href="#make-make-install-成功之后" class="headerlink" title="make make install 成功之后"></a>make make install 成功之后</h6><p>在/usr/local/lib会生成三个文件</p>
+<ul>
+<li>jmagick-6.4.0.jar</li>
+<li>libJMagick-6.4.0.so</li>
+<li>libJMagick.so -&gt; ./libJMagick-6.4.0.so<br>在动态链接库在不同平台的形式：</li>
+<li>windows .dll</li>
+<li>linux .so</li>
+<li>macos .dylib (最新的动态链接库) .jnilib (以前的动态链接库)<br>需要在mac上使用动态链接库，需要使用dylib的后缀的名称。<br>cp libJMagick.so libJMagick.dylib</li>
+</ul>
+<h5 id="测试使用"><a href="#测试使用" class="headerlink" title="测试使用"></a>测试使用</h5><p>IDEA的单元测试没有问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">      String property = System.getProperty(&quot;java.library.path&quot;);</span><br><span class="line">      System.out.println(property);  // 输出/usr/local/lib</span><br><span class="line">      // System.setProperty(&quot;java.library.path&quot;, &quot;/usr/local/lib&quot;);</span><br><span class="line">      // System.loadLibrary(&quot;JMagick&quot;);</span><br><span class="line">      System.out.println(&quot;success&quot;);</span><br><span class="line">      MagickInfo magickInfo = new MagickInfo(&quot;myImage&quot;);</span><br><span class="line">    &#125; catch (MagickException e) &#123;</span><br><span class="line">      System.out.println(e);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>IDEA的Tomcat需要额外处理：<br>tomcat的VM options增加：<br>-Djmagick.systemclassloader=no -Djava.library.path=/usr/local/lib</p>
+<p>参考资料：<br><a href="https://www.zybuluo.com/yibo/note/125940" target="_blank" rel="noopener">Mac OS X 安装JMagick</a><br><a href="http://promiselove.github.io/2017/11/30/Mac%E5%AE%89%E8%A3%85Imagemagick%E5%92%8CJMagick/" target="_blank" rel="noopener">Mac安装Imagemagick和JMagick</a><br><a href="http://noahsnail.com/2016/12/12/2016-12-12-Linux%E7%9A%84pkg-config%E5%91%BD%E4%BB%A4/" target="_blank" rel="noopener">Linux的pkg-config命令</a><br><a href="https://elf8848.iteye.com/blog/455675" target="_blank" rel="noopener">ImageMagick +Jmagick安装</a>   </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/后端/" rel="tag"># 后端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/18/phantomjs截图文字不显示/" rel="next" title="phantomjs截图文字不显示">
+                <i class="fa fa-chevron-left"></i> phantomjs截图文字不显示
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="drgonroot" />
+            
+              <p class="site-author-name" itemprop="name">drgonroot</p>
+              <p class="site-description motion-element" itemprop="description">热爱技术 热爱思考</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#MacOX安装JMgick原因和使用JMagick执行流程"><span class="nav-number">1.</span> <span class="nav-text">MacOX安装JMgick原因和使用JMagick执行流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#本地MacOX执行遇到问题"><span class="nav-number">2.</span> <span class="nav-text">本地MacOX执行遇到问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Brew-install-ImageMagick-开始编译JMagick，生成JMagick动态库。"><span class="nav-number">2.1.</span> <span class="nav-text">Brew install ImageMagick,开始编译JMagick，生成JMagick动态库。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#make-make-install-成功之后"><span class="nav-number">2.2.</span> <span class="nav-text">make make install 成功之后</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试使用"><span class="nav-number">3.</span> <span class="nav-text">测试使用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">drgonroot</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
