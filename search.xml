@@ -27,7 +27,7 @@
   <entry>
     <title><![CDATA[IDEA小技巧]]></title>
     <url>%2F2019%2F02%2F12%2FIDEA%E5%B0%8F%E6%8A%80%E5%B7%A7%2F</url>
-    <content type="text"><![CDATA[提供IDEA使用小技巧 推荐一些本人亲身尝试，在实际开发中比较实用的小技巧，可以大大提高开发效率。 IDEA左侧显示打开代码文件和资源文件 应用场景:默认IDEA的代码文件的Tab放在代码区的上方。但是实际开发，我们经常打开很多代码文件，左侧显示整体显示，可以提高管理打开代码文件。 结果 操作步骤: IDEA多个模块同名分支统一切换 （Multi-root same name brances change） 应用场景:默认IDEA的分支操作:模块分支统一操作(Common Local Branches)和单模块分支操作(Local Branches)。 对于某个模块同名的分支的处理很难处理。 (类似问题:https://stackoverflow.com/questions/13797331/intellij-switching-between-multiple-git-local-branches) 灵感来自这篇文章:Task Management does not respect “Execute branch operations on all roots” setting 操作步骤Click “Tools” &gt; “Tasks &amp; Contexts” &gt; “Open Task”]]></content>
+    <content type="text"><![CDATA[提供IDEA使用小技巧 推荐一些本人亲身尝试，在实际开发中比较实用的小技巧，可以大大提高开发效率。 IDEA左侧显示打开代码文件和资源文件 应用场景:默认IDEA的代码文件的Tab放在代码区的上方。但是实际开发，我们经常打开很多代码文件，左侧显示整体显示，可以提高管理打开代码文件。 结果 操作步骤: IDEA多个模块同名分支统一切换 （Multi-root same name brances change） 应用场景:默认IDEA的分支操作:模块分支统一操作(Common Local Branches)和单模块分支操作(Local Branches)。 对于某个模块同名的分支的处理很难处理。 (类似问题:https://stackoverflow.com/questions/13797331/intellij-switching-between-multiple-git-local-branches) 灵感来自这篇文章:Task Management does not respect “Execute branch operations on all roots” setting 操作步骤Click “Tools” &gt; “Tasks &amp; Contexts” &gt; “Open Task” IDEA的编辑区不换行操作]]></content>
       <tags>
         <tag>IDEA</tag>
       </tags>
