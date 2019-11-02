@@ -252,14 +252,6 @@
 
       
       
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
-        </li>
-      
     </ul>
   
 
@@ -268,27 +260,6 @@
 
   
 
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
   
 </nav>
 
@@ -426,49 +397,53 @@
 <p>说明：本文内容主要来自《OS WORLD TRIP》又名《开源世界旅行手册》,由<strong>Kardinal</strong>著。该书的源地址：<a href="https://linuxtoy.org/pages/download.html" target="_blank" rel="noopener">下载地址</a> 。正则表达式的内容在部分2:地理的第26章</p>
 </blockquote>
 <a id="more"></a>
-<h4 id="讲解"><a href="#讲解" class="headerlink" title="讲解"></a>讲解</h4><h5 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h5><h6 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h6><p>&emsp;&emsp;对于文本内容的处理，通常使用交互方式，手工调整;但如果你对源文本比较了解，则可以采用自动化的批量处理方式，这种方式效率高、迅速快批量处理，要求根据一定规则，匹配源文本中的字符，转换为目标文本，这就要用到正则表达式。<br>最简单的例子，使用 regular 进行匹配，结果如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`regular` expression</span><br></pre></td></tr></table></figure></p>
+<h4 id="讲解"><a href="#讲解" class="headerlink" title="讲解"></a>讲解</h4><h5 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h5><h6 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h6><p>&emsp;&emsp;对于文本内容的处理，通常使用交互方式，手工调整;但如果你对源文本比较了解，则可以采用自动化的批量处理方式，这种方式效率高、迅速快批量处理，要求根据一定规则，匹配源文本中的字符，转换为目标文本，这就要用到正则表达式。<br>最简单的例子，使用 regular 进行匹配，结果如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`regular` expression</span><br></pre></td></tr></table></figure>
+
 <p>正则表达式有许多变种:glob 表达式、基本正则表达式、perl 正则表达式、emacs 正则表达式……      </p>
 <h6 id="运算优先级"><a href="#运算优先级" class="headerlink" title="运算优先级"></a>运算优先级</h6><p>&emsp;&emsp;正则表达式与数学表达式的不同在于，数学表达式执行数学运算，而正则表达式执行字符运算;相同的是，它们都按一定的优先级进行运算</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">运算符</th>
-<th style="text-align:center">操作</th>
+<th align="center">运算符</th>
+<th align="center">操作</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">\</td>
-<td style="text-align:center">转义符</td>
+<tbody><tr>
+<td align="center">\</td>
+<td align="center">转义符</td>
 </tr>
 <tr>
-<td style="text-align:center">()</td>
-<td style="text-align:center">捕获、匹配、断言</td>
+<td align="center">()</td>
+<td align="center">捕获、匹配、断言</td>
 </tr>
 <tr>
-<td style="text-align:center">[]</td>
-<td style="text-align:center">字符类</td>
+<td align="center">[]</td>
+<td align="center">字符类</td>
 </tr>
 <tr>
-<td style="text-align:center">*+?</td>
-<td style="text-align:center">限定符</td>
+<td align="center">*+?</td>
+<td align="center">限定符</td>
 </tr>
 <tr>
-<td style="text-align:center">{}</td>
-<td style="text-align:center">范围</td>
+<td align="center">{}</td>
+<td align="center">范围</td>
 </tr>
 <tr>
-<td style="text-align:center">^$</td>
-<td style="text-align:center">位置和顺序</td>
+<td align="center">^$</td>
+<td align="center">位置和顺序</td>
 </tr>
 <tr>
-<td style="text-align:center">&#124;</td>
-<td style="text-align:center">或</td>
+<td align="center">&#124;</td>
+<td align="center">或</td>
 </tr>
-</tbody>
-</table>
-<h6 id="转义符"><a href="#转义符" class="headerlink" title="转义符"></a>转义符</h6><p>&emsp;&emsp;如果源文本中出现了正则表达式中的运算符，如 ( ，使用 <code>(</code> 无法匹配下列文本中的括弧，这时要使用 <code>\</code> 进行转义。用 <code>\(</code> 匹配。在 Emacs 和 Vim 正则表达式中正好反过来，使用 <code>\(</code> 表示分组，用 <code>(</code> 匹配字符。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`(`regular expression)</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;在文本中匹配“运算优先级”一节中的所有运算符,都要用这种形式:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">\运算符</span><br><span class="line">如 \* \+ \- \\的使用</span><br></pre></td></tr></table></figure></p>
+</tbody></table>
+<h6 id="转义符"><a href="#转义符" class="headerlink" title="转义符"></a>转义符</h6><p>&emsp;&emsp;如果源文本中出现了正则表达式中的运算符，如 ( ，使用 <code>(</code> 无法匹配下列文本中的括弧，这时要使用 <code>\</code> 进行转义。用 <code>\(</code> 匹配。在 Emacs 和 Vim 正则表达式中正好反过来，使用 <code>\(</code> 表示分组，用 <code>(</code> 匹配字符。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`(`regular expression)</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;在文本中匹配“运算优先级”一节中的所有运算符,都要用这种形式:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">\运算符</span><br><span class="line">如 \* \+ \- \\的使用</span><br></pre></td></tr></table></figure>
+
 <p>在文本中匹配 <code>\</code> 本身，要用 <code>\\</code>。<br>非运算符前使用 <code>\</code>，则有特殊的意义，例如 <code>\n</code> 匹配一个换行符。常用转义字符:   </p>
 <h5 id="常规匹配"><a href="#常规匹配" class="headerlink" title="常规匹配"></a>常规匹配</h5><table>
 <thead>
@@ -477,8 +452,7 @@
 <th>涵义</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>.</td>
 <td>匹配除换行符以外的任意字符</td>
 </tr>
@@ -510,8 +484,7 @@
 <td>[aeiou]</td>
 <td>字符集合,匹配所包含的任意一个字符</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h5 id="反向匹配"><a href="#反向匹配" class="headerlink" title="反向匹配"></a>反向匹配</h5><table>
 <thead>
 <tr>
@@ -519,8 +492,7 @@
 <th>涵义</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>\W</td>
 <td>匹配任意不是字母，数字，下划线，汉字的字符</td>
 </tr>
@@ -540,8 +512,7 @@
 <td>[^aeiou]</td>
 <td>匹配除了aeiou 这几个字母以外的任意字符</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <h5 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h5><table>
 <thead>
 <tr>
@@ -549,8 +520,7 @@
 <th>涵义</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>\a</td>
 <td>报警字符(打印它的效果是电脑嘀一 声)</td>
 </tr>
@@ -610,82 +580,97 @@
 <td>\G</td>
 <td>当前搜索的开头</td>
 </tr>
-</tbody>
-</table>
-<h5 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h5><p>&emsp;&emsp;要想匹配数字、字母、空白很容易，因为已经有了对应这些字符集合的转义符，但是如果你 想匹配没有预定义的字符集合(比如元音字母 a、e、i、o、u)，应该怎么办?<br>&emsp;&emsp;正则表达式中允许你自定义字符类，在方括号里列出它们就可以了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[aeiou]</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;预定义的字符集合，也可以用字符类表示，如 <code>\d</code> 等价于 [0-9] 有些运算符，在字符类中使用会有另一种意义，例如 ^ 表示“字符串开始”，但在字符类中却<br>表示 “非”，以 <code>expression</code> 为例，使用 [exp] 匹配:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`exp`r`e`ssion</span><br></pre></td></tr></table></figure></p>
-<p>使用 [^exp] 匹配(字符串中非 e、x、p 的字符):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp`r`e`ssion`</span><br></pre></td></tr></table></figure></p>
-<p>而使用 ^[exp] 匹配(以 e、x 或 p 起始的字符串):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`e`xpression</span><br></pre></td></tr></table></figure></p>
-<h5 id="限定符"><a href="#限定符" class="headerlink" title="限定符"></a>限定符</h5><p>&emsp;&emsp;在上一小节中的表格中，我们知道<code>.</code> 可以匹配除换行符以外的任意字符，使用<code>.</code> 匹配下列 文本:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expression</span><br></pre></td></tr></table></figure></p>
+</tbody></table>
+<h5 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h5><p>&emsp;&emsp;要想匹配数字、字母、空白很容易，因为已经有了对应这些字符集合的转义符，但是如果你 想匹配没有预定义的字符集合(比如元音字母 a、e、i、o、u)，应该怎么办?<br>&emsp;&emsp;正则表达式中允许你自定义字符类，在方括号里列出它们就可以了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[aeiou]</span><br></pre></td></tr></table></figure>
+
+<p>&emsp;&emsp;预定义的字符集合，也可以用字符类表示，如 <code>\d</code> 等价于 [0-9] 有些运算符，在字符类中使用会有另一种意义，例如 ^ 表示“字符串开始”，但在字符类中却<br>表示 “非”，以 <code>expression</code> 为例，使用 [exp] 匹配:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`exp`r`e`ssion</span><br></pre></td></tr></table></figure>
+
+<p>使用 [^exp] 匹配(字符串中非 e、x、p 的字符):    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp`r`e`ssion`</span><br></pre></td></tr></table></figure>
+
+<p>而使用 ^[exp] 匹配(以 e、x 或 p 起始的字符串):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`e`xpression</span><br></pre></td></tr></table></figure>
+
+<h5 id="限定符"><a href="#限定符" class="headerlink" title="限定符"></a>限定符</h5><p>&emsp;&emsp;在上一小节中的表格中，我们知道<code>.</code> 可以匹配除换行符以外的任意字符，使用<code>.</code> 匹配下列 文本:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expression</span><br></pre></td></tr></table></figure>
+
 <p>但是 <code>.</code> 每次只匹配一个字符，如果想一次匹配多个，则要使用限定符。</p>
-<table>
-<thead>
-<tr>
-<th>贪婪限定符</th>
-<th>惰性限定符</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>*</td>
-<td>*?</td>
-<td>匹配零次或多次</td>
-</tr>
-<tr>
-<td>+</td>
-<td>+?</td>
-<td>匹配一次或多次</td>
-</tr>
-<tr>
-<td>?</td>
-<td>??</td>
-<td>匹配零次或一次</td>
-</tr>
-<tr>
-<td>{3}</td>
-<td>{3}?</td>
-<td>匹配三次</td>
-</tr>
-<tr>
-<td>{3,5}</td>
-<td>{3,5}?</td>
-<td>匹配三到五次</td>
-</tr>
-<tr>
-<td>{3,}</td>
-<td>{3,}?</td>
-<td>匹配三次或以上</td>
-</tr>
-</tbody>
-</table>
-<p>下面通过实例了解限定符的区别。 es 的匹配结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expr`es`sion</span><br></pre></td></tr></table></figure></p>
-<p>es+ 的匹配结果(e，一个或多个 s)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expr`ess`ion</span><br></pre></td></tr></table></figure></p>
-<p>es* 的匹配结果(e，零或多个 s)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`e`xpr`ess`ion</span><br></pre></td></tr></table></figure></p>
-<p>es? 的匹配结果(e，零或一个 s)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`e`xpr`es`sion</span><br></pre></td></tr></table></figure></p>
-<p><strong>贪婪与懒惰</strong><br>&emsp;&emsp;使用限定符进行匹配时，默认匹配尽可能多的字符。无论用 <code>.*</code> 还是 <code>.+</code>匹配下列文本，都会匹配全部<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`expression`</span><br></pre></td></tr></table></figure></p>
-<p>这种方式称为“贪婪模式”。在限定符之后加 <code>?</code> 则匹配尽可能少的字符，称为“懒惰模式”。 (懒惰模式的详解：<code>.+</code> 匹配一个或多个任意字符，在贪婪模式中，它匹配尽可能多的字符;而懒惰模式中(<code>.+?</code>)，则只匹配一个字符; <code>.{3,5}</code> 在贪婪模式中尽可能匹配5个字符，在懒惰模 式中(<code>.{3,5}?</code>)只匹配3个字符; <code>?</code>和 <code>*</code> 这样可以匹配零次的限定符，在懒惰模式下不匹配任何字符( <code>.*?</code>、<code>.??</code> ))。<br>例如，使用贪婪模式 a.+b 匹配:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`aaabab`</span><br></pre></td></tr></table></figure></p>
-<p>使用懒惰模式 a.+?b 匹配:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`aaab`ab</span><br></pre></td></tr></table></figure></p>
-<h5 id="分支条件"><a href="#分支条件" class="headerlink" title="分支条件"></a>分支条件</h5><p><code>|</code> 表示“或”，使用它进行分支选择:<br>例如 <code>[a-z]+|\d+</code> 匹配单词或数字:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expression 123</span><br></pre></td></tr></table></figure></p>
-<h5 id="分组、捕获、不捕获"><a href="#分组、捕获、不捕获" class="headerlink" title="分组、捕获、不捕获"></a>分组、捕获、不捕获</h5><h6 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h6><p>&emsp;&emsp;使用<code>(表达式)</code>对表达式进行分组，即用小括号来指定子表达式叫做分组。例如使用 <code>(\d{3}\.){2}</code> 匹配下面例子中的数字:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">abc`123.456.`def</span><br></pre></td></tr></table></figure></p>
+<p>|贪婪限定符|惰性限定符|作用|<br>|—–|—–|<br>|<em>|</em>?|匹配零次或多次|<br>|+|+?|匹配一次或多次|<br>|?|??|匹配零次或一次|<br>|{3}|{3}?|匹配三次|<br>|{3,5}|{3,5}?|匹配三到五次|<br>|{3,}|{3,}?|匹配三次或以上|</p>
+<p>下面通过实例了解限定符的区别。 es 的匹配结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expr`es`sion</span><br></pre></td></tr></table></figure>
+
+<p>es+ 的匹配结果(e，一个或多个 s)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expr`ess`ion</span><br></pre></td></tr></table></figure>
+
+<p>es* 的匹配结果(e，零或多个 s)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`e`xpr`ess`ion</span><br></pre></td></tr></table></figure>
+
+<p>es? 的匹配结果(e，零或一个 s)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`e`xpr`es`sion</span><br></pre></td></tr></table></figure>
+
+<p><strong>贪婪与懒惰</strong><br>&emsp;&emsp;使用限定符进行匹配时，默认匹配尽可能多的字符。无论用 <code>.*</code> 还是 <code>.+</code>匹配下列文本，都会匹配全部</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`expression`</span><br></pre></td></tr></table></figure>
+
+<p>这种方式称为“贪婪模式”。在限定符之后加 <code>?</code> 则匹配尽可能少的字符，称为“懒惰模式”。 (懒惰模式的详解：<code>.+</code> 匹配一个或多个任意字符，在贪婪模式中，它匹配尽可能多的字符;而懒惰模式中(<code>.+?</code>)，则只匹配一个字符; <code>.{3,5}</code> 在贪婪模式中尽可能匹配5个字符，在懒惰模 式中(<code>.{3,5}?</code>)只匹配3个字符; <code>?</code>和 <code>*</code> 这样可以匹配零次的限定符，在懒惰模式下不匹配任何字符( <code>.*?</code>、<code>.??</code> ))。<br>例如，使用贪婪模式 a.+b 匹配:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`aaabab`</span><br></pre></td></tr></table></figure>
+
+<p>使用懒惰模式 a.+?b 匹配:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`aaab`ab</span><br></pre></td></tr></table></figure>
+
+<h5 id="分支条件"><a href="#分支条件" class="headerlink" title="分支条件"></a>分支条件</h5><p><code>|</code> 表示“或”，使用它进行分支选择:<br>例如 <code>[a-z]+|\d+</code> 匹配单词或数字:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expression 123</span><br></pre></td></tr></table></figure>
+
+<h5 id="分组、捕获、不捕获"><a href="#分组、捕获、不捕获" class="headerlink" title="分组、捕获、不捕获"></a>分组、捕获、不捕获</h5><h6 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h6><p>&emsp;&emsp;使用<code>(表达式)</code>对表达式进行分组，即用小括号来指定子表达式叫做分组。例如使用 <code>(\d{3}\.){2}</code> 匹配下面例子中的数字:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">abc`123.456.`def</span><br></pre></td></tr></table></figure>
+
 <p><code>\d{3}</code> 表示三个数字， <code>(\d{3}\.)</code> 表示三个数字加<code>“ . ”</code>为一组，<code>{2}</code> 表示这一组内容重复两次</p>
-<h6 id="捕获"><a href="#捕获" class="headerlink" title="捕获"></a>捕获</h6><p>&emsp;&emsp;在对表达式进行分组的时候，会捕获文本到自动命名的组里。可以使用 <code>\1 \2 ......</code> 来反向引用组。例如用 <code>([a-z]*)\s(\d*)</code> 匹配下列文本， <code>([a-z]*)</code> 为 <code>\1</code> 组， <code>(\d*)</code> 为 <code>\2</code> 组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`kardinal 1234567`</span><br></pre></td></tr></table></figure></p>
-<p>使用 <code>\2\s\1</code> 替换 <code>([a-z]*)\s(\d*)</code> ，可以改变两个字符串的顺序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1234567 kardinal</span><br></pre></td></tr></table></figure></p>
-<p>使用<code>([a-z]*)\s(\d*)\1</code>匹配下列文本，<code>([a-z]*)</code> 为 <code>\1</code> 组， <code>(\d*)</code> 为 <code>\2</code>组，<code>([a-z]*)\s(\d*)\1</code>中<code>\1</code>是反向引用组:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`kardinal 1234567kardinal`</span><br></pre></td></tr></table></figure></p>
-<p>如果分组较多，计数可能会不太方便，可以给分组指定名称，例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(?&lt;name&gt;[a-z]*)\s(?&lt;num&gt;\d*)  name、num 是分组的名称</span><br><span class="line">\k&lt;num&gt;\s\k&lt;name&gt; (?#使用“`\k&lt;name&gt;`”反向引用)</span><br></pre></td></tr></table></figure></p>
-<p>使用 <code>(?:表达式)</code> ，则只是分组，而不捕获，下面例子中， <code>(\d*)</code> 为 <code>\1</code> 组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(?:[a-z]*)\s(\d*)</span><br></pre></td></tr></table></figure></p>
-<p>不捕获的典型应用：<br>用使用在或的应用中，使用或需要使用括号即捕获组，但是又不想存在捕获组，则可以使用不捕获。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">l(?:i|o|e)ve</span><br></pre></td></tr></table></figure></p>
+<h6 id="捕获"><a href="#捕获" class="headerlink" title="捕获"></a>捕获</h6><p>&emsp;&emsp;在对表达式进行分组的时候，会捕获文本到自动命名的组里。可以使用 <code>\1 \2 ......</code> 来反向引用组。例如用 <code>([a-z]*)\s(\d*)</code> 匹配下列文本， <code>([a-z]*)</code> 为 <code>\1</code> 组， <code>(\d*)</code> 为 <code>\2</code> 组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`kardinal 1234567`</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>\2\s\1</code> 替换 <code>([a-z]*)\s(\d*)</code> ，可以改变两个字符串的顺序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1234567 kardinal</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>([a-z]*)\s(\d*)\1</code>匹配下列文本，<code>([a-z]*)</code> 为 <code>\1</code> 组， <code>(\d*)</code> 为 <code>\2</code>组，<code>([a-z]*)\s(\d*)\1</code>中<code>\1</code>是反向引用组:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`kardinal 1234567kardinal`</span><br></pre></td></tr></table></figure>
+
+<p>如果分组较多，计数可能会不太方便，可以给分组指定名称，例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(?&lt;name&gt;[a-z]*)\s(?&lt;num&gt;\d*)  name、num 是分组的名称</span><br><span class="line">\k&lt;num&gt;\s\k&lt;name&gt; (?#使用“`\k&lt;name&gt;`”反向引用)</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>(?:表达式)</code> ，则只是分组，而不捕获，下面例子中， <code>(\d*)</code> 为 <code>\1</code> 组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(?:[a-z]*)\s(\d*)</span><br></pre></td></tr></table></figure>
+
+<p>不捕获的典型应用：<br>用使用在或的应用中，使用或需要使用括号即捕获组，但是又不想存在捕获组，则可以使用不捕获。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">l(?:i|o|e)ve</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>注明：反向引用提供了标识字符串中的重复字符或子字符串的方便途径。 例如，如果输入字符串包含某任意子字符串的多个匹配项，可以使用捕获组匹配第一个出现的子字符串，然后使用反向引用匹配后面出现的子字符串。捕获文本放入对应的分组是需要消耗内存的。如何后续不反向引用分组，可以采用捕获但是不分组。</p>
 </blockquote>
-<h6 id="零宽断言"><a href="#零宽断言" class="headerlink" title="零宽断言"></a>零宽断言</h6><p>&emsp;&emsp;目前为止，我们学到的正则表达式匹配，都是有“宽度”的，使用 <code>\w+</code>。 匹配下面文本，会将 <code>。</code> 一同匹配:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">regular。</span><br><span class="line">expression。</span><br></pre></td></tr></table></figure></p>
-<p>如果不想匹配符号，只匹配一个位置，就要用到“零宽断言”(匹配宽度为零，满足一定的条件的断言)，零宽断言使用 (?=表达式) 的语法，例如 <code>\w+(?=。)</code> ，其中 <code>(?=。)</code> 表示<code>。</code> 前面的位置(先行断言)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">`regular`。</span><br><span class="line">`expression`。</span><br></pre></td></tr></table></figure></p>
-<p>高级应用(关于为什么叫零宽断言)：<br>表达式写法：<code>\w+(?=。)。\w+</code> | <code>\w+(?=。)\w+</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`regular。zero`</span><br></pre></td></tr></table></figure></p>
-<p>如果需要匹配后面的位置，如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">。`regular`</span><br><span class="line">。`expression`</span><br></pre></td></tr></table></figure></p>
-<p>则要用到后发断言 <code>(?&lt;=。)</code> ，使用 <code>(?&lt;=。)\w+</code> 得到上面的匹配结果<br>使用 <code>(?&lt;=&lt;b&gt;).*(?=&lt;/b&gt;)</code> 匹配标签中的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;b&gt;`粗体`&lt;/b&gt;</span><br></pre></td></tr></table></figure></p>
-<h6 id="负向零宽断言"><a href="#负向零宽断言" class="headerlink" title="负向零宽断言"></a>负向零宽断言</h6><p>&emsp;&emsp;负向零宽断言 <code>(?!表达式)</code> 也是匹配一个零宽度的位置，不过这个位置的“断言”取表达式的反值，例如 <code>(?!表达式)</code> 表示 <code>表达式</code> 前面的位置，如果 <code>表达式</code> 不成立，匹配这个位置;如果 <code>表达式</code> 成立，则不匹配:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">`expression`</span><br><span class="line">expression。</span><br><span class="line">`expression`，</span><br><span class="line">`expression`;</span><br></pre></td></tr></table></figure></p>
-<p>以上为使用 <code>.+n(?!。)</code> 的匹配结果。注意与 <code>.+n[^。]</code> 匹配的区别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">expression</span><br><span class="line">`expression，`</span><br><span class="line">`expression;`</span><br><span class="line">expression。</span><br></pre></td></tr></table></figure></p>
-<p>同样，负向零宽断言也有“先行”和“后发”两种，负向零宽后发断言为 <code>(?&lt;!表达式)</code> 使用 <code>(?&lt;![&lt;/])para(?!&gt;)</code> 匹配下面文本:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;para&gt;`para`表示一个段落&lt;/para&gt;</span><br></pre></td></tr></table></figure></p>
+<h6 id="零宽断言"><a href="#零宽断言" class="headerlink" title="零宽断言"></a>零宽断言</h6><p>&emsp;&emsp;目前为止，我们学到的正则表达式匹配，都是有“宽度”的，使用 <code>\w+</code>。 匹配下面文本，会将 <code>。</code> 一同匹配:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">regular。</span><br><span class="line">expression。</span><br></pre></td></tr></table></figure>
+
+<p>如果不想匹配符号，只匹配一个位置，就要用到“零宽断言”(匹配宽度为零，满足一定的条件的断言)，零宽断言使用 (?=表达式) 的语法，例如 <code>\w+(?=。)</code> ，其中 <code>(?=。)</code> 表示<code>。</code> 前面的位置(先行断言)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">`regular`。</span><br><span class="line">`expression`。</span><br></pre></td></tr></table></figure>
+
+<p>高级应用(关于为什么叫零宽断言)：<br>表达式写法：<code>\w+(?=。)。\w+</code> | <code>\w+(?=。)\w+</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`regular。zero`</span><br></pre></td></tr></table></figure>
+
+<p>如果需要匹配后面的位置，如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">。`regular`</span><br><span class="line">。`expression`</span><br></pre></td></tr></table></figure>
+
+<p>则要用到后发断言 <code>(?&lt;=。)</code> ，使用 <code>(?&lt;=。)\w+</code> 得到上面的匹配结果<br>使用 <code>(?&lt;=&lt;b&gt;).*(?=&lt;/b&gt;)</code> 匹配标签中的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;b&gt;`粗体`&lt;/b&gt;</span><br></pre></td></tr></table></figure>
+
+<h6 id="负向零宽断言"><a href="#负向零宽断言" class="headerlink" title="负向零宽断言"></a>负向零宽断言</h6><p>&emsp;&emsp;负向零宽断言 <code>(?!表达式)</code> 也是匹配一个零宽度的位置，不过这个位置的“断言”取表达式的反值，例如 <code>(?!表达式)</code> 表示 <code>表达式</code> 前面的位置，如果 <code>表达式</code> 不成立，匹配这个位置;如果 <code>表达式</code> 成立，则不匹配:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">`expression`</span><br><span class="line">expression。</span><br><span class="line">`expression`，</span><br><span class="line">`expression`;</span><br></pre></td></tr></table></figure>
+
+<p>以上为使用 <code>.+n(?!。)</code> 的匹配结果。注意与 <code>.+n[^。]</code> 匹配的区别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">expression</span><br><span class="line">`expression，`</span><br><span class="line">`expression;`</span><br><span class="line">expression。</span><br></pre></td></tr></table></figure>
+
+<p>同样，负向零宽断言也有“先行”和“后发”两种，负向零宽后发断言为 <code>(?&lt;!表达式)</code> 使用 <code>(?&lt;![&lt;/])para(?!&gt;)</code> 匹配下面文本:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;para&gt;`para`表示一个段落&lt;/para&gt;</span><br></pre></td></tr></table></figure>
+
 <p><code>(?&lt;![&lt;/])</code> 表示 para 左边不能为 <code>&lt;</code> 或 <code>/</code> ; <code>(?!&gt;)</code> 表示 para 右边不能为 <code>&gt;</code>。</p>
 <h6 id="常用分组语法"><a href="#常用分组语法" class="headerlink" title="常用分组语法"></a>常用分组语法</h6><table>
 <thead>
@@ -695,8 +680,7 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>捕获</td>
 <td>(exp)</td>
 <td>匹配exp,并捕获文本到自动命名的组里</td>
@@ -736,8 +720,7 @@
 <td>(?#comment)</td>
 <td>这种类型的分组不对正则表达式的处理产生任何影响，用于提供注释让人阅读</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>推荐其他网址<br><a href="http://tool.oschina.net/uploads/apidocs/jquery/regexp.html" target="_blank" rel="noopener">正则表达式全集</a><br><a href="https://www.kancloud.cn/thinkphp/regex-guide/43534" target="_blank" rel="noopener">正则表达式简明参考</a> (重点在分组和反向引用)<br><a href="https://luke0922.gitbooks.io/learnregularexpressionin30minutes/content/chapter3.html" target="_blank" rel="noopener">正则表达式30分钟教程</a> (常用分组语法的总结)<br><a href="http://blog.51cto.com/cnn237111/749047" target="_blank" rel="noopener">正则表达式的先行断言(lookahead)和后行断言(lookbehind)</a></p>
 
       
@@ -762,7 +745,7 @@
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/weixin_reward.png" alt="drgonroot 微信支付">
+        <img id="wechat_qr" src="/images/weixin_reward.jpeg" alt="drgonroot 微信支付">
         <p>微信支付</p>
       </div>
     
@@ -1129,341 +1112,6 @@
 
 
   
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      
-        // ref: https://github.com/ForbesLindesay/unescape-html
-        var unescapeHtml = function(html) {
-          return String(html)
-            .replace(/&quot;/g, '"')
-            .replace(/&#39;/g, '\'')
-            .replace(/&#x3A;/g, ':')
-            // replace all the other &#x; chars
-            .replace(/&#(\d+);/g, function (m, p) { return String.fromCharCode(p); })
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-            .replace(/&amp;/g, '&');
-        };
-      
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                
-                content = unescapeHtml(content);
-                
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
 
 
 

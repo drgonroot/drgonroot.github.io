@@ -251,14 +251,6 @@
 
       
       
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
-        </li>
-      
     </ul>
   
 
@@ -267,27 +259,6 @@
 
   
 
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
   
 </nav>
 
@@ -428,8 +399,10 @@
 <p><a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">homebrew官网</a><br><a href="https://github.com/Homebrew/homebrew-core" target="_blank" rel="noopener">homebrew-core github网址</a></p>
 </blockquote>
 <ul>
-<li>对于安装最新新版本thrift,我们可以直接是用brew install thrift     </li>
-<li>使用brew search thrift;查看不同版本的thrift。然后brew install <a href="mailto:thrift@0.9.0" target="_blank" rel="noopener">thrift@0.9.0</a></li>
+<li><p>对于安装最新新版本thrift,我们可以直接是用brew install thrift     </p>
+</li>
+<li><p>使用brew search thrift;查看不同版本的thrift。然后brew install <a href="mailto:thrift@0.9.0" target="_blank" rel="noopener">thrift@0.9.0</a></p>
+</li>
 <li><p>使用复杂brew方案进行安装。思路同时通过找到旧版本的thrift.rb。</p>
 <ol>
 <li>将homebrew-core的git文件下载到本地。</li>
@@ -597,7 +570,8 @@
 <p>为了保证整个请求都是https请求。我们需要将返回的请求进行重定向为https的。</p>
 <p>通过proxy-redirect修改Location中的url。</p>
 <ol>
-<li>将 conf/conf.d/proxy_params文件中 <code>proxy_redirect off;</code> 注释掉<br>2.将<br>proxy_redirect <a href="http://www.xxxxx.com/" target="_blank" rel="noopener">http://www.xxxxx.com/</a> <a href="https://www.xxxxx.com/" target="_blank" rel="noopener">https://www.xxxxx.com/</a>;<br>proxy_redirect <a href="http://xxxxx.com/" target="_blank" rel="noopener">http://xxxxx.com/</a> <a href="https://xxxx.com/" target="_blank" rel="noopener">https://xxxx.com/</a>;<br>放入到server {}块中。</li>
+<li>将 conf/conf.d/proxy_params文件中 <code>proxy_redirect off;</code> 注释掉</li>
+<li>将<br>proxy_redirect <a href="http://www.xxxxx.com/" target="_blank" rel="noopener">http://www.xxxxx.com/</a> <a href="https://www.xxxxx.com/" target="_blank" rel="noopener">https://www.xxxxx.com/</a>;<br>proxy_redirect <a href="http://xxxxx.com/" target="_blank" rel="noopener">http://xxxxx.com/</a> <a href="https://xxxx.com/" target="_blank" rel="noopener">https://xxxx.com/</a>;<br>放入到server {}块中。</li>
 </ol>
 <p>如果一直使用http的协议，容易出现网页中有代码注入广告的现象。运营商就经常将小广告注入到网页中，一般是网页的右下角有个摆动的小图标。使用https的协议，能够降低这一现象。不过一山更比一山高，https的也会有网页代码注入的现象，不过特别隐蔽。我遇到表现是打开应用的中网页时会启动其他应用程序如京东、淘宝。<a href="https://www.zhihu.com/question/35720092/answer/523563873" target="_blank" rel="noopener">对这一现象的说明和解决方案</a></p>
 <p>参考资料:<br><a href="http://info.siven.net/posts/d925bb5d.html" target="_blank" rel="noopener">Nginx SSL 结合Tomcat 重定向URL变成HTTP的问题</a></p>
@@ -753,13 +727,14 @@
         
           <h5 id="HTTP大文件上传思路和总结"><a href="#HTTP大文件上传思路和总结" class="headerlink" title="HTTP大文件上传思路和总结"></a>HTTP大文件上传思路和总结</h5><h5 id="无法http大文件一次性上传的原因"><a href="#无法http大文件一次性上传的原因" class="headerlink" title="无法http大文件一次性上传的原因"></a>无法http大文件一次性上传的原因</h5><blockquote>
 <p>存在文件上传大小的限制</p>
+</blockquote>
 <ol>
 <li>默认一般nginx和tomcat都会对上传文件大小进行限制<br>nginx的配置文件nginx.conf设置 client_max_body_size    20m;   </li>
 <li>tomcat默认设置能接收HTTP POST请求的大小最大为2M。如果POST请求传递的数据大于2M,就会报错误。解决方案：修改tomcat的配置server.xml中<connector>标签,在该标签中添 加”maxPostSize”属性,将该属性值设置成你想要的最大值,单位是字节,或者把这个值设置为 0(maxPostSize=”0”)。    </connector></li>
 <li><a href="https://www.jianshu.com/p/285ad45f60d1" target="_blank" rel="noopener">Tomcat项目的web配置</a>。工程项目web.xml的配置</li>
 </ol>
-</blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet&gt;</span><br><span class="line">&lt;multipart-config&gt;</span><br><span class="line">&lt;location&gt;&lt;/location&gt;</span><br><span class="line">&lt;max-file-size&gt;&lt;/max-file-size&gt;</span><br><span class="line">&lt;max-request-size&gt;&lt;/max-request-size&gt;</span><br><span class="line">&lt;file-size-threshold&gt;&lt;/file-size-threshold&gt;</span><br><span class="line">&lt;/multipart-config&gt;</span><br><span class="line">&lt;/servlet&gt;</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <ol start="4">
 <li>Spring配置文件限制上传文件的大小    </li>
@@ -921,14 +896,14 @@
 
       
         
-          <p><strong><em> 提供IDEA使用小技巧 </em></strong></p>
+          <p><strong>* 提供IDEA使用小技巧 *</strong></p>
 <blockquote>
 <p>推荐一些本人亲身尝试，在实际开发中比较实用的小技巧，可以大大提高开发效率。</p>
 </blockquote>
 <h5 id="IDEA左侧显示打开代码文件和资源文件"><a href="#IDEA左侧显示打开代码文件和资源文件" class="headerlink" title="IDEA左侧显示打开代码文件和资源文件"></a>IDEA左侧显示打开代码文件和资源文件</h5><blockquote>
 <p>应用场景:默认IDEA的代码文件的Tab放在代码区的上方。但是实际开发，我们经常打开很多代码文件，左侧显示整体显示，可以提高管理打开代码文件。</p>
 </blockquote>
-<h6 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h6><p><img src="/images/IDEA左侧显示代码文件截图.jpeg" alt="IDEA左侧显示打开代码文件截图"></p>
+<h6 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h6><p><img src="/images/IDEA%E5%B7%A6%E4%BE%A7%E6%98%BE%E7%A4%BA%E4%BB%A3%E7%A0%81%E6%96%87%E4%BB%B6%E6%88%AA%E5%9B%BE.jpeg" alt="IDEA左侧显示打开代码文件截图"></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/02/12/IDEA小技巧/#more" rel="contents">
@@ -1739,7 +1714,7 @@
 <blockquote>
 <p>当某一资源在自己的资源服务器上的不同域或者端口请求另一个资源时，那么该资源会发起一次跨域请求. (Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP headers to tell a browser to let a web application running at one origin (domain) have permission to access selected resources from a server at a different origin. A web application makes a cross-origin HTTP request when it requests a resource that has a different origin (domain, protocol, and port) than its own origin.)    </p>
 </blockquote>
-<p>个人理解：我（浏览器）在小明家（服务器）的正门（端口）借东西（资源）。突然还需要其他东西，但是不是小明给我，或者不是正门给我是在侧门给我，那我怎么能够相信这个东西有没有毒啊，有没有进过其他人的手。对于这种情况呢，我就给一个信物（Origin）给小明（服务器），只有小明（服务器）知道信物交换的秘密，正确的情况会把信物翻版（Access-Control-Allow-Origin）给我，不正确就直接不要。<br>
+<p>个人理解：我（浏览器）在小明家（服务器）的正门（端口）借东西（资源）。突然还需要其他东西，但是不是小明给我，或者不是正门给我是在侧门给我，那我怎么能够相信这个东西有没有毒啊，有没有进过其他人的手。对于这种情况呢，我就给一个信物（Origin）给小明（服务器），只有小明（服务器）知道信物交换的秘密，正确的情况会把信物翻版（Access-Control-Allow-Origin）给我，不正确就直接不要。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/10/08/CORS内网测试和外网更新/#more" rel="contents">
@@ -1749,7 +1724,7 @@
           <!--/noindex-->
         
       
-    </p></div>
+    </div>
 
     
 
@@ -1895,7 +1870,8 @@
 
       
         
-          <h4 id="自定义程序朗读单词文本意思"><a href="#自定义程序朗读单词文本意思" class="headerlink" title="自定义程序朗读单词文本意思"></a>自定义程序朗读单词文本意思</h4><p>其核心内容是围绕Mac Terminal终端say命令展开的<br>让学习英语就像听歌一样简单</p>
+          <h4 id="自定义程序朗读单词文本意思"><a href="#自定义程序朗读单词文本意思" class="headerlink" title="自定义程序朗读单词文本意思"></a>自定义程序朗读单词文本意思</h4><p>其核心内容是围绕Mac Terminal终端say命令展开的
+让学习英语就像听歌一样简单</p>
 
 <h4 id="具体步骤："><a href="#具体步骤：" class="headerlink" title="具体步骤："></a>具体步骤：</h4><h5 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h5><ul>
 <li>简单使用say去读一小段的文本 say Hello World;</li>
@@ -2218,341 +2194,6 @@
 
 
   
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      
-        // ref: https://github.com/ForbesLindesay/unescape-html
-        var unescapeHtml = function(html) {
-          return String(html)
-            .replace(/&quot;/g, '"')
-            .replace(/&#39;/g, '\'')
-            .replace(/&#x3A;/g, ':')
-            // replace all the other &#x; chars
-            .replace(/&#(\d+);/g, function (m, p) { return String.fromCharCode(p); })
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-            .replace(/&amp;/g, '&');
-        };
-      
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                
-                content = unescapeHtml(content);
-                
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
 
 
 

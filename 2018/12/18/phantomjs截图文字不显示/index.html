@@ -252,14 +252,6 @@
 
       
       
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
-        </li>
-      
     </ul>
   
 
@@ -268,27 +260,6 @@
 
   
 
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
   
 </nav>
 
@@ -435,12 +406,12 @@
 <p>phantmjs分平台的软件是二进制包，下载就可以使用。<br>但是值得注意的是mac和linux的平台上，有个细节linux需要依赖fonts。<br>一开始我们没有注意这个问题，才有今天的文章。在mac上截图很正常，但是centos服务器截图就是没有文字。</p>
 <blockquote>
 <p><strong>分析:</strong><br>当时出现在服务器没有显示文字，不明白。</p>
+</blockquote>
 <ol>
 <li>开始怀疑是字体颜色的问题，修改后发现没有效果。</li>
 <li>再次认为是JS的原因，通过对请求生成的html进行输出和截图，发现有可能不是html的问题。</li>
 <li>最后查阅相关资料，浏览器查找结果有些展示说是字体的问题（因为与字体有关，操作麻烦，直接放弃。想找简单的方法处理），最后没有办法才尝试，字体相关操作。</li>
 </ol>
-</blockquote>
 <p><a href="https://bingozb.github.io/51.html" target="_blank" rel="noopener">phantomjs实现服务端屏幕截图</a><br>这篇博客对linux服务端phantomJS截图的做了很深刻的讲解。但是字体使用是微软雅黑。按照这篇博客讲解操作，我们服务器这边截图的字体样式有点难看，太纤细了。</p>
 <p>因此将字体变得好看成为重中之重。    </p>
 <ol>
@@ -459,9 +430,13 @@
 <li><a href="https://www.files-conversion.com/font-converter.php" target="_blank" rel="noopener">Convert Font Files</a> 这个网址转换成功。</li>
 </ol>
 <p>但是新的问题：浏览器上使用的是PingFang SC字体。linux服务器使用的PingFang字体，导致看到和截图字体样式不一致。</p>
-<p>linux 建立字体索引 更新缓存<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkfontscale</span><br><span class="line">mkfontdir</span><br><span class="line">fc-cache</span><br></pre></td></tr></table></figure></p>
+<p>linux 建立字体索引 更新缓存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkfontscale</span><br><span class="line">mkfontdir</span><br><span class="line">fc-cache</span><br></pre></td></tr></table></figure>
+
 <h4 id="附赠代码"><a href="#附赠代码" class="headerlink" title="附赠代码"></a>附赠代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&gt; renderImage.js phantomJS 的执行js代码</span><br><span class="line"></span><br><span class="line">&quot;use strict&quot;;</span><br><span class="line">var page = require(&apos;webpage&apos;).create();</span><br><span class="line">var system = require(&apos;system&apos;), pageWidth, pageHeight, pageUrl, format, quality, imagePath;</span><br><span class="line">if (system.args.length != 7) &#123;</span><br><span class="line">    console.log(&apos;Usage: renderImage.js &lt;pageWidth pageHeight pageUrl format quality imagePath&gt;&apos;);</span><br><span class="line">    phantom.exit(1);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">        pageWidth = system.args[1]</span><br><span class="line">        pageHeight = system.args[2];</span><br><span class="line">        pageUrl = system.args[3];</span><br><span class="line">        format = system.args[4];</span><br><span class="line">        quality = system.args[5];</span><br><span class="line">        imagePath = system.args[6];</span><br><span class="line">&#125;</span><br><span class="line">page.viewportSize = &#123; width: pageWidth, height: pageHeight &#125;;</span><br><span class="line">page.open(pageUrl, function start(status) &#123;</span><br><span class="line">  page.render(imagePath, &#123;format: format, quality: quality&#125;);</span><br><span class="line">  phantom.exit();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&gt; java 执行phantomJS的代码</span><br><span class="line">  /**</span><br><span class="line">    * 将网页渲染成图片</span><br><span class="line">    * format 图片格式 quality 图片质量（0~100）</span><br><span class="line">    * pageWidth 网页宽度 pageHeight 网页高度</span><br><span class="line">    */</span><br><span class="line">   public static void renderImage(String phantomJSPath, String renderImageJSPath, int pageWidth, int pageHeight, String renderUrl, String format, int quality, String outPutImagePath) &#123;</span><br><span class="line">       // 执行命令参数</span><br><span class="line">       List&lt;String&gt; params = Arrays.asList(phantomJSPath, renderImageJSPath, pageWidth + &quot;&quot;, pageHeight + &quot;&quot;, renderUrl, format, quality + &quot;&quot;, outPutImagePath);</span><br><span class="line"></span><br><span class="line">       ProcessBuilder processBuilder = new ProcessBuilder()</span><br><span class="line">               .command(params);</span><br><span class="line">       try &#123;</span><br><span class="line">           processBuilder.redirectError();</span><br><span class="line">           Process process = processBuilder.start();</span><br><span class="line">           InputStream processIS = process.getInputStream();</span><br><span class="line">           String output = IOUtils.toString(processIS);</span><br><span class="line">           logger.info(&quot;渲染成图片: &#123;&#125; -&gt; &#123;&#125;&quot;, processBuilder.command(), output);</span><br><span class="line">           IOUtils.closeQuietly(processIS);</span><br><span class="line">           int result = process.waitFor();</span><br><span class="line">           if (result != 0) &#123;</span><br><span class="line">               logger.warn(&quot;执行失败: &#123;&#125; -&gt; &#123;&#125;&quot;, processBuilder.command(), output);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; catch (InterruptedException | IOException e) &#123;</span><br><span class="line">           logger.warn(&quot;执行失败: &#123;&#125; -&gt; &#123;&#125;&quot;, processBuilder.command(), e);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
 <p>参考资料：<br><a href="https://bingozb.github.io/51.html" target="_blank" rel="noopener">phantomjs实现服务端屏幕截图</a><br><a href="http://jser.me/2016/05/31/phantomjs%E5%9C%A8linux%E4%B8%8B%E6%88%AA%E5%9B%BE%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93%E9%97%AE%E9%A2%98.html" target="_blank" rel="noopener">phantomjs在linux下截图中文字体问题</a><br><a href="http://phantomjs.org/download.html" target="_blank" rel="noopener">phantmjs下载地址</a><br><a href="https://www.jianshu.com/p/e599ae0c7680" target="_blank" rel="noopener">PingFang sc字体的使用</a><br><a href="http://phantomjs.org/api/webpage/method/open.html" target="_blank" rel="noopener">phantomJS API</a>       </p>
 
       
@@ -486,7 +461,7 @@
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/weixin_reward.png" alt="drgonroot 微信支付">
+        <img id="wechat_qr" src="/images/weixin_reward.jpeg" alt="drgonroot 微信支付">
         <p>微信支付</p>
       </div>
     
@@ -853,341 +828,6 @@
 
 
   
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      
-        // ref: https://github.com/ForbesLindesay/unescape-html
-        var unescapeHtml = function(html) {
-          return String(html)
-            .replace(/&quot;/g, '"')
-            .replace(/&#39;/g, '\'')
-            .replace(/&#x3A;/g, ':')
-            // replace all the other &#x; chars
-            .replace(/&#(\d+);/g, function (m, p) { return String.fromCharCode(p); })
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-            .replace(/&amp;/g, '&');
-        };
-      
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                
-                content = unescapeHtml(content);
-                
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
 
 
 

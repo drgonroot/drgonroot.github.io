@@ -252,14 +252,6 @@
 
       
       
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
-        </li>
-      
     </ul>
   
 
@@ -268,27 +260,6 @@
 
   
 
-  
-    <div class="site-search">
-      
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
-    </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
-
-
-
-    </div>
   
 </nav>
 
@@ -428,7 +399,9 @@
 <li>jmagick（java） –&gt; JMagick(C) –&gt; ImageMagick(C)</li>
 </ul>
 <a id="more"></a>
-<h5 id="本地MacOX执行遇到问题"><a href="#本地MacOX执行遇到问题" class="headerlink" title="本地MacOX执行遇到问题"></a>本地MacOX执行遇到问题</h5><p>new MagickInfo(“”); 调用时出现无法加载MagickLoader，实际无法加载资源JMagick；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ClassLoader.getSystemClassLoader().loadClass(&quot;magick.MagickLoader&quot;).newInstance();</span><br><span class="line">public class MagickLoader &#123;</span><br><span class="line">    static &#123;      </span><br><span class="line">        System.loadLibrary(&quot;JMagick&quot;);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="本地MacOX执行遇到问题"><a href="#本地MacOX执行遇到问题" class="headerlink" title="本地MacOX执行遇到问题"></a>本地MacOX执行遇到问题</h5><p>new MagickInfo(“”); 调用时出现无法加载MagickLoader，实际无法加载资源JMagick；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ClassLoader.getSystemClassLoader().loadClass(&quot;magick.MagickLoader&quot;).newInstance();</span><br><span class="line">public class MagickLoader &#123;</span><br><span class="line">    static &#123;      </span><br><span class="line">        System.loadLibrary(&quot;JMagick&quot;);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>因为jmagick的接口都是本地调用，需要加载JNI的JMagick动态库。因此，接下来我们的主要任务是生成JMagick的动态库。<br>通过Brew install ImageMagick直接安装使用。但是JMagick只用源码包，需要进行编译安装。尽量将ImageMagick和JMagick安装在同一路径下。</p>
 <h6 id="Brew-install-ImageMagick-开始编译JMagick，生成JMagick动态库。"><a href="#Brew-install-ImageMagick-开始编译JMagick，生成JMagick动态库。" class="headerlink" title="Brew install ImageMagick,开始编译JMagick，生成JMagick动态库。"></a>Brew install ImageMagick,开始编译JMagick，生成JMagick动态库。</h6><ul>
 <li>遇到JMagick出现找不到api.h文件(实际上在ImageMagick-7是没有这个api.h文件，在ImageMagick-6是有api.h文件):<br>checking magick/api.h usability… no<br>checking magick/api.h presence… no<br>checking for magick/api.h… no<br>configure: error: ‘Unable to find ImageMagick header files’。</li>
@@ -445,6 +418,7 @@
 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># Check whether --with-magick-home was given.</span><br><span class="line">if test &quot;$&#123;with_magick_home+set&#125;&quot; = set; then</span><br><span class="line">  withval=$with_magick_home; MAGICK_HOME=$&#123;withval&#125;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">for MPATH in /usr /usr/local /usr/local/ImageMagick /usr/local/ImageMagick-$&#123;VER_MAJOR&#125;.$&#123;VER_MINOR&#125;.$&#123;VER_MICRO&#125; $&#123;MAGICK_HOME&#125; ; do</span><br><span class="line">        # Location before IM 6.3.8.something</span><br><span class="line">        if  test -f $&#123;MPATH&#125;/include/magick/api.h  ; then</span><br><span class="line">                MAGICK_LIB_PATH=$&#123;MPATH&#125;/lib</span><br><span class="line">                MAGICK_LIBS=&quot;-L$&#123;MPATH&#125;/lib -lMagick&quot;</span><br><span class="line">                MAGICK_INCLUDES=-I$&#123;MPATH&#125;/include</span><br><span class="line">                MAGICK_REALHOME=$&#123;MPATH&#125;</span><br><span class="line">        fi</span><br><span class="line">        # Location after IM 6.3.8.something</span><br><span class="line">        if  test -f $&#123;MPATH&#125;/include/ImageMagick/magick/api.h  ; then</span><br><span class="line">                MAGICK_LIB_PATH=$&#123;MPATH&#125;/lib</span><br><span class="line">                MAGICK_LIBS=&quot;-L$&#123;MPATH&#125;/lib -lMagick&quot;</span><br><span class="line">                MAGICK_INCLUDES=-I$&#123;MPATH&#125;/include/ImageMagick</span><br><span class="line">                MAGICK_REALHOME=$&#123;MPATH&#125;</span><br><span class="line">        fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
 <p>因为编译的该文件的<code>${MPATH}/include/magick/api.h</code>。由于目前include路径下存放的文件多了一层Imagemagick-6，我们要将Imagemagick-6里的所有文件ln -s到include目录下。<br>eg:我的configure命令：</p>
 <ul>
 <li><p><code>JAVA_HOME=&quot;/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/&quot; CFLAGS=&quot;-I/Library/Java/JavaVirtualMachines/jdk1.8.0_74.jdk/Contents/Home/include/ -I/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/include/darwin&quot;  ./configure --with-magick-inc-dir=-I/usr/local/Cellar/imagemagick/6.9.10-14/include/ --with-magick-lib-dir=-L/usr/local/Cellar/imagemagick/6.9.10-14/lib/</code></p>
@@ -453,8 +427,12 @@
 </li>
 </ul>
 <p>接下来有些问题下面链接可以解决一部分由<br><a href="https://www.zybuluo.com/yibo/note/125940" target="_blank" rel="noopener">Mac OS X 安装JMagick</a>来解决我们configure的问题。<br>因为还有编译文件中的<code>withval=$with_magick_home; MAGICK_HOME=${withval}</code>,因此我们可以通过增加 – with_magick_home参数，解决某些问题。</p>
-<p>make过程中ERROR ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">make[1]: Entering directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src&apos;</span><br><span class="line">make[2]: Entering directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src/magick&apos;</span><br><span class="line">make[2]: *** No rule to make target `/usr/local/Cellar/imagemagick/6.9.10-14/include/magick/api.h&apos;, needed by `/usr/local/Cellar/jmagick-6.4.0/6.4.0/obj/magick/magick_PixelPacket.lo&apos;.  Stop.</span><br><span class="line">make[2]: Leaving directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src/magick&apos;</span><br><span class="line">make[1]: *** [dir_target] Error 2</span><br><span class="line">make[1]: Leaving directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src&apos;</span><br><span class="line">make: *** [dir_target] Error 2</span><br></pre></td></tr></table></figure></p>
-<p>因为api.h的路径不对，可以通过ln -s 下。eg: cd /usr/local/Cellar/ &amp;&amp; ln -s ./imagemagick\@6/ imagemagick<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">make[1]: Entering directory `/Users/yibo/Downloads/6.4.0/src&apos;</span><br><span class="line">make[2]: Entering directory `/Users/yibo/Downloads/6.4.0/src/magick&apos;</span><br><span class="line">../../Make.rules:175: *** missing separator.  Stop.</span><br><span class="line">make[2]: Leaving directory `/Users/yibo/Downloads/6.4.0/src/magick&apos;</span><br><span class="line">make[1]: *** [dir_target] Error 2</span><br><span class="line">make[1]: Leaving directory `/Users/yibo/Downloads/6.4.0/src&apos;</span><br><span class="line">make: *** [dir_target] Error 2</span><br></pre></td></tr></table></figure></p>
+<p>make过程中ERROR ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">make[1]: Entering directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src&apos;</span><br><span class="line">make[2]: Entering directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src/magick&apos;</span><br><span class="line">make[2]: *** No rule to make target `/usr/local/Cellar/imagemagick/6.9.10-14/include/magick/api.h&apos;, needed by `/usr/local/Cellar/jmagick-6.4.0/6.4.0/obj/magick/magick_PixelPacket.lo&apos;.  Stop.</span><br><span class="line">make[2]: Leaving directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src/magick&apos;</span><br><span class="line">make[1]: *** [dir_target] Error 2</span><br><span class="line">make[1]: Leaving directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src&apos;</span><br><span class="line">make: *** [dir_target] Error 2</span><br></pre></td></tr></table></figure>
+
+<p>因为api.h的路径不对，可以通过ln -s 下。eg: cd /usr/local/Cellar/ &amp;&amp; ln -s ./imagemagick@6/ imagemagick</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">make[1]: Entering directory `/Users/yibo/Downloads/6.4.0/src&apos;</span><br><span class="line">make[2]: Entering directory `/Users/yibo/Downloads/6.4.0/src/magick&apos;</span><br><span class="line">../../Make.rules:175: *** missing separator.  Stop.</span><br><span class="line">make[2]: Leaving directory `/Users/yibo/Downloads/6.4.0/src/magick&apos;</span><br><span class="line">make[1]: *** [dir_target] Error 2</span><br><span class="line">make[1]: Leaving directory `/Users/yibo/Downloads/6.4.0/src&apos;</span><br><span class="line">make: *** [dir_target] Error 2</span><br></pre></td></tr></table></figure>
+
 <p>修改Make.rules, 175,176 四个空格换成tab，参见: <a href="http://stackoverflow.com/a/15880079/3368344" target="_blank" rel="noopener">http://stackoverflow.com/a/15880079/3368344</a></p>
 <h6 id="make-make-install-成功之后"><a href="#make-make-install-成功之后" class="headerlink" title="make make install 成功之后"></a>make make install 成功之后</h6><p>在/usr/local/lib会生成三个文件</p>
 <ul>
@@ -465,7 +443,9 @@
 <li>linux .so</li>
 <li>macos .dylib (最新的动态链接库) .jnilib (以前的动态链接库)<br>需要在mac上使用动态链接库，需要使用dylib的后缀的名称。<br>cp libJMagick.so libJMagick.dylib</li>
 </ul>
-<h5 id="测试使用"><a href="#测试使用" class="headerlink" title="测试使用"></a>测试使用</h5><p>IDEA的单元测试没有问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">      String property = System.getProperty(&quot;java.library.path&quot;);</span><br><span class="line">      System.out.println(property);  // 输出/usr/local/lib</span><br><span class="line">      // System.setProperty(&quot;java.library.path&quot;, &quot;/usr/local/lib&quot;);</span><br><span class="line">      // System.loadLibrary(&quot;JMagick&quot;);</span><br><span class="line">      System.out.println(&quot;success&quot;);</span><br><span class="line">      MagickInfo magickInfo = new MagickInfo(&quot;myImage&quot;);</span><br><span class="line">    &#125; catch (MagickException e) &#123;</span><br><span class="line">      System.out.println(e);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="测试使用"><a href="#测试使用" class="headerlink" title="测试使用"></a>测试使用</h5><p>IDEA的单元测试没有问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">      String property = System.getProperty(&quot;java.library.path&quot;);</span><br><span class="line">      System.out.println(property);  // 输出/usr/local/lib</span><br><span class="line">      // System.setProperty(&quot;java.library.path&quot;, &quot;/usr/local/lib&quot;);</span><br><span class="line">      // System.loadLibrary(&quot;JMagick&quot;);</span><br><span class="line">      System.out.println(&quot;success&quot;);</span><br><span class="line">      MagickInfo magickInfo = new MagickInfo(&quot;myImage&quot;);</span><br><span class="line">    &#125; catch (MagickException e) &#123;</span><br><span class="line">      System.out.println(e);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
 <p>IDEA的Tomcat需要额外处理：<br>tomcat的VM options增加：<br>-Djmagick.systemclassloader=no -Djava.library.path=/usr/local/lib</p>
 <p>参考资料：<br><a href="https://www.zybuluo.com/yibo/note/125940" target="_blank" rel="noopener">Mac OS X 安装JMagick</a><br><a href="http://promiselove.github.io/2017/11/30/Mac%E5%AE%89%E8%A3%85Imagemagick%E5%92%8CJMagick/" target="_blank" rel="noopener">Mac安装Imagemagick和JMagick</a><br><a href="http://noahsnail.com/2016/12/12/2016-12-12-Linux%E7%9A%84pkg-config%E5%91%BD%E4%BB%A4/" target="_blank" rel="noopener">Linux的pkg-config命令</a><br><a href="https://elf8848.iteye.com/blog/455675" target="_blank" rel="noopener">ImageMagick +Jmagick安装</a>   </p>
 
@@ -491,7 +471,7 @@
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/weixin_reward.png" alt="drgonroot 微信支付">
+        <img id="wechat_qr" src="/images/weixin_reward.jpeg" alt="drgonroot 微信支付">
         <p>微信支付</p>
       </div>
     
@@ -858,341 +838,6 @@
 
 
   
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      
-        // ref: https://github.com/ForbesLindesay/unescape-html
-        var unescapeHtml = function(html) {
-          return String(html)
-            .replace(/&quot;/g, '"')
-            .replace(/&#39;/g, '\'')
-            .replace(/&#x3A;/g, ':')
-            // replace all the other &#x; chars
-            .replace(/&#(\d+);/g, function (m, p) { return String.fromCharCode(p); })
-            .replace(/&lt;/g, '<')
-            .replace(/&gt;/g, '>')
-            .replace(/&amp;/g, '&');
-        };
-      
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                
-                content = unescapeHtml(content);
-                
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
-      }
-    });
-  </script>
 
 
 
