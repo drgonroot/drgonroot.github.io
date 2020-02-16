@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>JEPG、PNG、WEBP、GIF、SVG的学习使用 各种网络图片格式学习</title>
+    <title>JEPG、PNG、WEBP、GIF、SVG的学习使用、 各种网络图片格式学习</title>
     <url>/2020/02/15/JEPG%E3%80%81PNG%E3%80%81WEBP%E3%80%81GIF%E3%80%81SVG%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<p>解释、使用、适应场景</p>
+<h5 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h5><blockquote>
+<p>浏览器加载网络图片总是耗时很长。每次通过图片网络请求分析时长耗时在哪里，想办法将图片压缩到更小，但又不能过度失真。大神告知我们需要去观察图片本身的特点选择，选择要求设计部出指定格式图片，这样从图片本身压缩了图片质量。之后我们在进行常规手段压缩。</p>
+</blockquote>
+<h5 id="GPEG"><a href="#GPEG" class="headerlink" title="GPEG"></a>GPEG</h5><h6 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h6><p>&ensp; &ensp; JPEG(Joint Photographic Experts Group:联合图像专家小组,1972年)是第一个国际图像压缩标准。JPEG压缩标准描述将图像转换为字节的数据串流(streaming)，没有说明如何将这些字节存储。     </p>
+<blockquote>
+<p><a href="https://thecodeway.com/blog/?p=69" target="_blank" rel="noopener">JPEG算法解密一</a>  <a href="https://thecodeway.com/blog/?p=353" target="_blank" rel="noopener">JPEG算法解密二</a>    <a href="https://thecodeway.com/blog/?p=480" target="_blank" rel="noopener">JPEG算法解密三</a>  <a href="https://thecodeway.com/blog/?p=522" target="_blank" rel="noopener">JPEG算法解密四</a>  <a href="https://thecodeway.com/blog/?p=690" target="_blank" rel="noopener">JPEG算法解密五</a><br><a href="https://blog.csdn.net/shelldon/article/details/54234433" target="_blank" rel="noopener">CSDN-JPEG图像压缩</a></p>
+</blockquote>
+<p>&ensp; &ensp; .jpeg/.jpg是最常用存储JPEG图像文件格式，是一种有损压缩格式。通常将图像压缩在很小的储存空间，将图像中重复或不重要的资料会被丢失，因此容易造成图像数据的损伤。<br>JPEG压缩标准实现开源库：libjpeg、mozjpeg、miniJPEG</p>
+<blockquote>
+<p><a href="http://libjpeg.sourceforge.net/" target="_blank" rel="noopener">libjpeg</a><br>Libjpeg is a widely used C library for reading and writing JPEG image files. It was developed by Tom Lane and the Independent JPEG Group (IJG) during the 1990’s and it is now maintained by several developers using various services identified in the SourceForge summary.<br>The latest release is version 6b of 27-Mar-1998. This is a stable and solid foundation for many application’s JPEG support.</p>
+</blockquote>
+<p>1、JPEG是有损压缩算法。有损压缩就是为了将图片压缩到更小，利用人眼观察图片的特点改变某些丢弃掉一些人眼不易察觉的原始颜色信息，而这个是不可逆的。<br>2、其压缩算法可以精确控制压缩比，以图像质量换得存储空间。  Photoshop存储JPEG格式图片，提供11级压缩级别，以0—10级表示。其中0级压缩比最高，图像品质最差。即使采用细节几乎无损的10 级质量保存时，压缩比也可达 5：1。<br>3、它不支持透明背景图像，更加适合颜色复杂的图像。</p>
+<p>后续针对JPEG第一代压缩标准的改进变化，依次出现了：<br>JPEG2000(2000年、支持有损和无损压缩，支持<a href="https://baike.baidu.com/item/%E6%B8%90%E8%BF%9B%E4%BC%A0%E8%BE%93" target="_blank" rel="noopener">渐进传输</a>、开源库:<a href="http://www.openjpeg.org/" target="_blank" rel="noopener">openJPEG</a>)、JPEG XR(2009年, 增加HDR支持)</p>
+<h6 id="JPEG的特性"><a href="#JPEG的特性" class="headerlink" title="JPEG的特性"></a>JPEG的特性</h6><p>1、支持摄影图像或写实图像的高级压缩，并且可利用压缩比例控制图像文件大小。<br>2、有损压缩会使图像数据质量下降，并且在编辑和重新保存JPG格式图像时，这种下降损失会累积。<br>3、JPEG不适用于所含颜色很少、具有大块颜色相近的区域或亮度差异十分明显的较简单的图片。<br>4、它并不适合于线条绘图（drawing）和其他文字或图示（iconic）的图形,因为它的压缩方法用在这些图形的型态上,会得到不适当的结果；<br>5、当它处理矢量图形和 Logo 等线条感较强、颜色对比强烈的图像时，人为压缩导致的图片模糊会相当明显。且不支持透明度处理。</p>
+<h6 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h6><p>1、大的背景图<br>2、轮播图<br>3、Banner图    </p>
+<blockquote>
+<p><strong>什么时候应该使用JPEG？</strong><br>&ensp; &ensp; 从上面介绍的JPEG的特性来看，它更适合用来存储具有丰富色彩层次的摄影或写实照片。这是因为色彩层次丰富的图像一般会由于阴影、反光或透视等效果形成明暗、深浅不同的区域，如果我们选择使用PNG8来储存的话，可能一些颜色在调色板上找不到，导致图像上一些数据的丢失，如果使用PNG24的话，它确实可以查找到图像不同层次的颜色，但它会因数据较多增大图片的体积，严重拖慢加载速度，在网站上也容易显示不全。所以，JPEG是最好的选择，它能在尽量压缩文件大小的情况下较好的还原图片的品质。为什么这里不使用SVG呢？SVG有自身的局限性，由于它是点和线精准计算的，一些位图如摄影元素SVG无法实现合适的缩放。<br>参考:<a href="https://www.qifeiye.com/%E6%A8%AA%E5%90%91%E5%AF%B9%E6%AF%94gifjpegpngsvg%EF%BC%8C%E6%95%99%E4%BD%A0%E5%A6%82%E4%BD%95%E5%90%88%E7%90%86%E9%80%89%E6%8B%A9%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/" target="_blank" rel="noopener">横向对比GIF/JPEG/PNG/SVG，教你如何合理选择图像格式</a></p>
+</blockquote>
+<h5 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h5><p>图片格式浏览器支持情况对比：<br><a href="https://caniuse.com/" target="_blank" rel="noopener">https://caniuse.com/</a></p>
+<p>图片压缩网站、压缩工具：<br><a href="https://pngquant.org/" target="_blank" rel="noopener">pngquant</a><br><a href="https://tinify.cn/" target="_blank" rel="noopener">智能PNG和JPEG图片压缩</a><br>ImageOptim    </p>
+<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><p><a href="https://www.jianshu.com/p/f5557c0e689e" target="_blank" rel="noopener">JPEG图片格式详解</a><br><a href="https://zhuanlan.zhihu.com/p/41498458" target="_blank" rel="noopener">网站建设中使用的png和jpg两种图片格式都有哪些特点和区别</a><br><a href="https://www.qifeiye.com/%E6%A8%AA%E5%90%91%E5%AF%B9%E6%AF%94gifjpegpngsvg%EF%BC%8C%E6%95%99%E4%BD%A0%E5%A6%82%E4%BD%95%E5%90%88%E7%90%86%E9%80%89%E6%8B%A9%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/" target="_blank" rel="noopener">横向对比GIF/JPEG/PNG/SVG，教你如何合理选择图像格式</a><br><a href="https://github.com/ericdum/mujiang.info/issues/4" target="_blank" rel="noopener">png8支持透明通道（一）</a><br><a href="https://blog.csdn.net/cmsbupt/article/details/51178761" target="_blank" rel="noopener">下一代Web图像格式：JPEG、JPEG XR、JPEG2000、WebP、BPG</a></p>
+]]></content>
       <tags>
         <tag>后端</tag>
+        <tag>前端</tag>
+        <tag>图片</tag>
       </tags>
   </entry>
   <entry>
