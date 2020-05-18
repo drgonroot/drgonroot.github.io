@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="断线风筝">
 <meta property="og:description" content="吐槽、建议、解惑入口网址 解释CORS的定义CORS （Cross-origin resource sharing）跨域资源共享问题，是W3C的标准。      当某一资源在自己的资源服务器上的不同域或者端口请求另一个资源时，那么该资源会发起一次跨域请求. (Cross-Origin Resource Sharing (CORS) is a mechanism that uses addition">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-23T14:03:37.000Z">
+<meta property="og:updated_time" content="2020-04-11T11:55:23.239Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CORS学习、实战内网测试和外网更新">
 <meta name="twitter:description" content="吐槽、建议、解惑入口网址 解释CORS的定义CORS （Cross-origin resource sharing）跨域资源共享问题，是W3C的标准。      当某一资源在自己的资源服务器上的不同域或者端口请求另一个资源时，那么该资源会发起一次跨域请求. (Cross-Origin Resource Sharing (CORS) is a mechanism that uses addition">
@@ -357,7 +357,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-23 22:03:37" itemprop="dateModified" datetime="2020-02-23T22:03:37+08:00">2020-02-23</time>
+                <time title="修改时间：2020-04-11 19:55:23" itemprop="dateModified" datetime="2020-04-11T19:55:23+08:00">2020-04-11</time>
               
             
           </span>
@@ -395,9 +395,10 @@
 <blockquote>
 <p>当某一资源在自己的资源服务器上的不同域或者端口请求另一个资源时，那么该资源会发起一次跨域请求. (Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP headers to tell a browser to let a web application running at one origin (domain) have permission to access selected resources from a server at a different origin. A web application makes a cross-origin HTTP request when it requests a resource that has a different origin (domain, protocol, and port) than its own origin.)    </p>
 </blockquote>
-<p>个人理解：我（浏览器）在小明家（服务器）的正门（端口）借东西（资源）。突然还需要其他东西，但是不是小明给我，或者不是正门给我是在侧门给我，那我怎么能够相信这个东西有没有毒啊，有没有进过其他人的手。对于这种情况呢，我就给一个信物（Origin）给小明（服务器），只有小明（服务器）知道信物交换的秘密，正确的情况会把信物翻版（Access-Control-Allow-Origin）给我，不正确就直接不要。</p>
+<h5 id="CORS请求介绍"><a href="#CORS请求介绍" class="headerlink" title="CORS请求介绍"></a>CORS请求介绍</h5><p>CORS请求是指当前请求出现和源站不一样的请求协议、域名(含二级域名)、端口。<br><a href="https://segmentfault.com/a/1190000007326671" target="_blank" rel="noopener">详细介绍哪些情况会出现跨域的情况列链接</a>并前端的角度该如何解决问题。</p>
 <a id="more"></a>
-<h5 id="哪些情况会出现CORS的问题"><a href="#哪些情况会出现CORS的问题" class="headerlink" title="哪些情况会出现CORS的问题"></a>哪些情况会出现CORS的问题</h5><p>我遇到的HTTPS在CHROME浏览器出现跨域字体无法显示,在safari和HTTP的情况没有出现。<br><a href="https://segmentfault.com/a/1190000007326671" target="_blank" rel="noopener">详细介绍哪些情况会出现跨域的情况列链接</a>并前端的角度该如何解决问题。</p>
+
+<h4 id="CORS请求拦截"><a href="#CORS请求拦截" class="headerlink" title="CORS请求拦截"></a>CORS请求拦截</h4><p>我遇到的HTTPS在CHROME浏览器出现跨域字体无法显示,在safari和HTTP的情况没有出现。<br>浏览器限制了发起跨站请求，存在可能是跨站请求可以正常发起，但是返回结果不包含Access-Control-Allow-Origin等符合信息就被浏览器拦截了。<br>目前一般很少出现浏览器主动限制CORS请求呢。</p>
 <h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><p>对于简单请求，浏览器直接发出 CORS 请求。具体来说，就是由浏览器自动在头信息中增加一个 Origin 字段。然后只需要在返回的相应上加上Access-Control-Allow-Origin:[Origin]|* 。<br><a href="https://zoctan.github.io/2018/07/21/%E5%AD%A6%E4%B9%A0/%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB%20CORS%20%E8%AF%A6%E8%A7%A3%EF%BC%88%E8%BD%AC%EF%BC%89/" target="_blank" rel="noopener">前端详细介绍了解</a></p>
 <h5 id="接下来详细讲实际解决的情况"><a href="#接下来详细讲实际解决的情况" class="headerlink" title="接下来详细讲实际解决的情况"></a>接下来详细讲实际解决的情况</h5><ul>
 <li>需要让内网出现线上的情况</li>
@@ -614,7 +615,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -647,7 +648,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -692,7 +699,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#解释CORS的定义"><span class="nav-number">1.</span> <span class="nav-text">解释CORS的定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#哪些情况会出现CORS的问题"><span class="nav-number">2.</span> <span class="nav-text">哪些情况会出现CORS的问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解决方案"><span class="nav-number">3.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#接下来详细讲实际解决的情况"><span class="nav-number">4.</span> <span class="nav-text">接下来详细讲实际解决的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#内网配置出线上环境"><span class="nav-number">4.1.</span> <span class="nav-text">内网配置出线上环境</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#线上处理"><span class="nav-number">4.2.</span> <span class="nav-text">线上处理</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#解释CORS的定义"><span class="nav-number">1.</span> <span class="nav-text">解释CORS的定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CORS请求介绍"><span class="nav-number">2.</span> <span class="nav-text">CORS请求介绍</span></a></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#CORS请求拦截"><span class="nav-number"></span> <span class="nav-text">CORS请求拦截</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#解决方案"><span class="nav-number">1.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#接下来详细讲实际解决的情况"><span class="nav-number">2.</span> <span class="nav-text">接下来详细讲实际解决的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#内网配置出线上环境"><span class="nav-number">2.1.</span> <span class="nav-text">内网配置出线上环境</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#线上处理"><span class="nav-number">2.2.</span> <span class="nav-text">线上处理</span></a></li></ol></li></ol></li></div>
             
 
           </div>

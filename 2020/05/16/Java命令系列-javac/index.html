@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="吐槽、建议、解惑入口网址 javac 命令详解 javac (java compiler)(java源码编译器)，将源码代码(.java)编译成字节码文件(.class)。  备注:在MyClass中的MyInerClass内部类,编译后生成MyClass$MyInnerClass.class javac 命令使用javac [命令参数] [单个源码文件] [多个源码文件(空格分隔,eg: MyC">
+<meta name="keywords" content="后端,Java命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java命令系列-javac">
+<meta property="og:url" content="https://drgonroot.github.io/2020/05/16/Java命令系列-javac/index.html">
+<meta property="og:site_name" content="断线风筝">
+<meta property="og:description" content="吐槽、建议、解惑入口网址 javac 命令详解 javac (java compiler)(java源码编译器)，将源码代码(.java)编译成字节码文件(.class)。  备注:在MyClass中的MyInerClass内部类,编译后生成MyClass$MyInnerClass.class javac 命令使用javac [命令参数] [单个源码文件] [多个源码文件(空格分隔,eg: MyC">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-05-18T02:48:54.756Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java命令系列-javac">
+<meta name="twitter:description" content="吐槽、建议、解惑入口网址 javac 命令详解 javac (java compiler)(java源码编译器)，将源码代码(.java)编译成字节码文件(.class)。  备注:在MyClass中的MyInerClass内部类,编译后生成MyClass$MyInnerClass.class javac 命令使用javac [命令参数] [单个源码文件] [多个源码文件(空格分隔,eg: MyC">
+
+
+
+
+
+
+  <link rel="canonical" href="https://drgonroot.github.io/2020/05/16/Java命令系列-javac/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Java命令系列-javac | 断线风筝</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135039274-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-135039274-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">断线风筝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2020/05/16/Java命令系列-javac/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="drgonroot">
+      <meta itemprop="description" content="不曾拥有，所以努力。热爱技术|热爱思考">
+      <meta itemprop="image" content="/images/ciwei.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="断线风筝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java命令系列-javac
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-16 13:29:33" itemprop="dateCreated datePublished" datetime="2020-05-16T13:29:33+08:00">2020-05-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-05-18 10:48:54" itemprop="dateModified" datetime="2020-05-18T10:48:54+08:00">2020-05-18</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h4 id="javac-命令详解"><a href="#javac-命令详解" class="headerlink" title="javac 命令详解"></a>javac 命令详解</h4><blockquote>
+<p>javac (java compiler)(java源码编译器)，将源码代码(.java)编译成字节码文件(.class)。</p>
+</blockquote>
+<p><em>备注:</em><br><code>在MyClass中的MyInerClass内部类,编译后生成MyClass$MyInnerClass.class</code></p>
+<h4 id="javac-命令使用"><a href="#javac-命令使用" class="headerlink" title="javac 命令使用"></a>javac 命令使用</h4><p>javac [<code>命令参数</code>] [<code>单个源码文件</code>] [<code>多个源码文件(空格分隔,eg: MyClassA.java  MyClassB.java</code>)] [<code>多个源码文件路径组成的文件(eg: @recordSourceFile</code>)]</p>
+<p>javac命令执行会自动识别当前路径。</p>
+<h5 id="使用javac样例"><a href="#使用javac样例" class="headerlink" title="使用javac样例"></a>使用javac样例</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 编译一个类</span><br><span class="line">useheart@useheart JavaCompiler % javac src/main/java/multi/TestMainOne.java</span><br><span class="line">// 编译多个类</span><br><span class="line">useheart@useheart JavaCompiler % javac src/main/java/multi/TestMainOne.java src/main/java/multi/TestMainTwo.java src/main/java/multi/TestMainThree.java</span><br><span class="line">// 显示编译后class,自动放入在被编译文件路径下</span><br><span class="line">useheart@useheart JavaCompiler % cd src/main/java/multi</span><br><span class="line">useheart@useheart multi % ll</span><br><span class="line">total 48</span><br><span class="line">-rw-r--r--  1 useheart  staff  430  5 17 18:18 TestMainOne.class</span><br><span class="line">-rw-r--r--  1 useheart  staff  203  5 17 18:02 TestMainOne.java</span><br><span class="line">-rw-r--r--  1 useheart  staff  436  5 17 18:18 TestMainThree.class</span><br><span class="line">-rw-r--r--  1 useheart  staff  207  5 17 18:02 TestMainThree.java</span><br><span class="line">-rw-r--r--  1 useheart  staff  430  5 17 18:18 TestMainTwo.class</span><br><span class="line">-rw-r--r--  1 useheart  staff  203  5 17 18:02 TestMainTwo.java</span><br><span class="line">useheart@useheart multi %</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 显示Java路径文件</span><br><span class="line">useheart@useheart compile % cat javaPaths</span><br><span class="line">../src/main/java/multi/TestMainOne.java</span><br><span class="line">../src/main/java/multi/TestMainTwo.java</span><br><span class="line">../src/main/java/multi/TestMainThree.java</span><br><span class="line">// 编译文件里面的java类</span><br><span class="line">useheart@useheart compile % javac @javaPaths</span><br><span class="line">// 显示编译后的class文件</span><br><span class="line">useheart@useheart compile % cd ../src/main/java/multi</span><br><span class="line">useheart@useheart multi % ll</span><br><span class="line">total 48</span><br><span class="line">-rw-r--r--  1 useheart  staff  430  5 17 18:29 TestMainOne.class</span><br><span class="line">-rw-r--r--  1 useheart  staff  203  5 17 18:02 TestMainOne.java</span><br><span class="line">-rw-r--r--  1 useheart  staff  436  5 17 18:29 TestMainThree.class</span><br><span class="line">-rw-r--r--  1 useheart  staff  207  5 17 18:02 TestMainThree.java</span><br><span class="line">-rw-r--r--  1 useheart  staff  430  5 17 18:29 TestMainTwo.class</span><br><span class="line">-rw-r--r--  1 useheart  staff  203  5 17 18:02 TestMainTwo.java</span><br></pre></td></tr></table></figure>
+
+<h5 id="javac-常用的命令参数"><a href="#javac-常用的命令参数" class="headerlink" title="javac 常用的命令参数"></a>javac 常用的命令参数</h5><p>使用案例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 参数 -d</span><br><span class="line">useheart@useheart JavaCompiler % javac -d compile/classes  src/main/java/multi/*.java</span><br><span class="line"></span><br><span class="line">useheart@useheart JavaCompiler % ll compile/classes/multi</span><br><span class="line">total 24</span><br><span class="line">-rw-r--r--  1 useheart  staff  430  5 17 19:02 TestMainOne.class</span><br><span class="line">-rw-r--r--  1 useheart  staff  436  5 17 19:02 TestMainThree.class</span><br><span class="line">-rw-r--r--  1 useheart  staff  430  5 17 19:02 TestMainTwo.class</span><br></pre></td></tr></table></figure>
+
+<h6 id="sourcepath-和-classpath-的使用"><a href="#sourcepath-和-classpath-的使用" class="headerlink" title="sourcepath 和 classpath 的使用"></a>sourcepath 和 classpath 的使用</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//JarCompileBootstrap编译时需要使用其他文件Java类文件compile.ExternalUseClass和第三方class文件jar(commons-lang3-3.9.jar)</span><br><span class="line">useheart@useheart JarCompiler % javac -sourcepath ./src/main/java  -classpath /Users/useheart/.m2/repository/org/apache/commons/commons-lang3/3.9/commons-lang3-3.9.jar  src/main/java/JarCompileBootstrap.java</span><br><span class="line"></span><br><span class="line">useheart@useheart JarCompiler % ll src/main/java</span><br><span class="line">total 16</span><br><span class="line">-rw-r--r--  1 useheart  staff  677  5 17 19:25 JarCompileBootstrap.class</span><br><span class="line">-rw-r--r--  1 useheart  staff  502  5 17 17:51 JarCompileBootstrap.java</span><br><span class="line">drwxr-xr-x  4 useheart  staff  128  5 17 19:25 compile</span><br></pre></td></tr></table></figure>
+
+<h6 id="源码发行版-和-虚拟机使用目标发行版"><a href="#源码发行版-和-虚拟机使用目标发行版" class="headerlink" title="源码发行版 和 虚拟机使用目标发行版"></a>源码发行版 和 虚拟机使用目标发行版</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">useheart@useheart JavaCompiler % javac -d compile/classes -target 1.8 -source 1.8 -encoding utf-8 -version  src/main/java/multi/*.java</span><br><span class="line">javac 1.8.0_211</span><br></pre></td></tr></table></figure>
+
+<h6 id="parameters"><a href="#parameters" class="headerlink" title="-parameters"></a>-parameters</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">useheart@useheart JarCompiler % javac -parameters  -sourcepath ./src/main/java  -classpath /Users/useheart/.m2/repository/org/apache/commons/commons-lang3/3.9/commons-lang3-3.9.jar  src/main/java/JarCompileBootstrap.java</span><br><span class="line"></span><br><span class="line">// 反编译结果</span><br><span class="line">import compile.ExternalUseClass;</span><br><span class="line">import org.apache.commons.lang3.StringUtils;</span><br><span class="line"></span><br><span class="line">public class JarCompileBootstrap &#123;</span><br><span class="line">    public JarCompileBootstrap() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //-parameters 使用参数名args保持原样，没有是-parameters，参数名会是var0.</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        System.out.println(StringUtils.trim(&quot;引入commons-lang3 编译使用&quot;));</span><br><span class="line">        ExternalUseClass var1 = new ExternalUseClass();</span><br><span class="line">        var1.external();</span><br><span class="line">        System.out.println(&quot;Bootstrap 启动&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="verbose"><a href="#verbose" class="headerlink" title="-verbose"></a>-verbose</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">useheart@useheart JavaCompiler % javac -verbose  src/main/java/multi/TestMainOne.java</span><br><span class="line">[解析开始时间 RegularFileObject[src/main/java/multi/TestMainOne.java]]</span><br><span class="line">[解析已完成, 用时 14 毫秒]</span><br><span class="line">[源文件的搜索路径: /opt/apache-jmeter-5.2.1/lib/ext/ApacheJMeter_core.jar,/opt/apache-jmeter-5.2.1/lib/jorphan.jar,/opt/apache-jmeter-5.2.1/lib/logkit-2.0.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/tools.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/dt.jar,.]</span><br><span class="line">[类文件的搜索路径: /Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/resources.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/rt.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/sunrsasign.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/jsse.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/jce.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/charsets.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/jfr.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/classes,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/ext/sunec.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/ext/nashorn.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/ext/cldrdata.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/ext/jfxrt.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/ext/dnsns.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/ext/localedata.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/ext/sunjce_provider.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/ext/sunpkcs11.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/ext/jaccess.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/jre/lib/ext/zipfs.jar,/System/Library/Java/Extensions/MRJToolkit.jar,/opt/apache-jmeter-5.2.1/lib/ext/ApacheJMeter_core.jar,/opt/apache-jmeter-5.2.1/lib/jorphan.jar,/opt/apache-jmeter-5.2.1/lib/logkit-2.0.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/tools.jar,/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/dt.jar,.]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Object.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/String.class)]]</span><br><span class="line">[正在检查multi.TestMainOne]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/io/Serializable.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/AutoCloseable.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Byte.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Character.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Short.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Long.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Float.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Integer.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Double.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Boolean.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Void.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/System.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/io/PrintStream.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Appendable.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/io/Closeable.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/io/FilterOutputStream.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/io/OutputStream.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/io/Flushable.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/Comparable.class)]]</span><br><span class="line">[正在加载ZipFileIndexFileObject[/Library/Java/JavaVirtualMachines/jdk1.8.0_211.jdk/Contents/Home/lib/ct.sym(META-INF/sym/rt.jar/java/lang/CharSequence.class)]]</span><br><span class="line">[已写入RegularFileObject[src/main/java/multi/TestMainOne.class]]</span><br><span class="line">[共 161 毫秒]</span><br><span class="line">useheart@useheart JavaCompiler %</span><br></pre></td></tr></table></figure>
+
+<h4 id="javac-help-文档输出"><a href="#javac-help-文档输出" class="headerlink" title="javac  help 文档输出"></a>javac  help 文档输出</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">useheart@useheart multi % javac -help</span><br><span class="line">用法: javac &lt;options&gt; &lt;source files&gt;</span><br><span class="line">  -g                         生成所有调试信息</span><br><span class="line">  -nowarn                    不生成任何警告</span><br><span class="line">  -verbose                   输出有关编译器正在执行的操作的消息</span><br><span class="line">  -deprecation               输出使用已过时的 API 的源位置</span><br><span class="line">  -classpath &lt;路径&gt;            指定查找用户类文件和注释处理程序的位置</span><br><span class="line">  -cp &lt;路径&gt;                   指定查找用户类文件和注释处理程序的位置</span><br><span class="line">  -sourcepath &lt;路径&gt;           指定查找输入源文件的位置</span><br><span class="line">  -parameters                生成元数据以用于方法参数的反射</span><br><span class="line">  -d &lt;目录&gt;                    指定放置生成的类文件的位置</span><br><span class="line">  -encoding &lt;编码&gt;             指定源文件使用的字符编码</span><br><span class="line">  -source &lt;发行版&gt;             提供与指定发行版的源兼容性</span><br><span class="line">  -target &lt;发行版&gt;             生成特定 VM 版本的类文件</span><br><span class="line">  -version                   版本信息</span><br><span class="line">  -help                      输出标准选项的提要</span><br><span class="line">  @&lt;文件名&gt;                     从文件读取选项和文件名</span><br></pre></td></tr></table></figure>
+
+<h4 id="执行（man-javac）文档"><a href="#执行（man-javac）文档" class="headerlink" title="执行（man javac）文档"></a>执行（man javac）文档</h4><p><a href="/files/man-javac.txt">javac英文文档</a></p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>不曾拥有，所以努力。（坚持原创技术分享，您的支持将鼓励我继续创作！）</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin_reward.jpeg" alt="drgonroot 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>drgonroot</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://drgonroot.github.io/2020/05/16/Java命令系列-javac/" title="Java命令系列-javac">https://drgonroot.github.io/2020/05/16/Java命令系列-javac/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/后端/" rel="tag"># 后端</a>
+          
+            <a href="/tags/Java命令/" rel="tag"># Java命令</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/25/人人都该懂点产品思维（一）/" rel="next" title="人人都该懂点产品思维（一）">
+                <i class="fa fa-chevron-left"></i> 人人都该懂点产品思维（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/17/Charles使用细节说明/" rel="prev" title="Charles使用细节说明">
+                Charles使用细节说明 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/ciwei.jpg" alt="drgonroot">
+            
+              <p class="site-author-name" itemprop="name">drgonroot</p>
+              <p class="site-description motion-element" itemprop="description">不曾拥有，所以努力。热爱技术|热爱思考</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/drgonroot" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#javac-命令详解"><span class="nav-number">1.</span> <span class="nav-text">javac 命令详解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#javac-命令使用"><span class="nav-number">2.</span> <span class="nav-text">javac 命令使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用javac样例"><span class="nav-number">2.1.</span> <span class="nav-text">使用javac样例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#javac-常用的命令参数"><span class="nav-number">2.2.</span> <span class="nav-text">javac 常用的命令参数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#sourcepath-和-classpath-的使用"><span class="nav-number">2.2.1.</span> <span class="nav-text">sourcepath 和 classpath 的使用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#源码发行版-和-虚拟机使用目标发行版"><span class="nav-number">2.2.2.</span> <span class="nav-text">源码发行版 和 虚拟机使用目标发行版</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#parameters"><span class="nav-number">2.2.3.</span> <span class="nav-text">-parameters</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#verbose"><span class="nav-number">2.2.4.</span> <span class="nav-text">-verbose</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#javac-help-文档输出"><span class="nav-number">3.</span> <span class="nav-text">javac  help 文档输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行（man-javac）文档"><span class="nav-number">4.</span> <span class="nav-text">执行（man javac）文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">drgonroot</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
