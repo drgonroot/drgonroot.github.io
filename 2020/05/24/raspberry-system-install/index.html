@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="吐槽、建议、解惑入口网址 树莓派4B系统 官网树莓派4B系统介绍在安装其他Linux系统时需要注意下，树莓派CPU架构ARM，64位  12345678root@raspberrypi:/etc/systemd/network# hostnamectl status   Static hostname: raspberrypi         Icon name: computer">
+<meta name="keywords" content="树莓派4B">
+<meta property="og:type" content="article">
+<meta property="og:title" content="raspberry-system-install">
+<meta property="og:url" content="https://drgonroot.github.io/2020/05/24/raspberry-system-install/index.html">
+<meta property="og:site_name" content="断线风筝">
+<meta property="og:description" content="吐槽、建议、解惑入口网址 树莓派4B系统 官网树莓派4B系统介绍在安装其他Linux系统时需要注意下，树莓派CPU架构ARM，64位  12345678root@raspberrypi:/etc/systemd/network# hostnamectl status   Static hostname: raspberrypi         Icon name: computer">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://drgonroot.github.io/images/pi4-labelled@2x.webp">
+<meta property="og:updated_time" content="2020-05-30T13:47:05.755Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="raspberry-system-install">
+<meta name="twitter:description" content="吐槽、建议、解惑入口网址 树莓派4B系统 官网树莓派4B系统介绍在安装其他Linux系统时需要注意下，树莓派CPU架构ARM，64位  12345678root@raspberrypi:/etc/systemd/network# hostnamectl status   Static hostname: raspberrypi         Icon name: computer">
+<meta name="twitter:image" content="https://drgonroot.github.io/images/pi4-labelled@2x.webp">
+
+
+
+
+
+
+  <link rel="canonical" href="https://drgonroot.github.io/2020/05/24/raspberry-system-install/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>raspberry-system-install | 断线风筝</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135039274-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-135039274-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">断线风筝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2020/05/24/raspberry-system-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="drgonroot">
+      <meta itemprop="description" content="不曾拥有，所以努力。热爱技术|热爱思考">
+      <meta itemprop="image" content="/images/ciwei.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="断线风筝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">raspberry-system-install
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-24 11:31:28" itemprop="dateCreated datePublished" datetime="2020-05-24T11:31:28+08:00">2020-05-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-05-30 21:47:05" itemprop="dateModified" datetime="2020-05-30T21:47:05+08:00">2020-05-30</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h4 id="树莓派4B系统"><a href="#树莓派4B系统" class="headerlink" title="树莓派4B系统"></a>树莓派4B系统</h4><blockquote>
+<p><a href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/" target="_blank" rel="noopener">官网树莓派4B系统介绍</a><br>在安装其他Linux系统时需要注意下，树莓派CPU架构ARM，64位</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@raspberrypi:/etc/systemd/network# hostnamectl status</span><br><span class="line">   Static hostname: raspberrypi</span><br><span class="line">         Icon name: computer</span><br><span class="line">        Machine ID: 9321879165344d29ba552214ae2aca07</span><br><span class="line">           Boot ID: 67c2e9c17ee74d049301e40c99c70b58</span><br><span class="line">  Operating System: Raspbian GNU/Linux 10 (buster)</span><br><span class="line">            Kernel: Linux 4.19.97-v7l+</span><br><span class="line">      Architecture: arm</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pi4-labelled@2x.webp" alt="树莓派集成板"></p>
+<h5 id="最基础硬件配置"><a href="#最基础硬件配置" class="headerlink" title="最基础硬件配置"></a>最基础硬件配置</h5><p><strong>必选配置</strong></p>
+<ol>
+<li>读卡器</li>
+</ol>
+<ul>
+<li>和SD存储卡配合使用。应用于其他电脑将树莓派系统烧录到SD存储卡上</li>
+</ul>
+<ol start="2">
+<li>8G以上microSD(T-Flash)存储卡</li>
+</ol>
+<ul>
+<li>存储树莓派系统</li>
+<li>存储文件使用</li>
+</ul>
+<ol start="3">
+<li>树莓派4B集成板</li>
+<li>5V-3A的Type-C的充电器</li>
+</ol>
+<hr>
+<p><strong>可选配置</strong><br>5. 树莓派集成板散热贴片<br>6. 树莓派塑料外壳或者金属外壳<br>7. 小型散热风扇<br>8. micro-hdmi连接线</p>
+<ul>
+<li>用于输出页面到显示器上</li>
+</ul>
+<ol start="9">
+<li>等等</li>
+</ol>
+<a id="more"></a>
+<h5 id="下载、烧录树莓派系统"><a href="#下载、烧录树莓派系统" class="headerlink" title="下载、烧录树莓派系统"></a>下载、烧录树莓派系统</h5><blockquote>
+<p>Raspbian系统是用Debian专门为ARM卡片式计算机树莓派定制的版本。</p>
+</blockquote>
+<p><a href="https://www.raspberrypi.org/downloads/raspbian/" target="_blank" rel="noopener">官网系统下载地址</a></p>
+<ul>
+<li>树莓派桌面版和预装软件系统（Raspbian Buster with desktop and recommended software）</li>
+<li>树莓派桌面版(不含预装软件)系统 （Raspbian Buster with desktop）</li>
+<li>树莓派(不含桌面、不含预装软件)精简版 （Raspbian Buster Lite）</li>
+</ul>
+<p><a href="https://www.balena.io/etcher/" target="_blank" rel="noopener">推荐烧录SD软件Etcher</a><br>不合适使用Etcher，也可以使用树莓派自带烧录<a href="https://www.raspberrypi.org/downloads/noobs/" target="_blank" rel="noopener">NOOBS</a></p>
+<ol>
+<li>下载Raspbian树莓派系统</li>
+</ol>
+<ul>
+<li>一般下载的是压缩包（如:zip）,需要进行解压，获取.img的镜像</li>
+</ul>
+<ol start="2">
+<li>将SD卡数据先清空，适当可以直接进行格式化</li>
+<li>使用Etcher或者NOOBS或者SDFormater进行烧录</li>
+<li>烧录完成，再次查看SD卡会发现boot命名存储卡</li>
+</ol>
+<ul>
+<li>diskutil list</li>
+</ul>
+<h5 id="启动、访问树莓派系统方案"><a href="#启动、访问树莓派系统方案" class="headerlink" title="启动、访问树莓派系统方案"></a>启动、访问树莓派系统方案</h5><blockquote>
+<p><a href="https://www.raspberrypi.org/documentation/remote-access/" target="_blank" rel="noopener">官网连接树莓派4B系统方案</a><br>树莓派raspbian:<br><code>系统用户名为:pi   密码:raspberry</code><br><code>root用户权限密码: raspberry</code></p>
+</blockquote>
+<ul>
+<li>使用HDMI(<strong>High-Definition Multimedia Interface</strong>)显示器、鼠标、键盘进行访问系统</li>
+<li>通过SSH(<strong>Secure SHell</strong>))访问树莓派</li>
+<li>通过VNC(<strong>Virtual Network Computing</strong>)服务远程登录树莓派<a href="https://www.realvnc.com/en/connect/download/viewer/raspberrypi/" target="_blank" rel="noopener">VNC 客户端下载</a>。树莓派系统命令输入<code>vncserver -geometry 1422x800</code>启动vnc服务。<strong>注意设置好界面展示大小才能正常显示，不然为报·vnc cannot currently show the desktop·错误</strong></li>
+</ul>
+<p>桌面访问可以在命令行输入:<code>sudo raspi-cofig</code>进入树莓派系统配置界面。选择<code>5 Interfacing Options</code>进行配置默认启动应用程序SSH、VNC等</p>
+<h6 id="SSH-访问接入网线rapibian系统"><a href="#SSH-访问接入网线rapibian系统" class="headerlink" title="SSH 访问接入网线rapibian系统"></a>SSH 访问接入网线rapibian系统</h6><ol>
+<li>进入SD卡名称为<code>boot</code>文件夹</li>
+</ol>
+<ul>
+<li>mac上: cd /Volumes/boot/</li>
+</ul>
+<ol start="2">
+<li><code>touch ssh</code>  生成一个ssh命名的文件</li>
+<li>使用网线连接树莓派，查找树莓派的IP地址</li>
+</ol>
+<ul>
+<li><p>命令输入: <code>ping raspberrypi.local</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useheart@useheart Downloads % ping raspberrypi.local</span><br><span class="line">PING raspberrypi.local (192.168.1.6): 56 data bytes</span><br><span class="line">64 bytes from 192.168.1.6: icmp_seq=0 ttl=64 time=1.618 ms</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<a href="https://angryip.org/" target="_blank" rel="noopener">IP Scanner</a>软件进行扫描，找到对应树莓派IP地址</p>
+</li>
+</ul>
+<ol start="4">
+<li>ssh <a href="mailto:pi@xxx.xxx.xxx.xx" target="_blank" rel="noopener">pi@xxx.xxx.xxx.xx</a></li>
+</ol>
+<h6 id="SSH-访问接入WIFI的rapibian系统"><a href="#SSH-访问接入WIFI的rapibian系统" class="headerlink" title="SSH 访问接入WIFI的rapibian系统"></a>SSH 访问接入WIFI的rapibian系统</h6><ol>
+<li>进入SD卡名称为<code>boot</code>文件夹</li>
+</ol>
+<ul>
+<li>mac上: cd /Volumes/boot/</li>
+</ul>
+<ol start="2">
+<li><p><code>touch ssh</code>  生成一个ssh命名的文件</p>
+</li>
+<li><p>新建wpa_supplicant.conf 文件，写入无限相关配置<br>如果无限网没有密码或者采用WEP加密方式的话，key_mgmt应设为NONE,密码字段由psk改成wep_key0即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">country=CN</span><br><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line">update_config=1</span><br><span class="line">network=&#123;</span><br><span class="line">  ssid=&quot;wifi 名称&quot;</span><br><span class="line">  psk=&quot;wifi 密码&quot;</span><br><span class="line">  key_mgmt=WPA-PSK</span><br><span class="line">&#125;</span><br><span class="line">Network=&#123;</span><br><span class="line">  ssid=&quot;wifi 名称&quot;</span><br><span class="line">  psk=&quot;wifi 密码&quot;</span><br><span class="line">  key_mgmt=NONE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>树莓派自动连接WIFI，查找树莓派的IP地址</p>
+</li>
+</ol>
+<ul>
+<li>命令输入: <code>ping raspberrypi.local</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useheart@useheart Downloads % ping raspberrypi.local</span><br><span class="line">PING raspberrypi.local (192.168.1.6): 56 data bytes</span><br><span class="line">64 bytes from 192.168.1.6: icmp_seq=0 ttl=64 time=1.618 ms</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="5">
+<li>ssh <a href="mailto:pi@xxx.xxx.xxx.xx" target="_blank" rel="noopener">pi@xxx.xxx.xxx.xx</a></li>
+</ol>
+<h5 id="修改pi账号密码和开启root账号"><a href="#修改pi账号密码和开启root账号" class="headerlink" title="修改pi账号密码和开启root账号"></a>修改pi账号密码和开启root账号</h5><p>&emsp;&emsp;修改pi账号的密码可以在之前的rasp-config中修改，也可以在pi用户登录之后在命令行终端输入password pi即可。<br>&emsp;&emsp;当需要root权限时，由默认账户经由sudo执行，Rassberry pi系统中的Raspbian默认用户是pi，密码为raspberry重新开启账号，可由pi用户登录后，在命令行下执行<br><code>sudo passwd root</code><br>&emsp;&emsp;执行此命令系统会提示输入两遍的root密码，输入你想设的密码即可，然后执行<br><code>sudo passwd --unlock root</code><br>这样root用户解锁成功。</p>
+<h5 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h5><ul>
+<li><p>查看树莓CPU温度</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 方法一</span><br><span class="line">pi@RaspberryPi:~ $ /opt/vc/bin/vcgencmd measure_temp</span><br><span class="line">temp=51.5&apos;C</span><br><span class="line"># 方法二</span><br><span class="line">pi@RaspberryPi:~ $ cat /sys/class/thermal/thermal_zone0/temp</span><br><span class="line">50464  #输出值除以1000，单位是℃。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看CPU详情</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /proc/cpuinfo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看CPU硬件架构</p>
+<blockquote>
+<p>在Linux中使用命令arch可以初步查看出当前系统所识别出来的机器CPU类型，如”i386”, “i486”,”i586”, “alpha”, “sparc”, “arm”, “m68k”,”mips”,”ppc”,”ia64”,”x86_64”等；ia64和x86_64就说明这台机器是64位的；</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@db ~]# arch</span><br><span class="line">i686</span><br><span class="line">[root@svr-db-test ~]# uname -m</span><br><span class="line">x86_64</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="推荐阅读"><a href="#推荐阅读" class="headerlink" title="推荐阅读:"></a>推荐阅读:</h4><p><a href="https://zhuanlan.zhihu.com/p/59027897" target="_blank" rel="noopener">如何给树莓派安装操作系统</a></p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>不曾拥有，所以努力。（坚持原创技术分享，您的支持将鼓励我继续创作！）</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin_reward.jpeg" alt="drgonroot 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>drgonroot</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://drgonroot.github.io/2020/05/24/raspberry-system-install/" title="raspberry-system-install">https://drgonroot.github.io/2020/05/24/raspberry-system-install/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/树莓派4B/" rel="tag"># 树莓派4B</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/17/Mac常见问题和技巧/" rel="next" title="Mac常见问题和技巧">
+                <i class="fa fa-chevron-left"></i> Mac常见问题和技巧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/05/24/树莓派安装Centos7/" rel="prev" title="树莓派安装Centos7">
+                树莓派安装Centos7 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/ciwei.jpg" alt="drgonroot">
+            
+              <p class="site-author-name" itemprop="name">drgonroot</p>
+              <p class="site-description motion-element" itemprop="description">不曾拥有，所以努力。热爱技术|热爱思考</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/drgonroot" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#树莓派4B系统"><span class="nav-number">1.</span> <span class="nav-text">树莓派4B系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#最基础硬件配置"><span class="nav-number">1.1.</span> <span class="nav-text">最基础硬件配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#下载、烧录树莓派系统"><span class="nav-number">1.2.</span> <span class="nav-text">下载、烧录树莓派系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启动、访问树莓派系统方案"><span class="nav-number">1.3.</span> <span class="nav-text">启动、访问树莓派系统方案</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#SSH-访问接入网线rapibian系统"><span class="nav-number">1.3.1.</span> <span class="nav-text">SSH 访问接入网线rapibian系统</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SSH-访问接入WIFI的rapibian系统"><span class="nav-number">1.3.2.</span> <span class="nav-text">SSH 访问接入WIFI的rapibian系统</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改pi账号密码和开启root账号"><span class="nav-number">1.4.</span> <span class="nav-text">修改pi账号密码和开启root账号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他"><span class="nav-number">1.5.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#推荐阅读"><span class="nav-number">2.</span> <span class="nav-text">推荐阅读:</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">drgonroot</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
