@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="断线风筝">
 <meta property="og:description" content="吐槽、建议、解惑入口网址 常见技巧优秀软件常见问题新版MacOs Catalina推荐默认使用命令脚本zsh，而不是bash。对于遇到 no matches的提示解决方案  参考来源:Bash to Zsh: File Globbing and ‘no matches found’ Errors  在 ~/.zshrc 文件上添加：# only throw errors when no globs">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-05-17T09:35:18.222Z">
+<meta property="og:updated_time" content="2020-06-26T15:22:25.912Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac常见问题和技巧">
 <meta name="twitter:description" content="吐槽、建议、解惑入口网址 常见技巧优秀软件常见问题新版MacOs Catalina推荐默认使用命令脚本zsh，而不是bash。对于遇到 no matches的提示解决方案  参考来源:Bash to Zsh: File Globbing and ‘no matches found’ Errors  在 ~/.zshrc 文件上添加：# only throw errors when no globs">
@@ -339,12 +339,24 @@
                 
               
 
-              <time title="创建时间：2020-05-17 16:16:07 / 修改时间：17:35:18" itemprop="dateCreated datePublished" datetime="2020-05-17T16:16:07+08:00">2020-05-17</time>
+              <time title="创建时间：2020-05-17 16:16:07" itemprop="dateCreated datePublished" datetime="2020-05-17T16:16:07+08:00">2020-05-17</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-06-26 23:22:25" itemprop="dateModified" datetime="2020-06-26T23:22:25+08:00">2020-06-26</time>
               
             
           </span>
@@ -383,6 +395,42 @@
 <p>参考来源:<a href="https://www.bartbusschots.ie/s/2019/06/12/bash-to-zsh-file-globbing-and-no-matches-found-errors/" target="_blank" rel="noopener">Bash to Zsh: File Globbing and ‘no matches found’ Errors</a></p>
 </blockquote>
 <p>在 ~/.zshrc 文件上添加：<br><code># only throw errors when no globs match anything</code><br><code>setopt CSH_NULL_GLOB</code></p>
+<hr>
+<p>新版MacOs Catalina增加一个硬盘上两个卷(Macintosh HD、 Macintosh HD Data)，并且有个卷是只读的(Macintosh HD)。System Integrity Protection 系统保护根路径变成只读卷（命令: csrutil）。</p>
+<blockquote>
+<p><a href="https://sspai.com/post/57052" target="_blank" rel="noopener">当 Mac 升级到 Catalina 时，苹果在硬盘里施了点魔法</a></p>
+</blockquote>
+<p>在只读卷新建文件/文件夹、在根目录创建data文件解决方案</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/weixin_42619248/article/details/102503825" target="_blank" rel="noopener">可以通过在根路径下建立软连接连接到其他可读写的卷上，解决/data的问题</a></p>
+</blockquote>
+<ol>
+<li>关闭System Integrity Protection的只读卷保护</li>
+</ol>
+<ul>
+<li>重启苹果电脑</li>
+<li>重启过程中，长按住Command-R键重启进入恢复模式</li>
+<li>进入恢复模式，在Utilities菜单项中选择Terminal</li>
+<li>在Terminal控制台里面输入 <code>csrutil disable</code> 关闭系统保护</li>
+<li>输入<code>csrutil status</code>，查看系统保护状态</li>
+</ul>
+<ol start="2">
+<li>在恢复模式下，重启电脑</li>
+</ol>
+<ul>
+<li>重启电脑成功后，就可以直接操作根目录路径文件、文件夹</li>
+<li>【建议】在<code>Macintosh HD Data</code>建立好文件夹、文件，然后在<code>Macintosh HD</code>创建软连接/硬链接到文件夹、文件</li>
+</ul>
+<ol start="3">
+<li>恢复System Integrity Protection的只读卷保护</li>
+</ol>
+<ul>
+<li>重启苹果电脑</li>
+<li>重启过程中，长按住Command-R键重启进入恢复模式</li>
+<li>进入恢复模式，在Utilities菜单项中选择Terminal</li>
+<li>在Terminal控制台里面输入 <code>csrutil enable</code> 开启系统保护</li>
+<li>输入<code>csrutil status</code>，查看系统保护状态</li>
+</ul>
 
       
     </div>
@@ -540,7 +588,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="断线风筝">
 <meta property="og:description" content="吐槽、建议、解惑入口网址 PhantomJS  基于 webkit 内核的无界面浏览器 webkit:webkit tutorial : https://www.paulirish.com/2013/webkit-for-developers/中文了解:https://www.jianshu.com/p/a129b05e2216  学习缘由运营活动需要将用户这一年的数据展示出来，用户是可以截图的。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-21T14:16:12.362Z">
+<meta property="og:updated_time" content="2020-06-26T15:47:03.950Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="phantomjs截图文字不显示、phantmjs文字不显示、phantomJS学习了解">
 <meta name="twitter:description" content="吐槽、建议、解惑入口网址 PhantomJS  基于 webkit 内核的无界面浏览器 webkit:webkit tutorial : https://www.paulirish.com/2013/webkit-for-developers/中文了解:https://www.jianshu.com/p/a129b05e2216  学习缘由运营活动需要将用户这一年的数据展示出来，用户是可以截图的。">
@@ -357,7 +357,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-06-21 22:16:12" itemprop="dateModified" datetime="2020-06-21T22:16:12+08:00">2020-06-21</time>
+                <time title="修改时间：2020-06-26 23:47:03" itemprop="dateModified" datetime="2020-06-26T23:47:03+08:00">2020-06-26</time>
               
             
           </span>
@@ -425,11 +425,11 @@
 <ol>
 <li>直接mac 命令行拷贝 没有权限失败。</li>
 <li>通过mac 命令行 (open /) 打开系统文件，进行/System/Library/Fonts的PingFang.ttc 拖拽拷贝成功。</li>
+<li>将PingFang.ttc 放置到linux指定位置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> mkdir /usr/share/fonts/custom</span><br><span class="line">cp *.ttf  /usr/share/fonts/custom</span><br><span class="line">fc-cache -fv</span><br></pre></td></tr></table></figure>
+
+</li>
 </ol>
-<p>需要将PingFang.ttc的格式转换为linux可用ttf格式。上面博客推荐的转换地址发现，超过了上传文件最大限度。</p>
-<ol>
-<li><a href="https://www.files-conversion.com/font-converter.php" target="_blank" rel="noopener">Convert Font Files</a> 这个网址转换成功。</li>
-</ol>
+<p>经过后续实操经验证明，其实Linux是能够接受ttc格式字体，而且经过压缩后ttf格式字体，存在大量字体丢失情况。<br><del>需要将PingFang.ttc的格式转换为linux可用ttf格式。上面博客推荐的转换地址发现，超过了上传文件最大限度。</del><br><del>1. <a href="https://www.files-conversion.com/font-converter.php" target="_blank" rel="noopener">Convert Font Files</a> 这个网址转换成功。</del></p>
 <p>但是新的问题：浏览器上使用的是PingFang SC字体。linux服务器使用的PingFang字体，导致看到和截图字体样式不一致。</p>
 <p>linux 建立字体索引 更新缓存</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkfontscale</span><br><span class="line">mkfontdir</span><br><span class="line">fc-cache</span><br></pre></td></tr></table></figure>
@@ -602,7 +602,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
