@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-  <loc>https://drgonroot-github-io.vercel.app/2018/10/21/regular-expression/</loc>
-    <lastmod>2020-07-27</lastmod>
+  <loc>https://drgonroot-github-io.vercel.app/2020/08/06/influxdb-grafana-telegraf%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BB%9F%E8%AE%A1/</loc>
+    <lastmod>2020-08-09</lastmod>
   </url>  <url>
   <loc>https://drgonroot-github-io.vercel.app/2020/07/26/ganglia%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2020-08-06</lastmod>
+  </url>  <url>
+  <loc>https://drgonroot-github-io.vercel.app/2018/10/21/regular-expression/</loc>
     <lastmod>2020-07-27</lastmod>
   </url>  <url>
   <loc>https://drgonroot-github-io.vercel.app/2020/07/19/%E9%9D%9E%E6%9A%B4%E5%8A%9B%E6%B2%9F%E9%80%9A/</loc>

@@ -297,6 +297,161 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2020/08/06/influxdb-grafana-telegraf服务器统计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="drgonroot">
+      <meta itemprop="description" content="不曾拥有，所以努力。热爱技术|热爱思考">
+      <meta itemprop="image" content="/images/ciwei.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="断线风筝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/08/06/influxdb-grafana-telegraf服务器统计/" itemprop="url">
+                  influxdb+grafana+telegraf服务器统计
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-08-06 23:26:14" itemprop="dateCreated datePublished" datetime="2020-08-06T23:26:14+08:00">2020-08-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-08-09 17:14:41" itemprop="dateModified" datetime="2020-08-09T17:14:41+08:00">2020-08-09</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h2 id="influxdb-grafana-telegraf服务器统计"><a href="#influxdb-grafana-telegraf服务器统计" class="headerlink" title="influxdb+grafana+telegraf服务器统计"></a>influxdb+grafana+telegraf服务器统计</h2><h3 id="influxdb"><a href="#influxdb" class="headerlink" title="influxdb"></a>influxdb</h3><blockquote>
+<p>类似mysql数据库,时序图的数据库</p>
+</blockquote>
+<h3 id="grafana"><a href="#grafana" class="headerlink" title="grafana"></a>grafana</h3><h3 id="telegraf"><a href="#telegraf" class="headerlink" title="telegraf"></a>telegraf</h3>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2020/07/26/ganglia安装使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -360,7 +515,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-07-27 10:49:20" itemprop="dateModified" datetime="2020-07-27T10:49:20+08:00">2020-07-27</time>
+                <time title="修改时间：2020-08-06 23:24:59" itemprop="dateModified" datetime="2020-08-06T23:24:59+08:00">2020-08-06</time>
               
             
           </span>
@@ -399,7 +554,125 @@
 <h3 id="ganglia"><a href="#ganglia" class="headerlink" title="ganglia"></a>ganglia</h3><h4 id="Ganglia简介"><a href="#Ganglia简介" class="headerlink" title="Ganglia简介"></a>Ganglia简介</h4><p><a href="http://ganglia.info/" target="_blank" rel="noopener">ganglia官网</a>     <a href="https://zhuanlan.zhihu.com/p/48597372" target="_blank" rel="noopener">监控软件对比</a><br>&emsp;&emsp; Ganglia是一个可扩展的分布式监视系统，用于高性能计算系统，例如集群和网格。它利用了广泛使用的技术，例如XML用于数据表示，XDR用于紧凑，便携式数据传输以及RRDtool用于数据存储和可视化。它使用精心设计的数据结构和算法来实现非常低的每节点开销和高并发性。它已用于链接大学校园和全球范围内的集群，并且可以扩展以处理具有2000个节点的集群。</p>
 <p>伯克利大学的开源服务器监控软件。</p>
 <h4 id="ganglia模块结构"><a href="#ganglia模块结构" class="headerlink" title="ganglia模块结构"></a>ganglia模块结构</h4><p>ganglia 分为gmond、gmetad、gweb</p>
-<h4 id="安装与使用"><a href="#安装与使用" class="headerlink" title="安装与使用"></a>安装与使用</h4><h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="http://legendtkl.com/2017/08/12/understanding-ganglia-1/" target="_blank" rel="noopener">深入理解 Ganglia 之 Overview</a></p>
+<h4 id="Centos-安装与使用"><a href="#Centos-安装与使用" class="headerlink" title="Centos 安装与使用"></a>Centos 安装与使用</h4><h5 id="PHP-nginx-gweb的安装与使用"><a href="#PHP-nginx-gweb的安装与使用" class="headerlink" title="PHP+nginx+gweb的安装与使用"></a>PHP+nginx+gweb的安装与使用</h5><h6 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h6><p>安装并启动gmetad:</p>
+<blockquote>
+<p>gmetad展示收集到cpu等服务器性能数据。gmetad通过TCP拉取gmond信息</p>
+</blockquote>
+<ul>
+<li><p><code>yum install ganglia-gmetad</code>   gmetad拉取其他集群或者服务器的rrd数据</p>
+</li>
+<li><p>自定义设置/etc/ganglia/gmetad.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data_source &quot;dev&quot; localhost   #自定义集群数据源为dev,localhost是指集群数据来自于本机</span><br><span class="line">gridname &quot;Dev&quot;   #自定义表格为Dev</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><img src="/images/gmetad%E9%85%8D%E7%BD%AE%E5%BD%B1%E5%93%8D%E5%85%83%E7%B4%A0.png" alt="gmetad配置影响元素"></p>
+<ul>
+<li><code>chkconfig gmetad on</code>     centos6开启开机自动启动</li>
+<li><code>service gmetad start</code>    启动gmetad程序</li>
+</ul>
+<p><strong><em>安装并启动gweb:</em></strong>  </p>
+<p><strong>两种方式安装:</strong>   </p>
+<ol>
+<li>第一种方式自定义编译安装(当时因为担心yum提供的不太完整，所以采用源码ganglia-web包编译安装):</li>
+</ol>
+<ul>
+<li>下载安装ganglia-web包</li>
+<li><ul>
+<li>下载最新ganglia-web最新安装包 <a href="https://sourceforge.net/projects/ganglia/files/ganglia-web/" target="_blank" rel="noopener">下载地址</a></li>
+</ul>
+</li>
+<li><ul>
+<li>解压ganglia-web的压缩包</li>
+</ul>
+</li>
+<li><ul>
+<li>创建www-data的用户  <code>useradd www-data</code></li>
+</ul>
+</li>
+<li><ul>
+<li>切换至ganglia-web的解压缩包路径下执行： <code>make install</code>  编译安装ganglia-web</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>第二种方式安装:  </li>
+</ol>
+<ul>
+<li><p>yum install ganglia-web</p>
+</li>
+<li><p><code>/var/lib/ganglia-web/dwoo/compiled</code>、<code>/var/lib/ganglia-web/dwoo/cache</code>文件夹写入权限用户组，需要看php-fpm启动用户(默认为:apache)</p>
+</li>
+<li><ul>
+<li><code>chown -R apache:apache ./</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>安装nginx代理访问ganglia-web的应用</strong>   </p>
+<ul>
+<li>下载安装启动nginx <a href="https://www.nginx.com/resources/wiki/start/topics/tutorials/install/" target="_blank" rel="noopener">nginx官网安装教程</a></li>
+<li>nginx配置gweb</li>
+</ul>
+<ol>
+<li>创建了一个nginx的 ganglia.conf,并将这个文件 <code>include conf.d/aloha_ganglia.conf;</code>到nginx.conf中。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ganglia.conf</span><br><span class="line">server &#123;</span><br><span class="line">    listen 80 default_server;</span><br><span class="line"></span><br><span class="line">    access_log  /data/log/nginx/access_ganglia_http.log main;</span><br><span class="line">    gzip  on;</span><br><span class="line"></span><br><span class="line">    # root指向/usr/share/ganglia-webfrontend</span><br><span class="line">    root /usr/share/ganglia-webfrontend;</span><br><span class="line">    index index.php;</span><br><span class="line"></span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">      fastcgi_pass  localhost:9000;</span><br><span class="line">      include fastcgi.conf;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li><p><code>yum install php-fpm</code>    php-fpm(FastCGI Process Manager)安装php的fastcgi进程管理包</p>
+</li>
+<li><p><code>chkconfig php-fpm on</code>  centos6开启开机自动启动</p>
+</li>
+<li><p><code>service php-fpm start</code>   启动php-fpm</p>
+</li>
+</ul>
+<h6 id="Client-Node"><a href="#Client-Node" class="headerlink" title="Client/Node"></a>Client/Node</h6><blockquote>
+<p>定义单广播地址、端口和群播的端口，定义gmetad拉取数据端口。<br>需要配置集群主节点、子节点。子节点负责发送数据到主节点、主节点收集子节点数据，同时开放端口共gmetab提取数据。</p>
+</blockquote>
+<ul>
+<li><p><code>yum install ganglia-gmond</code>  使用yum安装 ganglia-gmond</p>
+</li>
+<li><p><code>chkconfig gmond on</code>     centos6开启开机自动启动</p>
+</li>
+<li><p><code>service gmond start</code>     启动gmond</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">cluster &#123;</span><br><span class="line">  name = &quot;dev&quot;  #指定data_source的名称，集群名称</span><br><span class="line">  owner = &quot;unspecified&quot;</span><br><span class="line">  latlong = &quot;unspecified&quot;</span><br><span class="line">  url = &quot;unspecified&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">udp_send_channel &#123; #udp包的发送通道</span><br><span class="line">  #bind_hostname = yes # Highly recommended, soon to be default.</span><br><span class="line">                       # This option tells gmond to use a source address</span><br><span class="line">                       # that resolves to the machine&apos;s hostname.  Without</span><br><span class="line">                       # this, the metrics may appear to come from any</span><br><span class="line">                       # interface and the DNS names associated with</span><br><span class="line">                       # those IPs will be used to create the RRDs.</span><br><span class="line">  #mcast_join = 239.2.11.71  </span><br><span class="line">  host = 192.168.0.2     # 单播地址</span><br><span class="line">  port = 8649   # 单播端口</span><br><span class="line">  ttl = 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">udp_recv_channel &#123; #接收udp包配置</span><br><span class="line">  #mcast_join = 239.2.11.71</span><br><span class="line">  port = 8649     #gmond收到广播端口</span><br><span class="line">  #bind = 239.2.11.71</span><br><span class="line">  retry_bind = true</span><br><span class="line">  # Size of the UDP buffer. If you are handling lots of metrics you really</span><br><span class="line">  # should bump it up to e.g. 10MB or even higher.</span><br><span class="line">  # buffer = 10485760</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">tcp_accept_channel &#123;</span><br><span class="line">  port = 8649   #开放gmetad的端口，常用于集群主节点</span><br><span class="line">  # If you want to gzip XML output</span><br><span class="line">  gzip_output = no</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">send_metadata_interval 30  #改成30秒，一定要改，否则子节点数据不会提交</span><br></pre></td></tr></table></figure>
+
+<h6 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h6><table>
+<thead>
+<tr>
+<th align="center">应用</th>
+<th align="center">配置文件</th>
+<th align="center">数据文件</th>
+<th align="center">命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ganglia-gmetad</td>
+<td align="center">/etc/ganglia/gmetad.conf</td>
+<td align="center"></td>
+<td align="center">service gmetab start、chkconfig gmetab on</td>
+</tr>
+<tr>
+<td align="center">ganglia-gmond</td>
+<td align="center">/etc/ganglia/gmond.conf</td>
+<td align="center"></td>
+<td align="center">service gmond start、chkconfig gmond on</td>
+</tr>
+<tr>
+<td align="center">ganglia-web</td>
+<td align="center"></td>
+<td align="center">/var/lib/ganglia-web/dwoo/compiled、/var/lib/ganglia-web/dwoo/cache、/usr/share/ganglia-webfrontend</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">rrdtool</td>
+<td align="center"></td>
+<td align="center">/var/lib/ganglia/rrds</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="http://legendtkl.com/2017/08/12/understanding-ganglia-1/" target="_blank" rel="noopener">深入理解 Ganglia 之 Overview</a><br><a href="https://wiki.archlinux.org/index.php/Ganglia" target="_blank" rel="noopener">nginx 配置ganglia参考</a><br><a href="https://www.dazhuanlan.com/2019/08/21/5d5d10f64d4ed/" target="_blank" rel="noopener">Ganglia部署实战</a></p>
 
           
         
@@ -1746,169 +2019,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2020/05/16/Java命令系列-javac/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="drgonroot">
-      <meta itemprop="description" content="不曾拥有，所以努力。热爱技术|热爱思考">
-      <meta itemprop="image" content="/images/ciwei.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="断线风筝">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/05/16/Java命令系列-javac/" itemprop="url">
-                  Java命令系列-javac
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-05-16 13:29:33" itemprop="dateCreated datePublished" datetime="2020-05-16T13:29:33+08:00">2020-05-16</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-05-18 10:48:54" itemprop="dateModified" datetime="2020-05-18T10:48:54+08:00">2020-05-18</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h4 id="javac-命令详解"><a href="#javac-命令详解" class="headerlink" title="javac 命令详解"></a>javac 命令详解</h4><blockquote>
-<p>javac (java compiler)(java源码编译器)，将源码代码(.java)编译成字节码文件(.class)。</p>
-</blockquote>
-<p><em>备注:</em><br><code>在MyClass中的MyInerClass内部类,编译后生成MyClass$MyInnerClass.class</code></p>
-<h4 id="javac-命令使用"><a href="#javac-命令使用" class="headerlink" title="javac 命令使用"></a>javac 命令使用</h4><p>javac [<code>命令参数</code>] [<code>单个源码文件</code>] [<code>多个源码文件(空格分隔,eg: MyClassA.java  MyClassB.java</code>)] [<code>多个源码文件路径组成的文件(eg: @recordSourceFile</code>)]</p>
-<p>javac命令执行会自动识别当前路径。</p>
-<h5 id="使用javac样例"><a href="#使用javac样例" class="headerlink" title="使用javac样例"></a>使用javac样例</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 编译一个类</span><br><span class="line">useheart@useheart JavaCompiler % javac src/main/java/multi/TestMainOne.java</span><br><span class="line">// 编译多个类</span><br><span class="line">useheart@useheart JavaCompiler % javac src/main/java/multi/TestMainOne.java src/main/java/multi/TestMainTwo.java src/main/java/multi/TestMainThree.java</span><br><span class="line">// 显示编译后class,自动放入在被编译文件路径下</span><br><span class="line">useheart@useheart JavaCompiler % cd src/main/java/multi</span><br><span class="line">useheart@useheart multi % ll</span><br><span class="line">total 48</span><br><span class="line">-rw-r--r--  1 useheart  staff  430  5 17 18:18 TestMainOne.class</span><br><span class="line">-rw-r--r--  1 useheart  staff  203  5 17 18:02 TestMainOne.java</span><br><span class="line">-rw-r--r--  1 useheart  staff  436  5 17 18:18 TestMainThree.class</span><br><span class="line">-rw-r--r--  1 useheart  staff  207  5 17 18:02 TestMainThree.java</span><br><span class="line">-rw-r--r--  1 useheart  staff  430  5 17 18:18 TestMainTwo.class</span><br><span class="line">-rw-r--r--  1 useheart  staff  203  5 17 18:02 TestMainTwo.java</span><br><span class="line">useheart@useheart multi %</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/05/16/Java命令系列-javac/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1958,7 +2068,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
