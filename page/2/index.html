@@ -297,6 +297,348 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2020/05/17/Mac常见问题和技巧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="drgonroot">
+      <meta itemprop="description" content="不曾拥有，所以努力。热爱技术|热爱思考">
+      <meta itemprop="image" content="/images/ciwei.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="断线风筝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/17/Mac常见问题和技巧/" itemprop="url">
+                  Mac常见问题和技巧
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-17 16:16:07" itemprop="dateCreated datePublished" datetime="2020-05-17T16:16:07+08:00">2020-05-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-09-02 22:05:15" itemprop="dateModified" datetime="2020-09-02T22:05:15+08:00">2020-09-02</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h5 id="常见技巧"><a href="#常见技巧" class="headerlink" title="常见技巧"></a>常见技巧</h5><h5 id="优秀软件"><a href="#优秀软件" class="headerlink" title="优秀软件"></a>优秀软件</h5><h6 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h6><p>新版MacOs Catalina推荐默认使用命令脚本zsh，而不是bash。<br>对于遇到 no matches的提示解决方案</p>
+<blockquote>
+<p>参考来源:<a href="https://www.bartbusschots.ie/s/2019/06/12/bash-to-zsh-file-globbing-and-no-matches-found-errors/" target="_blank" rel="noopener">Bash to Zsh: File Globbing and ‘no matches found’ Errors</a></p>
+</blockquote>
+<p>在 ~/.zshrc 文件上添加：<br><code># only throw errors when no globs match anything</code><br><code>setopt CSH_NULL_GLOB</code></p>
+<hr>
+<p>新版MacOs Catalina增加一个硬盘上两个卷(Macintosh HD、 Macintosh HD Data)，并且有个卷是只读的(Macintosh HD)。System Integrity Protection 系统保护根路径变成只读卷（命令: csrutil）。</p>
+<blockquote>
+<p><a href="https://sspai.com/post/57052" target="_blank" rel="noopener">当 Mac 升级到 Catalina 时，苹果在硬盘里施了点魔法</a></p>
+</blockquote>
+<p>在只读卷新建文件/文件夹、在根目录创建data文件解决方案</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/weixin_42619248/article/details/102503825" target="_blank" rel="noopener">可以通过在根路径下建立软连接连接到其他可读写的卷上，解决/data的问题</a></p>
+</blockquote>
+<ol>
+<li>关闭System Integrity Protection的只读卷保护</li>
+</ol>
+<ul>
+<li>重启苹果电脑</li>
+<li>重启过程中，长按住Command-R键重启进入恢复模式</li>
+<li>进入恢复模式，在Utilities菜单项中选择Terminal</li>
+<li>在Terminal控制台里面输入 <code>csrutil disable</code> 关闭系统保护</li>
+<li>输入<code>csrutil status</code>，查看系统保护状态</li>
+</ul>
+<ol start="2">
+<li>在恢复模式下，重启电脑<blockquote>
+<p>有时执行下面步骤，仍然出现read only system的提醒是可以<code>sudo mount -uw /</code> 强制重新挂载硬盘来解决</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li>重启电脑成功后，就可以直接操作根目录路径文件、文件夹</li>
+<li>【建议】在<code>Macintosh HD Data</code>建立好文件夹、文件，然后在<code>Macintosh HD</code>创建软连接/硬链接到文件夹、文件</li>
+</ul>
+<ol start="3">
+<li>恢复System Integrity Protection的只读卷保护</li>
+</ol>
+<ul>
+<li>重启苹果电脑</li>
+<li>重启过程中，长按住Command-R键重启进入恢复模式</li>
+<li>进入恢复模式，在Utilities菜单项中选择Terminal</li>
+<li>在Terminal控制台里面输入 <code>csrutil enable</code> 开启系统保护</li>
+<li>输入<code>csrutil status</code>，查看系统保护状态</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2020/05/17/Charles使用细节说明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="drgonroot">
+      <meta itemprop="description" content="不曾拥有，所以努力。热爱技术|热爱思考">
+      <meta itemprop="image" content="/images/ciwei.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="断线风筝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/05/17/Charles使用细节说明/" itemprop="url">
+                  Charles使用细节说明
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-05-17 11:43:35 / 修改时间：12:13:40" itemprop="dateCreated datePublished" datetime="2020-05-17T11:43:35+08:00">2020-05-17</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<p>Charles是一款优秀HTTPS/HTTP网络代理工具</p>
+<blockquote>
+<p><a href="https://www.charlesproxy.com" target="_blank" rel="noopener">Charles官网地址</a><br><a href="https://xclient.info/s/charles.html" target="_blank" rel="noopener">Charles下载地址</a></p>
+</blockquote>
+<h4 id="Charles-gt-Map-Remote-Setting-gt-Edit-Mapping中preserve-host-in-header-fields的使用"><a href="#Charles-gt-Map-Remote-Setting-gt-Edit-Mapping中preserve-host-in-header-fields的使用" class="headerlink" title="Charles -&gt; Map Remote Setting -&gt; Edit Mapping中preserve host in header fields的使用"></a>Charles -&gt; Map Remote Setting -&gt; Edit Mapping中preserve host in header fields的使用</h4><p><img src="/images/Charles%E4%BF%9D%E6%8A%A4HostHeaderfields%E4%B8%80.png" alt="Charles 不勾选">  </p>
+<p><img src="/images/Charles%E4%BF%9D%E6%8A%A4HostHeaderFileds%E4%BA%8C.png" alt="Charles 勾选"></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2020/05/16/Java命令系列-javac/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1581,339 +1923,6 @@ The latest release is version 6b of 27-Mar-1998. This is a stable and solid foun
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2019/06/01/MacOS thrift旧版本安装爬坑指南/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="drgonroot">
-      <meta itemprop="description" content="不曾拥有，所以努力。热爱技术|热爱思考">
-      <meta itemprop="image" content="/images/ciwei.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="断线风筝">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/01/MacOS thrift旧版本安装爬坑指南/" itemprop="url">
-                  Mac os thrift旧版本安装爬坑指南、Mac thrift安装指南、thrift安装学习、thrift安装爬坑
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-01 18:41:25" itemprop="dateCreated datePublished" datetime="2019-06-01T18:41:25+08:00">2019-06-01</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-23 22:04:21" itemprop="dateModified" datetime="2020-02-23T22:04:21+08:00">2020-02-23</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h5 id="Mac-os-thrift旧版本安装爬坑指南"><a href="#Mac-os-thrift旧版本安装爬坑指南" class="headerlink" title="Mac os thrift旧版本安装爬坑指南"></a>Mac os thrift旧版本安装爬坑指南</h5><p>喜欢使用brew来进行一键安装:</p>
-<blockquote>
-<p><a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">homebrew官网</a><br><a href="https://github.com/Homebrew/homebrew-core" target="_blank" rel="noopener">homebrew-core github网址</a></p>
-</blockquote>
-<ul>
-<li><p>对于安装最新新版本thrift,我们可以直接是用brew install thrift     </p>
-</li>
-<li><p>使用brew search thrift;查看不同版本的thrift。然后brew install <a href="mailto:thrift@0.9.0" target="_blank" rel="noopener">thrift@0.9.0</a></p>
-</li>
-<li><p>使用复杂brew方案进行安装。思路同时通过找到旧版本的thrift.rb。</p>
-<ol>
-<li>将homebrew-core的git文件下载到本地。</li>
-<li>通过查看Formula/thrift.rb的history。   </li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/06/01/MacOS thrift旧版本安装爬坑指南/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </li></ul></div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2019/06/01/nginx控制http转https/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="drgonroot">
-      <meta itemprop="description" content="不曾拥有，所以努力。热爱技术|热爱思考">
-      <meta itemprop="image" content="/images/ciwei.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="断线风筝">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/01/nginx控制http转https/" itemprop="url">
-                  通过nginx控制http转https、http转https请求实现、http变成https请求
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-01 18:22:54" itemprop="dateCreated datePublished" datetime="2019-06-01T18:22:54+08:00">2019-06-01</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-23 22:04:12" itemprop="dateModified" datetime="2020-02-23T22:04:12+08:00">2020-02-23</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h5 id="通过nginx控制http转https"><a href="#通过nginx控制http转https" class="headerlink" title="通过nginx控制http转https"></a>通过nginx控制http转https</h5><blockquote>
-<p>现在越来越多的公司选择https的协议。<br>我司的做法: nginx上进行https的认证，在请求在交给tomcat进行处理。而tomcat处理的是http的请求。因为当进行tomcat应用程进行重定向时直接使用http的请求在处理。</p>
-</blockquote>
-<p>为了保证整个请求都是https请求。我们需要将返回的请求进行重定向为https的。</p>
-<p>通过proxy-redirect修改Location中的url。</p>
-<ol>
-<li>将 conf/conf.d/proxy_params文件中 <code>proxy_redirect off;</code> 注释掉</li>
-<li>将<br>proxy_redirect <a href="http://www.xxxxx.com/" target="_blank" rel="noopener">http://www.xxxxx.com/</a> <a href="https://www.xxxxx.com/" target="_blank" rel="noopener">https://www.xxxxx.com/</a>;<br>proxy_redirect <a href="http://xxxxx.com/" target="_blank" rel="noopener">http://xxxxx.com/</a> <a href="https://xxxx.com/" target="_blank" rel="noopener">https://xxxx.com/</a>;<br>放入到server {}块中。</li>
-</ol>
-<p>如果一直使用http的协议，容易出现网页中有代码注入广告的现象。运营商就经常将小广告注入到网页中，一般是网页的右下角有个摆动的小图标。使用https的协议，能够降低这一现象。不过一山更比一山高，https的也会有网页代码注入的现象，不过特别隐蔽。我遇到表现是打开应用的中网页时会启动其他应用程序如京东、淘宝。<a href="https://www.zhihu.com/question/35720092/answer/523563873" target="_blank" rel="noopener">对这一现象的说明和解决方案</a></p>
-<p>参考资料:<br><a href="http://info.siven.net/posts/d925bb5d.html" target="_blank" rel="noopener">Nginx SSL 结合Tomcat 重定向URL变成HTTP的问题</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1963,7 +1972,7 @@ The latest release is version 6b of 27-Mar-1998. This is a stable and solid foun
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2006,7 +2015,11 @@ The latest release is version 6b of 27-Mar-1998. This is a stable and solid foun
                     
                       
                     
-                    <span class="site-state-item-count">14</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
