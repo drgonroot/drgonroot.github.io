@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="吐槽、建议、解惑入口网址 GIF&amp;emsp; &amp;emsp;Gif一个比较古老的图片格式。图片交换格式(GIF， Graphics Interchange Format)是一种位图图形文件格式，采用8位色最多256种索引颜色调色板描绘图像。GIF是一种压缩文档，使用LZW算法压缩算法进行编码，同时也有效减少了图像文件在网络上传输的时间。&amp;emsp; &amp;emsp;近些年动态的表情包的大火，使得Gif图">
+<meta name="keywords" content="后端,前端,图片">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等">
+<meta property="og:url" content="https://drgonroot.github.io/2020/02/24/图片/JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等/index.html">
+<meta property="og:site_name" content="断线风筝">
+<meta property="og:description" content="吐槽、建议、解惑入口网址 GIF&amp;emsp; &amp;emsp;Gif一个比较古老的图片格式。图片交换格式(GIF， Graphics Interchange Format)是一种位图图形文件格式，采用8位色最多256种索引颜色调色板描绘图像。GIF是一种压缩文档，使用LZW算法压缩算法进行编码，同时也有效减少了图像文件在网络上传输的时间。&amp;emsp; &amp;emsp;近些年动态的表情包的大火，使得Gif图">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://drgonroot.github.io/images/GIF%E5%92%8CAPNG%E7%9A%84%E5%B7%AE%E5%BC%82.png">
+<meta property="og:updated_time" content="2020-03-01T13:33:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等">
+<meta name="twitter:description" content="吐槽、建议、解惑入口网址 GIF&amp;emsp; &amp;emsp;Gif一个比较古老的图片格式。图片交换格式(GIF， Graphics Interchange Format)是一种位图图形文件格式，采用8位色最多256种索引颜色调色板描绘图像。GIF是一种压缩文档，使用LZW算法压缩算法进行编码，同时也有效减少了图像文件在网络上传输的时间。&amp;emsp; &amp;emsp;近些年动态的表情包的大火，使得Gif图">
+<meta name="twitter:image" content="https://drgonroot.github.io/images/GIF%E5%92%8CAPNG%E7%9A%84%E5%B7%AE%E5%BC%82.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://drgonroot.github.io/2020/02/24/图片/JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等 | 断线风筝</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135039274-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-135039274-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">断线风筝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2020/02/24/图片/JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="drgonroot">
+      <meta itemprop="description" content="不曾拥有，所以努力。热爱技术|热爱思考">
+      <meta itemprop="image" content="/images/ciwei.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="断线风筝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-24 23:03:20" itemprop="dateCreated datePublished" datetime="2020-02-24T23:03:20+08:00">2020-02-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-01 21:33:17" itemprop="dateModified" datetime="2020-03-01T21:33:17+08:00">2020-03-01</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h4 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h4><p>&emsp; &emsp;Gif一个比较古老的图片格式。图片交换格式(GIF， Graphics Interchange Format)是一种位图图形文件格式，采用8位色最多256种索引颜色调色板描绘图像。GIF是一种压缩文档，使用LZW算法压缩算法进行编码，同时也有效减少了图像文件在网络上传输的时间。<br>&emsp; &emsp;近些年动态的表情包的大火，使得Gif图像重新派上用场。其支持多帧图片，从而实现动画效果（即帧动画），同时也可以设置透明色产生透明图片的。&emsp; 但是由于之前专利的原因，Gif的静态图像功能被PNG给替代了，目前Gif常用于颜色简单的动画上。<br>&emsp; &emsp;Gift也是因为最多支持8位256色，无法支持更加丰富色彩图片。Gift存在色阶过渡糟糕，图片具有颗粒感，不支持Alpha透明通道，边缘有杂边。在静态图像优势没有PNG效果好。</p>
+<a id="more"></a>
+
+<h4 id="APNG"><a href="#APNG" class="headerlink" title="APNG"></a>APNG</h4><p>&emsp; &emsp;APNG(Animated Portable Network Graphics)格式是PNG位图格式扩展，但未获得PNG组织官方认可。其扩展方式类似GIF 89a,仍对原版PNG保持向下兼容。APNG第一帧为标准PNG图像，剩余的动画和帧速等数据放在PNG扩展数据块上。因此支持原版PNG的软件会正确显示第一帧。<br>&emsp; &emsp;APNG的特点，支持24位真彩色图片，同时也支持 8位Alpha透明通道。其也能向下兼容PNG图像。<br><strong>APNG和GIF对比差异:</strong><br><img src="/images/GIF%E5%92%8CAPNG%E7%9A%84%E5%B7%AE%E5%BC%82.png" alt="GIF和APNG的差异"></p>
+<blockquote>
+<p>APNG实现原理参考：<a href="https://aotu.io/notes/2016/11/07/apng/index.html#APNG%20%E7%9A%84%E7%BB%84%E6%88%90" target="_blank" rel="noopener">APNG实现组成</a></p>
+</blockquote>
+<h4 id="WebP"><a href="#WebP" class="headerlink" title="WebP"></a>WebP</h4><p>WebP标准是Google定制的，迄今为止也只有Google发布的libwebp实现了该的编解码。Webp提供了有损压缩与无损压缩（可逆压缩）的图片文件格式,也支持静态模式图像和动态模式图像。其是8位ARGB四通道描绘图像。  </p>
+<blockquote>
+<p><a href="https://developers.google.com/speed/webp" target="_blank" rel="noopener">官网介绍</a></p>
+</blockquote>
+<h4 id="BPG"><a href="#BPG" class="headerlink" title="BPG"></a>BPG</h4><p>BPG(Better Portable Graphics) 是一种新的图片格式。其主要目的是为了替代JPEG图像，并且质量和文件大小做得更好。</p>
+<blockquote>
+<p><a href="https://bellard.org/bpg/" target="_blank" rel="noopener">官网介绍</a></p>
+</blockquote>
+<h4 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a>SVG</h4><p>&emsp; &emsp;SVG即可缩放矢量图形 (Scalable Vector Graphics)的简称, 是一种用来描述二维矢量图形的XML标记语言. SVG图形不依赖于分辨率, 因此图形不会因为放大而显示出明显的锯齿边缘.<br>&emsp; &emsp;SVG主要用来显示矢量图，例如一些形状、线和点的组合，所以目前很多主流的图标库都提供SVG格式的文件。</p>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="https://blog.ibireme.com/2015/11/02/mobile_image_benchmark/" target="_blank" rel="noopener">移动端图片格式调研</a><br><a href="https://aotu.io/notes/2016/11/07/apng/index.html" target="_blank" rel="noopener">APNG及动态图像各类区别</a><br><a href="https://www.jianshu.com/p/261cd13757ce" target="_blank" rel="noopener">图像压缩技术：选择正确的图片格式</a><br><a href="https://www.geekhub.cn/a/1780.html" target="_blank" rel="noopener">动态图片技术 — 历史、格式与性能</a></p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>不曾拥有，所以努力。（坚持原创技术分享，您的支持将鼓励我继续创作！）</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin_reward.jpeg" alt="drgonroot 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>drgonroot</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://drgonroot.github.io/2020/02/24/图片/JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等/" title="JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等">https://drgonroot.github.io/2020/02/24/图片/JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/后端/" rel="tag"># 后端</a>
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/tags/图片/" rel="tag"># 图片</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/24/图片/JEPG、PNG、WEBP、GIF、SVG的学习使用-PNG/" rel="next" title="JEPG、PNG、WEBP、GIF、SVG的学习使用、 各种网络图片格式学习-PNG">
+                <i class="fa fa-chevron-left"></i> JEPG、PNG、WEBP、GIF、SVG的学习使用、 各种网络图片格式学习-PNG
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/19/公司基础知识了解文档/" rel="prev" title="公司基础知识了解文档">
+                公司基础知识了解文档 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/ciwei.jpg" alt="drgonroot">
+            
+              <p class="site-author-name" itemprop="name">drgonroot</p>
+              <p class="site-description motion-element" itemprop="description">不曾拥有，所以努力。热爱技术|热爱思考</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/drgonroot" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#GIF"><span class="nav-number">1.</span> <span class="nav-text">GIF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#APNG"><span class="nav-number">2.</span> <span class="nav-text">APNG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WebP"><span class="nav-number">3.</span> <span class="nav-text">WebP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BPG"><span class="nav-number">4.</span> <span class="nav-text">BPG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVG"><span class="nav-number">5.</span> <span class="nav-text">SVG</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考资料"><span class="nav-number">6.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">drgonroot</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

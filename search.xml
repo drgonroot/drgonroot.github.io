@@ -1,8 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>互联网项目管理实践精粹（一）</title>
+    <url>/2020/09/08/%E8%AF%BB%E4%B9%A6/%E4%BA%92%E8%81%94%E7%BD%91%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E5%AE%9E%E8%B7%B5%E7%B2%BE%E7%B2%B9%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h3 id="项目经理"><a href="#项目经理" class="headerlink" title="项目经理"></a>项目经理</h3><blockquote>
+<p>项目经理角色是组织战略与项目团队之间联系的纽带，也是确保项目团队工作价值并对项目结果负责和主要负责人。</p>
+</blockquote>
+<h4 id="核心责任"><a href="#核心责任" class="headerlink" title="核心责任"></a>核心责任</h4><ul>
+<li><p>管理维护项目待办事项列表，确保项目团队明晰列表内容及产品需求优先级；</p>
+</li>
+<li><p>指导和引导项目团队按照标准制度流程，高效地进行项目设计、开发与实现；</p>
+</li>
+<li><p>多项目的全程项目生命周期管理，确保项目团队各成员了解的信息真实对等；</p>
+</li>
+<li><p>整合协调公司内外部项目资源，扫清障碍、打通经脉，高效地推动推动项目落地；</p>
+</li>
+<li><p>参与组织级项目管理体系建设，提升项目管理能力，激发项目团队工作热情；</p>
+</li>
+<li><p>合理安排项目资源，制订并执行项目计划，管理项目从立项到上线的全部过程；</p>
+</li>
+<li><p>及时发现项目中可能存在的风险并提前预警，制订项目风险应对和应急方案；</p>
+</li>
+<li><p>与各职能部门高效沟通，快速推动项目问题和难点的解决，并定期总结汇报；</p>
+</li>
+<li><p>研究并推广应用先进的互联网项目管理工具，促进项目管理信息化和自动化。</p>
+<a id="more"></a>
+
+</li>
+</ul>
+<h4 id="如何了解某个职位责任？"><a href="#如何了解某个职位责任？" class="headerlink" title="如何了解某个职位责任？"></a>如何了解某个职位责任？</h4><ol>
+<li>这个职位具体扮演角色包括哪些核心职责？</li>
+<li>如果想要担任这个角色需要哪些认知资格？</li>
+<li>公司中其他角色和这个角色有哪些关联和依赖？</li>
+<li>这个角色隶属于公司哪个部门，以及该部门是如何运作的？</li>
+<li>设立这个角色的公司隶属于哪个行业？通常都是什么规模类型？</li>
+<li>这个行业的发展现状和未来前景如何？有哪些比较知名公司</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>读书</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Logger的学习与源码解析</title>
-    <url>/2020/08/16/Logger%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</url>
+    <url>/2020/08/16/%E6%9C%AA%E5%AE%8C%E6%88%90/Logger%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
 <h3 id="导读"><a href="#导读" class="headerlink" title="导读"></a>导读</h3><h3 id="slf4j日志门面如何一统天下"><a href="#slf4j日志门面如何一统天下" class="headerlink" title="slf4j日志门面如何一统天下"></a>slf4j日志门面如何一统天下</h3><h3 id="slf4j-框架思考"><a href="#slf4j-框架思考" class="headerlink" title="slf4j 框架思考"></a>slf4j 框架思考</h3><h3 id="slf4j-源码解析"><a href="#slf4j-源码解析" class="headerlink" title="slf4j 源码解析"></a>slf4j 源码解析</h3><h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://www.cnblogs.com/youzhibing/p/6849843.html" target="_blank" rel="noopener">从源码来理解slf4j的绑定，以及logback对配置文件的加载</a><br><a href="https://www.jianshu.com/p/9916de96cb99" target="_blank" rel="noopener">Java 日志框架解析：设计模式、性能</a><br><a href="http://ifeve.com/disruptor/" target="_blank" rel="noopener">并发框架Disruptor译文</a></p>
 ]]></content>
@@ -12,8 +54,8 @@
       </tags>
   </entry>
   <entry>
-    <title>字符集、字符集编码、字符排序方式</title>
-    <url>/2020/08/15/%E5%AD%97%E7%AC%A6%E9%9B%86%E3%80%81%E5%AD%97%E7%AC%A6%E9%9B%86%E7%BC%96%E7%A0%81%E3%80%81%E5%AD%97%E7%AC%A6%E6%8E%92%E5%BA%8F%E6%96%B9%E5%BC%8F/</url>
+    <title>字符集、字符编码、字符排序方式</title>
+    <url>/2020/08/15/%E5%AD%97%E7%AC%A6%E9%9B%86%E3%80%81%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E3%80%81%E5%AD%97%E7%AC%A6%E6%8E%92%E5%BA%8F%E6%96%B9%E5%BC%8F/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
 <h3 id="导读"><a href="#导读" class="headerlink" title="导读"></a>导读</h3><h3 id="基本学习（可以跳过）"><a href="#基本学习（可以跳过）" class="headerlink" title="基本学习（可以跳过）"></a>基本学习（可以跳过）</h3><h4 id="Java-十进制-二进制-八进制-十六进制表示"><a href="#Java-十进制-二进制-八进制-十六进制表示" class="headerlink" title="Java 十进制 二进制  八进制 十六进制表示"></a>Java 十进制 二进制  八进制 十六进制表示</h4><p>二进制表示: <code>0b00101000</code>;  <code>0b</code>代表二进制。<br>八进制表示: <code>01234567</code>;     <code>0</code>代表八进制。<br>十六进制表示:<code>0x1a</code>;        <code>0x</code>代表十六进制。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int decimalInteger = 17;          // 十进制</span><br><span class="line">int binaryInteger = 0b10001;      // 二进制的17</span><br><span class="line">int octalInteger = 021;           // 八进制的17</span><br><span class="line">int hexadecimalInteger = 0x11;    // 十六进制的17</span><br></pre></td></tr></table></figure>
@@ -26,7 +68,205 @@
 <p>Integer类、Long类</p>
 </blockquote>
 <p>Integer.parseInt(“1a”, 16);<br>Integer.parseInt(“13”, 8);<br>Integer.parseInt(“10”, 2);<br>Integer.valueOf(“1a”, 16);<br>Integer.valueOf(“13”, 8);<br>Integer.valueOf(“10”, 2);    </p>
-<h3 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h3><h3 id="字符集编码"><a href="#字符集编码" class="headerlink" title="字符集编码"></a>字符集编码</h3><h3 id="字符集应用"><a href="#字符集应用" class="headerlink" title="字符集应用"></a>字符集应用</h3><h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://segmentfault.com/a/1190000022193508" target="_blank" rel="noopener">字符集：ASCII，GB2312，Unicode，UTF-8，ANSI</a><br><a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html" target="_blank" rel="noopener">字符编码笔记：ASCII，Unicode 和 UTF-8</a><br><a href="https://dev.mysql.com/doc/refman/8.0/en/charset-mysql.html" target="_blank" rel="noopener">Character Sets and Collations in MySQL</a><br><a href="https://segmentfault.com/a/1190000020339810" target="_blank" rel="noopener">MySQL字符集和排序规则</a><br><a href="https://www.jianshu.com/p/3154a3424731" target="_blank" rel="noopener">Java 的 char 是两个字节, 如何存 UTF-8 的字符的</a><br><a href="https://www.jianshu.com/p/57c27d67a8a8" target="_blank" rel="noopener">特殊字符(包括emoji)梳理和UTF8编码解码原理</a><br><a href="https://www.jianshu.com/p/668356dd8089" target="_blank" rel="noopener">char 码点和代码单元</a><br><a href="https://www.jianshu.com/p/c21282df7efb" target="_blank" rel="noopener">JAVA中进制相互转换</a><br><a href="https://www.ssec.wisc.edu/~tomw/java/unicode.html" target="_blank" rel="noopener">Unicode Chart</a></p>
+<a id="more"></a>
+
+<h3 id="正文前餐"><a href="#正文前餐" class="headerlink" title="正文前餐"></a>正文前餐</h3><p>在开始之前，作者想说明一个知识点。</p>
+<ol>
+<li>开发时使用charset。</li>
+</ol>
+<ul>
+<li>无论是前端、客户端、后端开发，都接触到charset。</li>
+<li>很多应用程序也需要去设置字符集，例如<code>mysql charset</code>， <code>http charset</code>，<code>tomcat charset</code><br>&emsp;&emsp;开发时使用charset，通常包含了字符集合(如:中简体文字符集合、英文字符集合)和字符编码二进制存储。<br>&emsp;&emsp;字符集规定了某类字符对应的二进制数值存放方式（编码），通过一个二进制数值 在某种字符集中寻找出对应代表的字符就是解码的过程。—– 引用<a href="http://kelvinleong.github.io/encoding/2015/09/15/Encoding-and-CharSets.html" target="_blank" rel="noopener">细说字符集(CharSet)和字符编码(Encoding)</a><br>&emsp;&emsp;按照惯例，字符集和字符编码是一样的，因为按照<code>一套的标准</code>来定义<code>要去收集哪些字符</code>和<code>将这些字符正确编码到一系列的代码单元（通常一个字符一个单元）</code>。由于历史叫法习惯，我们把将一组字符编码成一系列八位字节数据的编码系统会使用<code>字符集</code>这个术语来表示。 —–引用<a href="https://zh.wikipedia.org/wiki/Category:字符集" target="_blank" rel="noopener">wiki 字符集</a><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">JSP 设置charset</span><br><span class="line">&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;</span><br><span class="line">HTTP response ContentType设置charset</span><br><span class="line">Content-Type: text/html; charset=utf-8</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="字符集-字符编码"><a href="#字符集-字符编码" class="headerlink" title="字符集|字符编码"></a>字符集|字符编码</h3><h4 id="基础概念介绍"><a href="#基础概念介绍" class="headerlink" title="基础概念介绍"></a>基础概念介绍</h4><p>&emsp;&emsp;<strong>字符</strong> 是一个信息单位，在计算机里面，一个中文汉字是一个字符，一个英文字母是一个字符，一个阿拉伯数字是一个字符，一个标点符号也是一个字符。   &emsp;&emsp;<strong>字符集</strong> 是字符组成的集合，通常以二维表的形式存在，二维表的内容和大小是由使用者的语言而定，是英语，是汉语，还是阿拉伯。     &emsp;&emsp;<strong>字符编码</strong> 是把字符集中的字符编码为特定的二进制数，以便在计算机中存储。编码方式一般就是对二维表的横纵坐标进行变换的算法。一般都比较简单，直接把横纵坐标拼一起就完事了，如<a href="https://zh.wikipedia.org/wiki/ASCII" target="_blank" rel="noopener">ASCII</a>。后来随着字符集的不断扩大，为了节省存储空间，才出现了各种各样的算法, utf-8，utf-16。&emsp;&emsp;<strong>字符集和字符编码</strong> 一般都是成对出现的，如ASCII、IOS-8859-1、GB2312、GBK，都是即表示了字符集又表示了对应的字符编码，<code>后续统称为编码(encode,常用于应用程序编码设置)或者 字符集(charset,常用于常用于开发)。</code> —- 引用摘要: <a href="https://www.jianshu.com/p/bd7a6c508c33" target="_blank" rel="noopener">字符，字符集，字符编码</a></p>
+<h4 id="字符集、字符编码历史发展"><a href="#字符集、字符编码历史发展" class="headerlink" title="字符集、字符编码历史发展"></a>字符集、字符编码历史发展</h4><p>&emsp;&emsp;早期字符集发展较为独立，各个地区语言文字不一样，存在一定差异， 形成都有各类字符集。各类地区语言文字有时为了应对不同局势和计算机环境，也在不断改变原先字符集同时也改变了当前字符编码规则。后续计算机行业发展迅猛，开始统一全球字符集。</p>
+<ul>
+<li><p>耳熟能详，最早字符集<a href="https://zh.wikipedia.org/wiki/ASCII" target="_blank" rel="noopener">ASCII</a>(American Standard Code for Information Interchange, 美国信息交换标标准代码)。但是ASCII涵盖了现在基础概念“字符集”、“字符集编码”。ASCII中字符集指是拉丁字母、阿拉伯数字、英文字符及计算机不可显控制字符等，共计128个字符,使用一个字节存储(0x00 ~ 0x7f)。<br><img src="/images/ASCII%E5%AD%97%E7%AC%A6%E9%9B%86%E7%BC%96%E7%A0%81%E8%A1%A8.jpg" alt="ASCII字符集编码表.jpg"></p>
+</li>
+<li><p>后续发展诞生<a href="https://baike.baidu.com/item/ISO%2FIEC%208859/916777" target="_blank" rel="noopener">ISO/IEC 8859</a>标准各类字符集，但是这些字符集ASCII上进行差异性扩展的。其中也包含我们经常使用<code>latin1</code>(ASCII上增加西欧字符)。<br><img src="/images/latin-1%E5%AD%97%E7%AC%A6%E9%9B%86%E7%BC%96%E7%A0%81%E8%A1%A8.png" alt="latin-1字符集"></p>
+</li>
+<li><p>东亚地区地区由于字符数量较多，无法使用单字节编码字符集，开始使用双字节编码字符集、甚至是四个字节编码字符集。中文字符集编码表发展： ASCII -&gt; GB2312 -&gt; GBK -&gt; GB18030, 依次向前兼容，应用时代发展，拓展计算机上可以展示更多中文字符。 详见：<a href="https://zhuanlan.zhihu.com/p/46216008" target="_blank" rel="noopener">程序员必备：彻底弄懂常见的7种中文字符编码</a><br><img src="/images/%E5%87%A0%E7%A7%8D%E4%B8%AD%E6%96%87%E7%BC%96%E7%A0%81%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7.jpg" alt="几种中文编码的兼容性.jpg"></p>
+</li>
+<li><p>再进一步发展，出现IOS组织领衔<a href="https://zh.wikipedia.org/wiki/通用字符集" target="_blank" rel="noopener">UCS</a>和Unicode联盟领衔<a href="https://zh.wikipedia.org/wiki/Unicode" target="_blank" rel="noopener">Unicode</a>来统一全球多语言所有字符。后续两个组织合并成果，共同发展，不断统一Unicode字符集。目前每一个字符，都有一个Unicode值·码位值(码位|码点|<code>code point</code>)，表示是Unicode值的十六进制数的前面加上“U+”，例如“U+0041”代表字符“A”。</p>
+</li>
+</ul>
+<h4 id="字符编码"><a href="#字符编码" class="headerlink" title="字符编码"></a>字符编码</h4><blockquote>
+<p>抽象字符表、编码字符集、字符编码表、字符编码方案<br><a href="https://zh.wikipedia.org/wiki/%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81" target="_blank" rel="noopener">wiki 字符编码</a></p>
+</blockquote>
+<p>&emsp;&emsp;ASCII、GBK、GB18030、LATIN1等字符集将编码字符集和字符编码表是一样的，换句话将字符集编码表的值，不加额外换算，直接转化为二进制存储，编码字符集合字符编码表一样。如ASCII中A，十进制65，十六进制41，二进制01000001，直接将A的二进制存储。</p>
+<p>&emsp;&emsp;Unicode字符集，该字符集使用4个字节（32位二进制）来表示，属于字符编码里面的编码字符集层次。Unicode的编码空间从U+0000到+10FFFF，共有1,112,064个码位（code point）可用来映射字符，其中从U+D800到U+DFFF之间的码位区段是永久保留不映射到Unicode字符。</p>
+<h5 id="Unicode的具体编码方式-字符编码方案-·UTF-8"><a href="#Unicode的具体编码方式-字符编码方案-·UTF-8" class="headerlink" title="Unicode的具体编码方式(字符编码方案)·UTF-8"></a>Unicode的具体编码方式(字符编码方案)·UTF-8</h5><p>&emsp;&emsp;如果按照Unicode的码点(code point)的二进制直接存储的话，那么对于使用英文国家会造成大量存储空间浪费。因此为了避免这种情况出现，采用不同于码点(code point)的二进制的编码方案存储字符。基于这种情况应用而生有utf-8、utf-16、utf-32。但是目前广泛使用utf-8。<br>&emsp;&emsp;UTF-8(8-bit Unicode Transformation Format)是一种针对Unicode的可变长度字符编码（定长码），使用一至四个字节为每个字符编码。</p>
+<table>
+<thead>
+<tr>
+<th>Unicode范围</th>
+<th>Unicode十六进制</th>
+<th>UTF-8二进制编码格式</th>
+<th>示例<br> <code>字符-&gt;unicode-&gt;unicode十六进制-&gt;unicode二进制-&gt;utf-8二进制-&gt; utf-8十六进制</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>U+00 ~ U+7F</td>
+<td>0x00 ~ 0x7F</td>
+<td>0xxxxxxx</td>
+<td>A -&gt; U+65 -&gt; 0x65 -&gt; 01000001 -&gt; 01000001 -&gt; 0x65</td>
+</tr>
+<tr>
+<td>U+80 ~ U+07FF</td>
+<td>0x80 ~ 0x07FF</td>
+<td>110xxxxx 10xxxxxx</td>
+<td>å -&gt; U+E5 -&gt; 0xE5 -&gt; 11100101 -&gt; 11000011 10100101 -&gt; 0xC3A5</td>
+</tr>
+<tr>
+<td>U+0800 ~ U+FFFF</td>
+<td>0x0800 ~ 0xFFFF</td>
+<td>1110xxxx 10xxxxxx 10xxxxxx</td>
+<td>严 -&gt; U+4E25 -&gt; 0x4E25 -&gt; 01001110 00100101 -&gt; 11100100 10111000 10100101 -&gt; 0xE4B8A5</td>
+</tr>
+<tr>
+<td>U+100000 ~ U+10FFFF</td>
+<td>0x100000 ~ 0x10FFFF</td>
+<td>11110xxx 10xxxxxx 10xxxxxx10xxxxxx</td>
+<td>😀 -&gt; U+1F600 -&gt; 0x1F40 -&gt; 00000001 11110110 00000000 -&gt; 11110000 10011111 10011000 10001010 -&gt; 0xF09F988A</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>UTF-8 的编码规则很简单，只有二条：<br>1）对于单字节的符号，字节的第一位设为0，后面7位为这个符号的 Unicode 码。因此对于英语字母，UTF-8 编码和 ASCII 码是相同的。<br>2）对于n字节的符号（n &gt; 1），第一个字节的前n位都设为1，第n + 1位设为0，后面字节的前两位一律设为10。剩下的没有提及的二进制位，全部为这个符号的 Unicode 码。<br>—摘要至<a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html" target="_blank" rel="noopener">字符编码笔记：ASCII，Unicode 和 UTF-8</a></p>
+</blockquote>
+<p>拓展: Java存储的</p>
+<h5 id="Unicode的具体编码方式-字符编码方案-·UTF-16"><a href="#Unicode的具体编码方式-字符编码方案-·UTF-16" class="headerlink" title="Unicode的具体编码方式(字符编码方案)·UTF-16"></a>Unicode的具体编码方式(字符编码方案)·UTF-16</h5><blockquote>
+<p><a href="https://juejin.im/entry/6844903480197382151" target="_blank" rel="noopener">今日 Unicode 字符集及其编码方式</a></p>
+</blockquote>
+<p>&emsp;&emsp;UTF-16是最早的Unicode字符集编码方式。<br>&emsp;&emsp;UTF-16是使用两个定长字节来表示Unicode的字符。但是两个字节只能表达65,536字符，无法完全表达所有Unicode的字符，后续使用四个字节直接来表达不在基本平面Unicode的字符。<br>&emsp;&emsp;在基本平面中，U+D800 ~ U+DBFF（1024个码点）这一码值范围被称为高代理码点，U+DC00 ~ U+DFFF（1024个码点）这一码值范围被称为低代理码点。这两个高代理码点后面紧接低代理码点便构成了一个代理对，它们代表了不在基本平面之中的1,048,576（1024 × 1024）个码点。</p>
+<h4 id="JAVA开发应用"><a href="#JAVA开发应用" class="headerlink" title="JAVA开发应用"></a>JAVA开发应用</h4><h5 id="Java-编码的基础知识"><a href="#Java-编码的基础知识" class="headerlink" title="Java 编码的基础知识"></a>Java 编码的基础知识</h5><blockquote>
+<p><a href="https://www.jianshu.com/p/3154a3424731" target="_blank" rel="noopener">Java 的 char 是两个字节, 如何存 UTF-8 的字符的</a>   </p>
+</blockquote>
+<p>Java的char是两个字节，使用UTF-16来表达Unicode的所有字符。对于Unicode的编码空间在U+0000 ~ U+FFFF的可以直接使用char来表示，但是对于Unicode的编码空间U+1FFFF ~ U+10FFFF使用UTF-16的高代理码点和低代理码点的两个char来标识。详见<a href="https://juejin.im/entry/6844903480197382151" target="_blank" rel="noopener">今日 Unicode 字符集及其编码方式</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">        System.out.println(&quot;控制台输出字符编码方式:&quot; + Charset.defaultCharset().name());</span><br><span class="line">        System.out.println(&quot;16位Unicode字符严---------------&quot;);</span><br><span class="line">        char 严 = &apos;\u4e25&apos;;</span><br><span class="line">        System.out.println(&quot;严字符:&quot; + 严);</span><br><span class="line">        System.out.println(&quot;严字符Code Point:&quot; + Integer.toHexString((严 + &quot;&quot;).codePointAt(0)));</span><br><span class="line">        System.out.println(&quot;严的UTF-16表达:&quot; + Integer.toHexString(严));</span><br><span class="line">        System.out.println(&quot;严的UTF-16二进制表达:&quot; + Integer.toBinaryString(严));</span><br><span class="line">        System.out.println(&quot;严的UTF-16二进制的十六进制表示:&quot; + Integer.toHexString(Integer.parseInt(Integer.toBinaryString(严), 2)));</span><br><span class="line">        System.out.println(&quot;32位Unicode字符😀---------------&quot;);</span><br><span class="line">        final String smile = &quot;😀&quot;;// &quot;\uD83D\uDE00&quot;</span><br><span class="line">        final int smileUnicode = Integer.parseInt(&quot;1f600&quot;, 16);</span><br><span class="line">        System.out.println(&quot;😀的char字符数:&quot; + smile.length());</span><br><span class="line">        System.out.println(&quot;😀Unicode的char字符数:&quot; + Character.charCount(smileUnicode));</span><br><span class="line">        System.out.println(&quot;😀的高代理映射值:&quot; + Integer.toHexString(Character.highSurrogate(smileUnicode)));</span><br><span class="line">        System.out.println(&quot;😀的低代理映射值:&quot; + Integer.toHexString(Character.lowSurrogate(smileUnicode)));</span><br><span class="line">        System.out.println(&quot;😀的第一个Code point(即Unicode):&quot; + Integer.toHexString(smile.codePointAt(0)));</span><br><span class="line">        System.out.println(&quot;😀的第二个Code point:&quot; + Integer.toHexString(smile.codePointAt(1)));</span><br><span class="line">        System.out.println(&quot;😀的第一个字符存储值:&quot; + Integer.toHexString(smile.charAt(0)));</span><br><span class="line">        System.out.println(&quot;😀的第二个字符存储值:&quot; + Integer.toHexString(smile.charAt(1)));</span><br><span class="line">        System.out.println(&quot;---------------&quot;);</span><br><span class="line"></span><br><span class="line">//////////////////</span><br><span class="line">控制台输出字符编码方式:UTF-8</span><br><span class="line">16位Unicode字符严---------------</span><br><span class="line">严字符:严</span><br><span class="line">严字符Code Point:4e25</span><br><span class="line">严的UTF-16表达:4e25</span><br><span class="line">严的UTF-16二进制表达:100111000100101</span><br><span class="line">严的UTF-16二进制的十六进制表示:4e25</span><br><span class="line">32位Unicode字符😀---------------</span><br><span class="line">😀的char字符数:2</span><br><span class="line">😀Unicode的char字符数:2</span><br><span class="line">😀的高代理映射值:d83d</span><br><span class="line">😀的低代理映射值:de00</span><br><span class="line">😀的第一个Code point(即Unicode):1f600</span><br><span class="line">😀的第二个Code point:de00</span><br><span class="line">😀的第一个字符存储值:d83d</span><br><span class="line">😀的第二个字符存储值:de00</span><br><span class="line">---------------</span><br></pre></td></tr></table></figure>
+
+<h5 id="Java不同场景编码转换"><a href="#Java不同场景编码转换" class="headerlink" title="Java不同场景编码转换"></a>Java不同场景编码转换</h5><blockquote>
+<p><a href="https://developer.ibm.com/zh/technologies/java/articles/java-random-code-from-the-perspective-of-compilation/" target="_blank" rel="noopener">从外部编码的角度再议 Java 乱码问题</a><br><a href="https://yieldnull.com/blog/474f73c7ef9084989124ae6d8df3d8d173e867c8/#2-class" target="_blank" rel="noopener">Java字符串编码方式</a></p>
+</blockquote>
+<p>&emsp;&emsp;有些难度理解，输入和输出都是需要字符编码选择，JVM内部使用UTF-16编码存储在内存上，对于class文件的字符是Modified UTF-8进行编码存储的。JVM使用Modified UTF-8编码把class文件读取, 使用UTF-16编码格式进入内存。使用Unicode作为编码方式的转换。<br>J&emsp;&emsp;VM和OS之间输入输出需要进行编码转换。</p>
+<ul>
+<li><code>-Dfile.encoding=UTF-8</code>控制着 <code>Charset.defaultCharset()</code>的输出值<br>配置的是jvm输入流、输出流默认使用的编码/解码方式。</li>
+<li><code>-Dsun.stdout.encoding=GBK</code> 配置的控制台标准输出流的编码方式。</li>
+</ul>
+<h4 id="字符排序"><a href="#字符排序" class="headerlink" title="字符排序"></a>字符排序</h4><blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/147207165" target="_blank" rel="noopener">梳理 MySQL 字符集的相关概念</a><br><a href="https://segmentfault.com/a/1190000020339810" target="_blank" rel="noopener">MySQL字符集和排序规则</a><br><a href="https://dev.mysql.com/doc/refman/8.0/en/charset-mysql.html" target="_blank" rel="noopener">Character Sets and Collations in MySQL</a>     </p>
+</blockquote>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>简单来说：Unicode、GBK和Big5码等就是编码的值（也就是术语“字符集”），而UTF-8、UTF-16、UTF32之类就是这个值的表现形式（即术语“编码格式”）。<br><strong>目前编码(encode,常用于应用程序编码设置)或者 字符集(charset,常用于常用于开发)。</strong></p>
+<h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><p>&emsp;&emsp;Unicode的码点分高代理码点、低代理码点、非字符码点、保留码点、私有码点。Unicode的编码空间可以划分为17个平面（plane），每个平面包含216（65,536）个码位。17个平面的码位可表示为从U+xx0000到U+xxFFFF,其中xx表示十六进制值从00到10，共计17个平面。Unicode各个平面描述:</p>
+<table>
+<thead>
+<tr>
+<th>平面</th>
+<th>平面位置</th>
+<th>始末字符值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基本平面，BMP</td>
+<td>0</td>
+<td>U+0000 - U+FFFF</td>
+<td>绝大部分常用现代文字，如英文、中文、日语、法语等</td>
+</tr>
+<tr>
+<td>补充平面，SMP</td>
+<td>1</td>
+<td>U+10000 - U+1FFFF</td>
+<td>古代字体、音符、扑克牌、麻将、`表情emoji符号</td>
+</tr>
+<tr>
+<td>表意补充，SIP</td>
+<td>2</td>
+<td>U+20000 - U+2FFFF</td>
+<td>CJKV(中、日、韩、越)的增补文字，如《康熙字典》中非现代字</td>
+</tr>
+<tr>
+<td>表意文字，TIP</td>
+<td>3</td>
+<td>U+30000 - U+3FFFF</td>
+<td></td>
+</tr>
+<tr>
+<td>未使用</td>
+<td>4-13</td>
+<td>U+40000 - U+DFFFF</td>
+<td></td>
+</tr>
+<tr>
+<td>特别用途补充平面，SSP</td>
+<td>14</td>
+<td>U+E0000 - U+EFFFF</td>
+<td>特殊控制字符，比如字符变换选器</td>
+</tr>
+<tr>
+<td>15号平面</td>
+<td>15</td>
+<td>U+F0000 - U+FFFFF</td>
+<td>保留作为私人使用区（A区）    Private Use Area-A，简称PUA-A</td>
+</tr>
+<tr>
+<td>16号平面</td>
+<td>16</td>
+<td>U+100000 - U+10FFFF</td>
+<td>保留作为私人使用区（B区）Private Use Area-B，简称PUA-B</td>
+</tr>
+</tbody></table>
+<p>Unicode 规范定义，每一个文件的最前面分别加入一个表示编码顺序的字符，这个字符的名字叫做”零宽度非换行空格”（zero width no-break space），用FEFF表示。这正好是两个字节，而且FF比FE大1。</p>
+<table>
+<thead>
+<tr>
+<th>对比</th>
+<th>UTF-8</th>
+<th>UTF-16</th>
+<th>UTF-32</th>
+<th>UCS-2</th>
+<th>UCS-4</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>编码空间</td>
+<td>0-10FFFF</td>
+<td>0-10FFFF</td>
+<td>0-10FFFF</td>
+<td>0-FFFF</td>
+<td>0-7FFFFFFF</td>
+</tr>
+<tr>
+<td>最少编码字节数(<code>码元·code unit</code>)</td>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>最多编码字节数</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr>
+<td>是否依赖字节序<br>(<code>Little endian·第二个字节在前/Big endian·第一字节在前</code>)</td>
+<td>否</td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+</tr>
+</tbody></table>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><code>优秀</code><br><a href="https://zhuanlan.zhihu.com/p/46216008" target="_blank" rel="noopener">程序员必备：彻底弄懂常见的7种中文字符编码</a><br><a href="http://cenalulu.github.io/linux/character-encoding/" target="_blank" rel="noopener">十分钟搞清字符集和字符编码</a><br><a href="http://www.ruanyifeng.com/blog/2007/10/ascii_unicode_and_utf-8.html" target="_blank" rel="noopener">字符编码笔记：ASCII，Unicode 和 UTF-8</a><br><a href="https://zhuanlan.zhihu.com/p/41203455" target="_blank" rel="noopener">从Unicode到emoji</a><br><a href="https://developer.ibm.com/zh/technologies/java/articles/java-random-code-from-the-perspective-of-compilation/" target="_blank" rel="noopener">从外部编码的角度再议 Java 乱码问题</a></p>
+<hr>
+<p><code>基础知识</code><br><a href="https://www.jianshu.com/p/c21282df7efb" target="_blank" rel="noopener">JAVA中进制相互转换</a><br><a href="http://www.chi2ko.com/tool/CJK.htm" target="_blank" rel="noopener">字体编辑中日韩汉字Unicode编码表</a><br><a href="https://www.unicode.org/emoji/charts/full-emoji-list.html" target="_blank" rel="noopener">Unicode 表情包</a><br><a href="http://www.unicode.org/charts/" target="_blank" rel="noopener">unicode 表</a><br><a href="https://github.com/zxh0/classpy" target="_blank" rel="noopener">Java class 文件查看器</a></p>
+<hr>
+<p><code>早期</code><br><a href="https://segmentfault.com/a/1190000022193508" target="_blank" rel="noopener">字符集：ASCII，GB2312，Unicode，UTF-8，ANSI</a><br><a href="https://www.jianshu.com/p/57c27d67a8a8" target="_blank" rel="noopener">特殊字符(包括emoji)梳理和UTF8编码解码原理</a><br><a href="https://www.jianshu.com/p/668356dd8089" target="_blank" rel="noopener">char 码点和代码单元</a>    </p>
 ]]></content>
       <tags>
         <tag>后端</tag>
@@ -296,7 +536,7 @@
   </entry>
   <entry>
     <title>非暴力沟通</title>
-    <url>/2020/07/19/%E9%9D%9E%E6%9A%B4%E5%8A%9B%E6%B2%9F%E9%80%9A/</url>
+    <url>/2020/07/19/%E8%AF%BB%E4%B9%A6/%E9%9D%9E%E6%9A%B4%E5%8A%9B%E6%B2%9F%E9%80%9A/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
 <h3 id="区分观察与评论"><a href="#区分观察与评论" class="headerlink" title="区分观察与评论"></a>区分观察与评论</h3><h4 id="027页"><a href="#027页" class="headerlink" title="027页"></a>027页</h4><p>以下这首歌反映了观察与评论的区别。<br>我未见过懒惰的人;<br>我见过<br>有个人有时在下午睡觉，<br>在雨天不出门，<br>但他不是个懒惰的人。<br>请在说我胡言乱语之前，<br>想一想，他是个懒惰的人，还是<br>他的行为被我们称为“懒惰”？<br>我从未见过愚蠢的孩子；<br>我见过有个孩子有时做的事<br>我不理解<br>或不接受我的吩咐做事情；<br>但他不是愚蠢的孩子。<br>请在你说他愚蠢之前，<br>想一想，他是个愚蠢的孩子，还是<br>他懂的事情与你不一样？    </p>
 <p>我使劲看了又看<br>但从未看到厨师；<br>我看到有个人把食物<br>调配在一起，<br>打起了火，<br>。。。。。。。。</p>
@@ -307,7 +547,7 @@
   </entry>
   <entry>
     <title>人人都该懂点产品思维（二）</title>
-    <url>/2020/06/26/%E4%BA%BA%E4%BA%BA%E9%83%BD%E8%AF%A5%E6%87%82%E7%82%B9%E4%BA%A7%E5%93%81%E6%80%9D%E7%BB%B4%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <url>/2020/06/26/%E8%AF%BB%E4%B9%A6/%E4%BA%BA%E4%BA%BA%E9%83%BD%E8%AF%A5%E6%87%82%E7%82%B9%E4%BA%A7%E5%93%81%E6%80%9D%E7%BB%B4%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
 <h3 id="第二章-初学乍练-改进已有功能点"><a href="#第二章-初学乍练-改进已有功能点" class="headerlink" title="第二章 初学乍练: 改进已有功能点"></a>第二章 初学乍练: 改进已有功能点</h3><h4 id="74页"><a href="#74页" class="headerlink" title="74页"></a>74页</h4><p>&emsp;&emsp;有价值的用户是指最终能够给公司带来收入的用户，我们追求这部分人群的长期留存就是为了保证这份收入的稳定性和可持续性。<br>&emsp;&emsp;在价值的定义上，根据具体付费方不同，可以大致分为C端收费、B端收费两类。在不同的产品中，其盈利方式和有价值用户的定义有所不同。</p>
 <ul>
@@ -327,7 +567,7 @@
   </entry>
   <entry>
     <title>hexo搭建github-bolg总结</title>
-    <url>/2020/06/25/hexo%E6%90%AD%E5%BB%BAgithub-bolg%E6%80%BB%E7%BB%93/</url>
+    <url>/2020/06/25/%E6%9C%AA%E5%AE%8C%E6%88%90/hexo%E6%90%AD%E5%BB%BAgithub-bolg%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
 <h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><p><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">hexo官网</a><br><a href="https://zhuanlan.zhihu.com/p/31411755" target="_blank" rel="noopener">修改hexo sitemap 生成插件中的链接模板</a><br><a href="https://wizardforcel.gitbooks.io/markdown-simple-world/content/" target="_blank" rel="noopener">Markdown - 简单的世界</a></p>
 ]]></content>
@@ -337,7 +577,7 @@
   </entry>
   <entry>
     <title>CPU架构学习</title>
-    <url>/2020/05/27/CPU%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0/</url>
+    <url>/2020/05/27/%E6%9C%AA%E5%AE%8C%E6%88%90/CPU%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
 <p>对于目前市面CPU架构拆分，命令上理解。i386</p>
 <ul>
@@ -567,7 +807,7 @@
   </entry>
   <entry>
     <title>Mac常见问题和技巧</title>
-    <url>/2020/05/17/Mac%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%92%8C%E6%8A%80%E5%B7%A7/</url>
+    <url>/2020/05/17/%E5%B0%8F%E6%8A%80%E5%B7%A7/Mac%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%92%8C%E6%8A%80%E5%B7%A7/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
 <h5 id="常见技巧"><a href="#常见技巧" class="headerlink" title="常见技巧"></a>常见技巧</h5><h5 id="优秀软件"><a href="#优秀软件" class="headerlink" title="优秀软件"></a>优秀软件</h5><h6 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h6><p>新版MacOs Catalina推荐默认使用命令脚本zsh，而不是bash。<br>对于遇到 no matches的提示解决方案</p>
 <blockquote>
@@ -617,7 +857,7 @@
   </entry>
   <entry>
     <title>Charles使用细节说明</title>
-    <url>/2020/05/17/Charles%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82%E8%AF%B4%E6%98%8E/</url>
+    <url>/2020/05/17/%E5%B0%8F%E6%8A%80%E5%B7%A7/Charles%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82%E8%AF%B4%E6%98%8E/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
 <p>Charles是一款优秀HTTPS/HTTP网络代理工具</p>
 <blockquote>
@@ -665,7 +905,7 @@
   </entry>
   <entry>
     <title>人人都该懂点产品思维（一）</title>
-    <url>/2020/04/25/%E4%BA%BA%E4%BA%BA%E9%83%BD%E8%AF%A5%E6%87%82%E7%82%B9%E4%BA%A7%E5%93%81%E6%80%9D%E7%BB%B4%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <url>/2020/04/25/%E8%AF%BB%E4%B9%A6/%E4%BA%BA%E4%BA%BA%E9%83%BD%E8%AF%A5%E6%87%82%E7%82%B9%E4%BA%A7%E5%93%81%E6%80%9D%E7%BB%B4%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
 <h3 id="推荐语"><a href="#推荐语" class="headerlink" title="推荐语"></a>推荐语</h3><p>&emsp;&emsp;本书以生动的笔触，以场景代入的方法，从是什么、为什么、怎么样介绍了一名产品经理的必备素质以及专业技能，对竞品分析、A/B测试、数据分析、PRD撰写、埋点、搜索、推送等做了深入阐述，每一部分都既有理论说明，又有实例分析，深入浅出，面面俱到。此外，还指出了在做好产品经理这一角色时必须具备的职业能力以及技巧，如关注APP榜单、高效会议、跟进进度，甚至专业邮件撰写方法。总结出来的方法论，如六步法：用、问、数、比、溯、试，非常精炼又极其其实用，对实际工作很有指导作用。</p>
 <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><h4 id="17页"><a href="#17页" class="headerlink" title="17页"></a>17页</h4><p>&emsp;&emsp;转载一段看来的关于价值投资的判断，我觉得同样适用于个人的职业选择：</p>
@@ -854,7 +1094,7 @@
   </entry>
   <entry>
     <title>JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等</title>
-    <url>/2020/02/24/JEPG%E3%80%81PNG%E3%80%81WEBP%E3%80%81GIF%E3%80%81SVG%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8-WEBP%E7%AD%89/</url>
+    <url>/2020/02/24/%E5%9B%BE%E7%89%87/JEPG%E3%80%81PNG%E3%80%81WEBP%E3%80%81GIF%E3%80%81SVG%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8-WEBP%E7%AD%89/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
 <h4 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h4><p>&emsp; &emsp;Gif一个比较古老的图片格式。图片交换格式(GIF， Graphics Interchange Format)是一种位图图形文件格式，采用8位色最多256种索引颜色调色板描绘图像。GIF是一种压缩文档，使用LZW算法压缩算法进行编码，同时也有效减少了图像文件在网络上传输的时间。<br>&emsp; &emsp;近些年动态的表情包的大火，使得Gif图像重新派上用场。其支持多帧图片，从而实现动画效果（即帧动画），同时也可以设置透明色产生透明图片的。&emsp; 但是由于之前专利的原因，Gif的静态图像功能被PNG给替代了，目前Gif常用于颜色简单的动画上。<br>&emsp; &emsp;Gift也是因为最多支持8位256色，无法支持更加丰富色彩图片。Gift存在色阶过渡糟糕，图片具有颗粒感，不支持Alpha透明通道，边缘有杂边。在静态图像优势没有PNG效果好。</p>
 <a id="more"></a>
@@ -882,7 +1122,7 @@
   </entry>
   <entry>
     <title>JEPG、PNG、WEBP、GIF、SVG的学习使用、 各种网络图片格式学习-PNG</title>
-    <url>/2020/02/24/JEPG%E3%80%81PNG%E3%80%81WEBP%E3%80%81GIF%E3%80%81SVG%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8-PNG/</url>
+    <url>/2020/02/24/%E5%9B%BE%E7%89%87/JEPG%E3%80%81PNG%E3%80%81WEBP%E3%80%81GIF%E3%80%81SVG%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8-PNG/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
 <h3 id="PNG"><a href="#PNG" class="headerlink" title="PNG"></a>PNG</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>&emsp;&emsp;来自维基百科介绍，便携式网络图形(Portable Network Graphics，PNG)是一种无损压缩位图图形格式，支持索引、灰色、RGB三种颜色方案以及Alpha通道等特性。PNG的开发目标是改善并取代Gif作为适合网络传输的格式而不需专利许可，所以被广泛应用于互联网及其他方面上。</p>
 <h4 id="PNG的特性"><a href="#PNG的特性" class="headerlink" title="PNG的特性"></a>PNG的特性</h4><p>1、无损压缩<br>2、支持索引透明和Alpha透明半透明<br>3、支持256色调色板技术(索引颜色)以产生小体积文件<br>4、使用循环冗余码检测损坏文件<br>5、支持渐近显示和流式读写<br>6、最新的PNG标准允许在一个文件内存储多幅图像（APNG）。</p>
@@ -936,7 +1176,7 @@
   </entry>
   <entry>
     <title>图片有关工具和网站</title>
-    <url>/2020/02/22/%E5%9B%BE%E5%83%8F%E6%9C%89%E5%85%B3%E5%B7%A5%E5%85%B7%E5%92%8C%E7%BD%91%E7%AB%99/</url>
+    <url>/2020/02/22/%E5%9B%BE%E7%89%87/%E5%9B%BE%E5%83%8F%E6%9C%89%E5%85%B3%E5%B7%A5%E5%85%B7%E5%92%8C%E7%BD%91%E7%AB%99/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
 <h5 id="压缩网站和软件工具"><a href="#压缩网站和软件工具" class="headerlink" title="压缩网站和软件工具"></a>压缩网站和软件工具</h5><blockquote>
 <p>参考: <a href="https://blog.ibireme.com/2015/11/02/mobile_image_benchmark/#png" target="_blank" rel="noopener">https://blog.ibireme.com/2015/11/02/mobile_image_benchmark/#png</a></p>
@@ -958,7 +1198,7 @@
   </entry>
   <entry>
     <title>图像基础知识、图像基础属性、图像哪些你不知道的小知识点 (一)</title>
-    <url>/2020/02/22/%E5%9B%BE%E5%83%8F%E5%9F%BA%E7%A1%80/</url>
+    <url>/2020/02/22/%E5%9B%BE%E7%89%87/%E5%9B%BE%E5%83%8F%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
 <h3 id="图像"><a href="#图像" class="headerlink" title="图像"></a>图像</h3><blockquote>
 <p><a href="https://www.w3.org/Graphics/" target="_blank" rel="noopener">W3C图像详细定义</a></p>
@@ -1009,7 +1249,7 @@
   </entry>
   <entry>
     <title>JEPG、PNG、WEBP、GIF、SVG的学习使用、 各种网络图片格式学习-JPEG</title>
-    <url>/2020/02/15/JEPG%E3%80%81PNG%E3%80%81WEBP%E3%80%81GIF%E3%80%81SVG%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8-JPEG/</url>
+    <url>/2020/02/15/%E5%9B%BE%E7%89%87/JEPG%E3%80%81PNG%E3%80%81WEBP%E3%80%81GIF%E3%80%81SVG%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8-JPEG/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
 <h5 id="GPEG"><a href="#GPEG" class="headerlink" title="GPEG"></a>GPEG</h5><h6 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h6><p>&ensp; &ensp; JPEG(Joint Photographic Experts Group:联合图像专家小组,1972年)是第一个国际图像压缩标准。JPEG压缩标准描述将图像转换为字节的数据串流(streaming)，没有说明如何将这些字节存储。     </p>
 <blockquote>
@@ -1206,7 +1446,7 @@ The latest release is version 6b of 27-Mar-1998. This is a stable and solid foun
   </entry>
   <entry>
     <title>IDEA技巧、IDEA经验分享、IDEA学习、IDEA探索</title>
-    <url>/2019/02/12/IDEA%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
+    <url>/2019/02/12/%E5%B0%8F%E6%8A%80%E5%B7%A7/IDEA%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a><br><strong>* 提供IDEA使用小技巧 *</strong></p>
 <blockquote>
 <p>推荐一些本人亲身尝试，在实际开发中比较实用的小技巧，可以大大提高开发效率。</p>

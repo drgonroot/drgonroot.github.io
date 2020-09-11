@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="吐槽、建议、解惑入口网址 PNG介绍&amp;emsp;&amp;emsp;来自维基百科介绍，便携式网络图形(Portable Network Graphics，PNG)是一种无损压缩位图图形格式，支持索引、灰色、RGB三种颜色方案以及Alpha通道等特性。PNG的开发目标是改善并取代Gif作为适合网络传输的格式而不需专利许可，所以被广泛应用于互联网及其他方面上。 PNG的特性1、无损压缩2、支持索引透明和Alp">
+<meta name="keywords" content="后端,前端,图片">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JEPG、PNG、WEBP、GIF、SVG的学习使用、 各种网络图片格式学习-PNG">
+<meta property="og:url" content="https://drgonroot.github.io/2020/02/24/图片/JEPG、PNG、WEBP、GIF、SVG的学习使用-PNG/index.html">
+<meta property="og:site_name" content="断线风筝">
+<meta property="og:description" content="吐槽、建议、解惑入口网址 PNG介绍&amp;emsp;&amp;emsp;来自维基百科介绍，便携式网络图形(Portable Network Graphics，PNG)是一种无损压缩位图图形格式，支持索引、灰色、RGB三种颜色方案以及Alpha通道等特性。PNG的开发目标是改善并取代Gif作为适合网络传输的格式而不需专利许可，所以被广泛应用于互联网及其他方面上。 PNG的特性1、无损压缩2、支持索引透明和Alp">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-29T08:58:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JEPG、PNG、WEBP、GIF、SVG的学习使用、 各种网络图片格式学习-PNG">
+<meta name="twitter:description" content="吐槽、建议、解惑入口网址 PNG介绍&amp;emsp;&amp;emsp;来自维基百科介绍，便携式网络图形(Portable Network Graphics，PNG)是一种无损压缩位图图形格式，支持索引、灰色、RGB三种颜色方案以及Alpha通道等特性。PNG的开发目标是改善并取代Gif作为适合网络传输的格式而不需专利许可，所以被广泛应用于互联网及其他方面上。 PNG的特性1、无损压缩2、支持索引透明和Alp">
+
+
+
+
+
+
+  <link rel="canonical" href="https://drgonroot.github.io/2020/02/24/图片/JEPG、PNG、WEBP、GIF、SVG的学习使用-PNG/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JEPG、PNG、WEBP、GIF、SVG的学习使用、 各种网络图片格式学习-PNG | 断线风筝</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135039274-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-135039274-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">断线风筝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2020/02/24/图片/JEPG、PNG、WEBP、GIF、SVG的学习使用-PNG/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="drgonroot">
+      <meta itemprop="description" content="不曾拥有，所以努力。热爱技术|热爱思考">
+      <meta itemprop="image" content="/images/ciwei.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="断线风筝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JEPG、PNG、WEBP、GIF、SVG的学习使用、 各种网络图片格式学习-PNG
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-24 22:59:05" itemprop="dateCreated datePublished" datetime="2020-02-24T22:59:05+08:00">2020-02-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-29 16:58:32" itemprop="dateModified" datetime="2020-02-29T16:58:32+08:00">2020-02-29</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h3 id="PNG"><a href="#PNG" class="headerlink" title="PNG"></a>PNG</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>&emsp;&emsp;来自维基百科介绍，便携式网络图形(Portable Network Graphics，PNG)是一种无损压缩位图图形格式，支持索引、灰色、RGB三种颜色方案以及Alpha通道等特性。PNG的开发目标是改善并取代Gif作为适合网络传输的格式而不需专利许可，所以被广泛应用于互联网及其他方面上。</p>
+<h4 id="PNG的特性"><a href="#PNG的特性" class="headerlink" title="PNG的特性"></a>PNG的特性</h4><p>1、无损压缩<br>2、支持索引透明和Alpha透明半透明<br>3、支持256色调色板技术(索引颜色)以产生小体积文件<br>4、使用循环冗余码检测损坏文件<br>5、支持渐近显示和流式读写<br>6、最新的PNG标准允许在一个文件内存储多幅图像（APNG）。</p>
+<a id="more"></a>
+
+<h4 id="PNG存储实现原理"><a href="#PNG存储实现原理" class="headerlink" title="PNG存储实现原理"></a>PNG存储实现原理</h4><p>这篇文章已经有较好的讲解。<a href="http://www.alloyteam.com/2017/03/the-story-of-png-get-images-and-pixel-content/#%E7%BB%93%E6%9E%84" target="_blank" rel="noopener">PNG存储原理讲解</a></p>
+<h4 id="PNG8、PNG24、PNG32差异"><a href="#PNG8、PNG24、PNG32差异" class="headerlink" title="PNG8、PNG24、PNG32差异"></a>PNG8、PNG24、PNG32差异</h4><table>
+<thead>
+<tr>
+<th>格式</th>
+<th>简介</th>
+<th>最高支持色彩通道</th>
+<th>索引色编辑支持</th>
+<th>透明支持</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PNG8</td>
+<td>8位单通道，最多显示256种颜色</td>
+<td>256种索引色</td>
+<td>支持</td>
+<td>支持设定特定索引色为透明色（布尔透明）<br>支持为索引色附加8位透明度（256阶alpha透明）</td>
+</tr>
+<tr>
+<td>PNG24</td>
+<td>24位RGB三通道，真彩色图像</td>
+<td>约1600万颜色</td>
+<td>不支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>PNG32</td>
+<td>32位RGBA四通道，在原有的PNG24位基础上增加了Alpha通道来描述透明度</td>
+<td>约1600万颜色，外加256种半透明色</td>
+<td>不支持</td>
+<td>支持8位透明度（256阶alphat透明）</td>
+</tr>
+</tbody></table>
+<h4 id="PNG-索引透明和Alpha透明"><a href="#PNG-索引透明和Alpha透明" class="headerlink" title="PNG 索引透明和Alpha透明"></a>PNG 索引透明和Alpha透明</h4><p>索引透明只能表示透明和不透明，产生体积相对较小的，不过容易产生杂边锯齿。<br>Alpha透明是一个8位的灰度通道，该通道用256级灰度来记录图像中的透明度信息，定义透明、不透明和半透明区域，支持全透明和半透明。</p>
+<blockquote>
+<p>参考：<a href="https://www.cnblogs.com/peunzhang/archive/2013/05/30/3050394.html#png1" target="_blank" rel="noopener">https://www.cnblogs.com/peunzhang/archive/2013/05/30/3050394.html#png1</a></p>
+</blockquote>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><p>1、小的LOGO,颜色简单且对比强烈图片和背景<br>2、颜色简单、对比度强的透明小图<br>3、颜色很少、具有大块颜色相近的区域或亮度差异十分明显的较简单的图片<br>4、用于页面结构的基本视觉元素，如容器的背景、按钮、导航的背景等应该尽量用PNG格式进行存储，这样才能更好的保证设计品质</p>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="https://zh.wikipedia.org/wiki/PNG" target="_blank" rel="noopener">PNG特性、对比JPEG、GIF差异</a><br><a href="https://github.com/ericdum/mujiang.info/issues/4" target="_blank" rel="noopener">png8支持透明通道（一）</a><br><a href="http://www.alloyteam.com/2017/06/the-story-of-png-deinterlacing-algorithm/" target="_blank" rel="noopener">png逐行扫描和隔行扫描说明</a><br><a href="https://gameinstitute.qq.com/community/detail/107564" target="_blank" rel="noopener">深入解析png图片解码技术</a><br><a href="https://zhuanlan.zhihu.com/p/22496580" target="_blank" rel="noopener">图片格式中的小较真</a><br><a href="https://www.jianshu.com/p/ab96bf20f90e" target="_blank" rel="noopener">JPG？GIF？PNG？前端如何选择图片格式？</a><br><a href="https://zhuanlan.zhihu.com/p/41498458" target="_blank" rel="noopener">网站建设中使用的png和jpg两种图片格式都有哪些特点和区别</a>   </p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>不曾拥有，所以努力。（坚持原创技术分享，您的支持将鼓励我继续创作！）</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin_reward.jpeg" alt="drgonroot 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>drgonroot</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://drgonroot.github.io/2020/02/24/图片/JEPG、PNG、WEBP、GIF、SVG的学习使用-PNG/" title="JEPG、PNG、WEBP、GIF、SVG的学习使用、 各种网络图片格式学习-PNG">https://drgonroot.github.io/2020/02/24/图片/JEPG、PNG、WEBP、GIF、SVG的学习使用-PNG/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/后端/" rel="tag"># 后端</a>
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/tags/图片/" rel="tag"># 图片</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/22/图片/图像有关工具和网站/" rel="next" title="图片有关工具和网站">
+                <i class="fa fa-chevron-left"></i> 图片有关工具和网站
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/24/图片/JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等/" rel="prev" title="JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等">
+                JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/ciwei.jpg" alt="drgonroot">
+            
+              <p class="site-author-name" itemprop="name">drgonroot</p>
+              <p class="site-description motion-element" itemprop="description">不曾拥有，所以努力。热爱技术|热爱思考</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/drgonroot" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#PNG"><span class="nav-number">1.</span> <span class="nav-text">PNG</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#介绍"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PNG的特性"><span class="nav-number">1.2.</span> <span class="nav-text">PNG的特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PNG存储实现原理"><span class="nav-number">1.3.</span> <span class="nav-text">PNG存储实现原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PNG8、PNG24、PNG32差异"><span class="nav-number">1.4.</span> <span class="nav-text">PNG8、PNG24、PNG32差异</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PNG-索引透明和Alpha透明"><span class="nav-number">1.5.</span> <span class="nav-text">PNG 索引透明和Alpha透明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用场景"><span class="nav-number">1.6.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考资料"><span class="nav-number">1.7.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">drgonroot</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
