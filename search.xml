@@ -1,6 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>深入密码学习</title>
+    <url>/2020/09/15/%E6%9C%AA%E5%AE%8C%E6%88%90/%E6%B7%B1%E5%85%A5%E5%AF%86%E7%A0%81%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h3 id="密码"><a href="#密码" class="headerlink" title="密码"></a>密码</h3><blockquote>
+<p>作者研读《图解密码技术-第三版》的学习总结</p>
+</blockquote>
+<p>图表面对不同场景应运而生技术</p>
+<table>
+<thead>
+<tr>
+<th>信息安全所面对威胁</th>
+<th>受威胁的特性</th>
+<th>用来应对技术</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>窃听(秘密泄露)</td>
+<td>机密性</td>
+<td>对称密码、公钥密码即非对称密码</td>
+</tr>
+<tr>
+<td>篡改(信息被修改)</td>
+<td>完整性</td>
+<td>单项散列函数、消息认证码、数字签名</td>
+</tr>
+<tr>
+<td>伪装(伪装成真正的发送者)</td>
+<td>认证</td>
+<td>消息认证码、数字签名</td>
+</tr>
+<tr>
+<td>否认(事后称自己没有做)</td>
+<td>不可否认性</td>
+<td>数字签名</td>
+</tr>
+</tbody></table>
+<h4 id="对称密码-共享密钥密码"><a href="#对称密码-共享密钥密码" class="headerlink" title="对称密码/共享密钥密码"></a>对称密码/共享密钥密码</h4><blockquote>
+<p>算法涵盖：比特异或运算，XOR<br><strong>用相同的密钥进行加密和解密</strong><br><strong>对称密码是通过将明文转换为复杂的形式来保证其机密性。</strong>   </p>
+</blockquote>
+<p><strong>分组密码</strong><br>&emsp;&emsp;分组密码是每次只能处理特定长度的一块明文数据的一类密码算法，这里的“一块”就是<code>分组(block)</code>。此外一个分组的比特数称为<code>分组长度（block length）</code>。</p>
+<h5 id="DES-2000年前被破译，可以废弃"><a href="#DES-2000年前被破译，可以废弃" class="headerlink" title="DES [2000年前被破译，可以废弃]"></a>DES [2000年前被破译，可以废弃]</h5><p>&emsp;&emsp;DES（Data Encryption Standard）是1977年美国联邦信息处理标准（FIPS）中采用的一种对称密码，也是分组密码，分组长度为64比特，密码算法一次只能加密64比特的明文，并生成64比特的密文。如果要加密的明文比较长，则需要使用DES加密算法反复迭代加密明文。DES的密钥长度是64比特，但由于每隔7比特会设置一个用于错误检查的比特，因此实质上其密钥长度为56比特。</p>
+<p>&emsp;&emsp;后续DES破译后，出现了三重DES(triple-DES，DES-EDE3, 3DES)。三重DES是为了增加DES的强度，将DES重复3次所得到一种密码算法。</p>
+<h5 id="AES"><a href="#AES" class="headerlink" title="AES"></a>AES</h5><p>&emsp;&emsp;AES（Advanced Encryption Standard, Rijdael）是分组密码，分组长度为128比特，密码算法一次可加密128比特的明文，并生成128比特的密文。如果要加密的明文比较长，则需要使用AES加密算法反复迭代加密明文。AES的规格中密钥长度有128、192和256比特三种。</p>
+<h5 id="分组密码的模式"><a href="#分组密码的模式" class="headerlink" title="分组密码的模式"></a>分组密码的模式</h5><p><strong>模式</strong><br>&emsp;&emsp;分组密码算法只能加密固定长度的分组，但是我们需要加密的明文长度可能会超过分组密码的分组长度，这是就需要对分组密码算法进行迭代，以便将一段明文全部加密完成。而迭代的方法就称为分组密码的<code>模式</code>。</p>
+<p>攻击模式：</p>
+<ul>
+<li>直接操作密文从而直接影响到明文，导致解密后明文和加密前明文意思完全不一样。</li>
+<li>通信过程某些比特缺失，导致密文无法解密。</li>
+<li>填充提示攻击是一种利用分组密码中的填充部分来进行攻击的方法。</li>
+<li>重放攻击是用使用历史上某次中几段分组密文替换本次密文中某些分组密文。这个方式让接收解密明文的人无法判断解密明文中错误是通信错误还是人为攻击。</li>
+</ul>
+<p>常用分组密码的模式比较表：</p>
+<blockquote>
+<p>CRYPTREC (Cryptography Research and Evaluation Committees) 密码学研究和评估委员会</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>名称</th>
+<th>优点</th>
+<th>缺点</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ECB模式</td>
+<td>Electronic CodeBook 电子密码本模式</td>
+<td><li>简单</li> <li>快速</li><li>支持并行计算（加密、解密）</li></td>
+<td><li>明文中重复排列反映在密文中</li><li>通过删除、替换密文分组可以对明文进行操作</li><li>对包含某些比特错误的密文进行解密时，对应的分组会出错</li><li>不能抵御重放攻击</li></td>
+<td>不应使用</td>
+</tr>
+<tr>
+<td>CBC模式</td>
+<td>Cipher Block Chainning 密文分组链接模式</td>
+<td><li>明文的重复排列不会反映在密文中</li><li>支持并行计算</li><li>能够解密任意密文分组</li></td>
+<td><li>对包含某些错误比特的密文进行解密时，第一个分组的全部比特以及后一个分组的相应比特会出错</li><li>加密不支持并行计算</li></td>
+<td>CRYPTREC 推荐；《实用密码学》推荐</td>
+</tr>
+<tr>
+<td>CFB模式</td>
+<td>Cipher FeedBack 密文反馈模式</td>
+<td><li>不需要填充（padding）</li><li>支持并行计算（仅解密）</li><li>能够解密任意密文分组</li></td>
+<td><li>加密不支持并行计算</li><li>对包含某些错误比特的密文进行解密时，第一个分组的相应比特以及后一个分组的全部比特会出错</li><li>不能抵御重放攻击</li></td>
+<td>CRYPTREC 推荐</td>
+</tr>
+<tr>
+<td>OFB模式</td>
+<td>Output-FeedBack 输出反馈模式</td>
+<td><li>不需要填充（padding）</li><li>可事先进行加密、解密的准备</li><li>加密、解密使用相同的结构</li><li>对包含某些错误比特的密文进行解密时，只有明文中相对应的比特会出错</li></td>
+<td><li>不支持并行运算</li><li>主动攻击者反转密文分组中的某些比特是，明文中对应的比特也会被反转</li></td>
+<td>CRYPTREC 推荐</td>
+</tr>
+<tr>
+<td>CTR模式</td>
+<td>CounTeR 计数器模式</td>
+<td><li>不需要填充（padding）</li><li>可事先进行加密、解密准备</li><li>加密、解密使用相同结构</li><li>对包含某些错误比特的密文进行解密是，只有明文中相对应的比特会出错</li><li>支持并行计算（加密、解密）</li></td>
+<td>主动攻击者反转密文分组中某些比特时，明文分组中相对应的比特也会被反转</td>
+<td>CRYPTREC 推荐；《实用密码学》推荐</td>
+</tr>
+</tbody></table>
+<h4 id="公钥密码（非对称加密"><a href="#公钥密码（非对称加密" class="headerlink" title="公钥密码（非对称加密)"></a>公钥密码（非对称加密)</h4><blockquote>
+<p>公钥密码（public-key Cryptography）中，密钥分为加密密钥和解密密钥两种。发送者用加密密钥对消息进行加密，接收者用解密密钥对密文机型解密。<br><strong>公钥密码是基于数学上的困难的问题来保证机密性。</strong></p>
+</blockquote>
+<p>&emsp;&emsp;公钥密码中，加密密钥一般是公开的。由于加密密钥可以任意公开，因此该密钥被称为<code>公钥（public key）</code>。解密密钥是绝对不能公开的，这个密钥只能有自己保管，因此称为<code>私钥(private key)</code>。公钥和私钥是一一对应的，一对公钥和私钥统称为<code>密钥对（key pair）</code>。由公钥进行加密的密文，必须使用由该公钥配对的私钥才能解密。</p>
+<h5 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h5><blockquote>
+<p>RSA 开发者首字母大写（Ron Rivest、Adi Shamir、Leonard Adleman）<br>RSA的机密性：</p>
+</blockquote>
+<ol>
+<li>依赖目前发展，还没有发现求离散对数的高效算法</li>
+<li>依赖目前发展，对大整数进行质因数分解的高效算法</li>
+</ol>
+<p>RSA加密：密文 = 明文^E mod N<br>E和N的组合就是公钥  </p>
+<p>RSA解密：明文 = 密文^D mod N<br>D和N的组合就是私钥</p>
+<p>攻击模式：</p>
+<ol>
+<li>中间人攻击（man-in-the-middle Attack）</li>
+<li>选择密文攻击（Chosen Cipher Attack ）<br>对应解决方案是在RSA的明文中加入认证的信息，解密进行识别是否是认证人明文信息。即RSA-OAEP(Optimal Asymmetric Encryption Padding，最优非对称加密填充)</li>
+</ol>
+<p>在RSA Chanllenge，有公开记录的被成功分解的最长的RSA数为RSA-768(232位)。但是长度为2048比特的整数目前是安全的即RSA-2048(617位)。因此默认RSA的密钥长度是2048比特。</p>
+<p>公钥密码的运行速度远远低于对称密。</p>
+<h4 id="混合密码系统了解"><a href="#混合密码系统了解" class="headerlink" title="混合密码系统了解"></a>混合密码系统了解</h4><blockquote>
+<p>用对称密码提高速度，用公钥密码保护会话密钥<br>应用：SSL/TLS</p>
+</blockquote>
+<p>混合密码系统（hybrid cryptosystem）是将对称密码和公钥密码的优势相结合的方法。<br>组成机制：</p>
+<blockquote>
+<p>会话密钥是指本次通信而生成的临时密钥，它一般是通过伪随机数生成器产生的。会话密钥是对称密码的密钥，同时也是公钥密码的明文。</p>
+</blockquote>
+<ul>
+<li>用对称密码加密消息</li>
+<li>通过伪随机数生成器生成对称密码作为会话密钥，加密时使用</li>
+<li>用公钥密码加密会话密钥</li>
+<li>从混合密码系统外部赋予公钥密码加密时使用的密钥</li>
+</ul>
+<p>数字签名，是由单向散列函数和公钥密码组合而成的<br>证书，是由公钥和数字签名组合而成的<br>消息认证码，是由单向散列函数和密钥组合而成的，也可以通过对称密码来生成  </p>
+<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><h4 id="openssl-加密工具"><a href="#openssl-加密工具" class="headerlink" title="openssl 加密工具"></a>openssl 加密工具</h4><blockquote>
+<p>摘抄至 <a href="https://www.openssl.org/docs/man1.0.2/man1/enc.html" target="_blank" rel="noopener">OpenSSL</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">base64             Base 64</span><br><span class="line"></span><br><span class="line"> bf-cbc             Blowfish in CBC mode</span><br><span class="line"> bf                 Alias for bf-cbc</span><br><span class="line"> bf-cfb             Blowfish in CFB mode</span><br><span class="line"> bf-ecb             Blowfish in ECB mode</span><br><span class="line"> bf-ofb             Blowfish in OFB mode</span><br><span class="line"></span><br><span class="line"> cast-cbc           CAST in CBC mode</span><br><span class="line"> cast               Alias for cast-cbc</span><br><span class="line"> cast5-cbc          CAST5 in CBC mode</span><br><span class="line"> cast5-cfb          CAST5 in CFB mode</span><br><span class="line"> cast5-ecb          CAST5 in ECB mode</span><br><span class="line"> cast5-ofb          CAST5 in OFB mode</span><br><span class="line"></span><br><span class="line"> des-cbc            DES in CBC mode</span><br><span class="line"> des                Alias for des-cbc</span><br><span class="line"> des-cfb            DES in CBC mode</span><br><span class="line"> des-ofb            DES in OFB mode</span><br><span class="line"> des-ecb            DES in ECB mode</span><br><span class="line"></span><br><span class="line"> des-ede-cbc        Two key triple DES EDE in CBC mode</span><br><span class="line"> des-ede            Two key triple DES EDE in ECB mode</span><br><span class="line"> des-ede-cfb        Two key triple DES EDE in CFB mode</span><br><span class="line"> des-ede-ofb        Two key triple DES EDE in OFB mode</span><br><span class="line"></span><br><span class="line"> des-ede3-cbc       Three key triple DES EDE in CBC mode</span><br><span class="line"> des-ede3           Three key triple DES EDE in ECB mode</span><br><span class="line"> des3               Alias for des-ede3-cbc</span><br><span class="line"> des-ede3-cfb       Three key triple DES EDE CFB mode</span><br><span class="line"> des-ede3-ofb       Three key triple DES EDE in OFB mode</span><br><span class="line"></span><br><span class="line"> desx               DESX algorithm.</span><br><span class="line"></span><br><span class="line"> gost89             GOST 28147-89 in CFB mode (provided by ccgost engine)</span><br><span class="line"> gost89-cnt        `GOST 28147-89 in CNT mode (provided by ccgost engine)</span><br><span class="line"></span><br><span class="line"> idea-cbc           IDEA algorithm in CBC mode</span><br><span class="line"> idea               same as idea-cbc</span><br><span class="line"> idea-cfb           IDEA in CFB mode</span><br><span class="line"> idea-ecb           IDEA in ECB mode</span><br><span class="line"> idea-ofb           IDEA in OFB mode</span><br><span class="line"></span><br><span class="line"> rc2-cbc            128 bit RC2 in CBC mode</span><br><span class="line"> rc2                Alias for rc2-cbc</span><br><span class="line"> rc2-cfb            128 bit RC2 in CFB mode</span><br><span class="line"> rc2-ecb            128 bit RC2 in ECB mode</span><br><span class="line"> rc2-ofb            128 bit RC2 in OFB mode</span><br><span class="line"> rc2-64-cbc         64 bit RC2 in CBC mode</span><br><span class="line"> rc2-40-cbc         40 bit RC2 in CBC mode</span><br><span class="line"></span><br><span class="line"> rc4                128 bit RC4</span><br><span class="line"> rc4-64             64 bit RC4</span><br><span class="line"> rc4-40             40 bit RC4</span><br><span class="line"></span><br><span class="line"> rc5-cbc            RC5 cipher in CBC mode</span><br><span class="line"> rc5                Alias for rc5-cbc</span><br><span class="line"> rc5-cfb            RC5 cipher in CFB mode</span><br><span class="line"> rc5-ecb            RC5 cipher in ECB mode</span><br><span class="line"> rc5-ofb            RC5 cipher in OFB mode</span><br><span class="line"></span><br><span class="line"> aes-[128|192|256]-cbc  128/192/256 bit AES in CBC mode</span><br><span class="line"> aes-[128|192|256]      Alias for aes-[128|192|256]-cbc</span><br><span class="line"> aes-[128|192|256]-cfb  128/192/256 bit AES in 128 bit CFB mode</span><br><span class="line"> aes-[128|192|256]-cfb1 128/192/256 bit AES in 1 bit CFB mode</span><br><span class="line"> aes-[128|192|256]-cfb8 128/192/256 bit AES in 8 bit CFB mode</span><br><span class="line"> aes-[128|192|256]-ecb  128/192/256 bit AES in ECB mode</span><br><span class="line"> aes-[128|192|256]-ofb  128/192/256 bit AES in OFB mode</span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
     <title>互联网项目管理实践精粹（一）</title>
     <url>/2020/09/08/%E8%AF%BB%E4%B9%A6/%E4%BA%92%E8%81%94%E7%BD%91%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E5%AE%9E%E8%B7%B5%E7%B2%BE%E7%B2%B9%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
@@ -579,7 +722,7 @@
     <title>CPU架构学习</title>
     <url>/2020/05/27/%E6%9C%AA%E5%AE%8C%E6%88%90/CPU%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<p>对于目前市面CPU架构拆分，命令上理解。i386</p>
+<p>对于目前市面CPU架构拆分，命令上理解。i386<br><a href="https://nginx.org/en/linux_packages.html" target="_blank" rel="noopener">https://nginx.org/en/linux_packages.html</a><br><a href="https://github.com/xtaci/kcptun/releases" target="_blank" rel="noopener">https://github.com/xtaci/kcptun/releases</a></p>
 <ul>
 <li><p><a href="https://zhuanlan.zhihu.com/p/81472964" target="_blank" rel="noopener">CPU架构</a>  arm  x86  x86_64  ppc64</p>
 </li>
@@ -599,7 +742,7 @@
 <ul>
 <li><a href="http://isoredirect.centos.org/altarch/7/isos/armhfp/" target="_blank" rel="noopener">Arm架构Centos下载</a>  </li>
 </ul>
-<p>目前笔者购买是关于树莓派4B-4G,选择安装包为University CentOS-Userland-7-armv7hl-RaspberryPI-Minimal-4-2003-sda .raw.xz。</p>
+<p>目前笔者购买是关于树莓派4B-4G,选择安装包为University <a href="https://mirrors.bfsu.edu.cn/centos-altarch/7.8.2003/isos/armhfp/CentOS-Userland-7-armv7hl-RaspberryPI-Minimal-2003-sda.raw.xz" target="_blank" rel="noopener">CentOS-Userland-7-armv7hl-RaspberryPI-Minimal-4-2003-sda .raw.xz</a>。<br>然后下载Centos包使用对应工具[Balena Etcher]烧录到SD卡上。</p>
 <p><strong>树莓派Centos连接</strong></p>
 <ul>
 <li>先将树莓派连接网线，并启动</li>
@@ -620,20 +763,24 @@
 </ul>
 <hr>
 <p>没有效果则只能将mmcblk0重新进行分区，然后重启</p>
+<blockquote>
+<p>核心操作就是将第三个主分区删除，重新分区。</p>
+</blockquote>
 <ul>
 <li>执行分区命令 <code>fdisk /dev/mmcblk0</code></li>
 <li>删除第三个主分区回车 <code>d</code></li>
 <li>新增第三个主分区回车 <code>n</code></li>
-<li>注意设定的开始扇区和结尾扇区，从第二块主分区结尾扇区 + 1开始。不然默认是使用第一块主分区前面的扇区，存储空间很小。</li>
+<li>选择新增第三个主分区回车 <code>p</code></li>
+<li>开始设置分区开始扇区和结束扇区，需要注意设定的开始扇区和结尾扇区，从第二块主分区结尾扇区 + 1开始。不然默认是使用第一块主分区前面的扇区，存储空间很小。</li>
 <li>将树莓派重新启动，<code>reboot</code></li>
-<li>启动后，直接再次执行 <code>rootfs-expand</code> / <code>resize2fs /dev/mmcblk0p3</code></li>
+<li>启动后，直接再次执行 <code>rootfs-expand</code>或者<code>resize2fs /dev/mmcblk0p3</code></li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">设备 Boot      Start         End      Blocks   Id  System</span><br><span class="line">/dev/mmcblk0p1   *        8192      593919      292864    c  W95 FAT32 (LBA)</span><br><span class="line">/dev/mmcblk0p2          593920     1593343      499712   82  Linux swap / Solaris</span><br><span class="line">/dev/mmcblk0p3         1593344    31116287    14761472   83  Linux</span><br><span class="line">### 执行前效果</span><br><span class="line">[root@localhost ~]# df -lh</span><br><span class="line">文件系统        容量  已用  可用 已用% 挂载点</span><br><span class="line">/dev/root       1.7G  1.7G     0  100% /</span><br><span class="line">devtmpfs        1.9G     0  1.9G    0% /dev</span><br><span class="line">tmpfs           1.9G     0  1.9G    0% /dev/shm</span><br><span class="line">tmpfs           1.9G  8.4M  1.9G    1% /run</span><br><span class="line">tmpfs           1.9G     0  1.9G    0% /sys/fs/cgroup</span><br><span class="line">/dev/mmcblk0p1  286M   53M  233M   19% /boot</span><br><span class="line">tmpfs           383M     0  383M    0% /run/user/0</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# ll /dev | grep mmcb</span><br><span class="line">brw-rw----. 1 root disk    179,   0 1月   1 00:00 mmcblk0</span><br><span class="line">brw-rw----. 1 root disk    179,   1 1月   1 00:00 mmcblk0p1</span><br><span class="line">brw-rw----. 1 root disk    179,   2 1月   1 00:00 mmcblk0p2</span><br><span class="line">brw-rw----. 1 root disk    179,   3 1月   1 00:04 mmcblk0p3</span><br><span class="line"></span><br><span class="line">### 执行后效果</span><br><span class="line">[root@localhost ~]# df -lh</span><br><span class="line">文件系统        容量  已用  可用 已用% 挂载点</span><br><span class="line">/dev/root        14G  1.7G   13G   13% /</span><br><span class="line">devtmpfs        1.9G     0  1.9G    0% /dev</span><br><span class="line">tmpfs           1.9G     0  1.9G    0% /dev/shm</span><br><span class="line">tmpfs           1.9G  8.4M  1.9G    1% /run</span><br><span class="line">tmpfs           1.9G     0  1.9G    0% /sys/fs/cgroup</span><br><span class="line">/dev/mmcblk0p1  286M   53M  233M   19% /boot</span><br><span class="line">tmpfs           383M     0  383M    0% /run/user/0</span><br></pre></td></tr></table></figure>
 
 <h5 id="主机名、网络、时区、语言、键盘配置"><a href="#主机名、网络、时区、语言、键盘配置" class="headerlink" title="主机名、网络、时区、语言、键盘配置"></a>主机名、网络、时区、语言、键盘配置</h5><hr>
 <h6 id="主机名配置"><a href="#主机名配置" class="headerlink" title="主机名配置"></a>主机名配置</h6><p><code>hostnamectl status</code><br><code>hostnamectl set-hostname xxxx主机名名称</code></p>
 <hr>
-<h6 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h6><p><code>nmtui</code><br><code>nmcli  d</code><br><code>nmcli  d  wifi</code><br><code>nmcli d wifi connect xxxWiFi名称 password &#39;xxxWiFi密码&#39;</code><br><code>cat /etc/resolv.conf</code><br>网络连接文件夹： <code>cd /etc/sysconfig/network-scripts</code>  <code>cat ifcfg-网络名称</code><br>设置网络连接开机自启动 <code>systemctl enabled NetworkManager.service</code></p>
+<h6 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h6><p><code>nmtui</code><br><code>nmcli  d</code><br><code>nmcli  d  wifi</code><br><code>nmcli d wifi connect xxxWiFi名称 password &#39;xxxWiFi密码&#39;</code><br><code>cat /etc/resolv.conf</code><br>网络连接文件夹： <code>cd /etc/sysconfig/network-scripts</code>  <code>cat ifcfg-网络名称</code><br>设置网络连接开机自启动 <code>systemctl enable NetworkManager.service</code></p>
 <hr>
 <h6 id="语言配置"><a href="#语言配置" class="headerlink" title="语言配置"></a>语言配置</h6><p><code>localectl</code><br><code>localectl set-locale LANG=zh_CN.UTF-8</code><br><code>locale</code><br><code>update-locale LANG=LANG=zh_CN.UTF-8 LANGUAGE</code><br><code>cat /etc/locale.conf</code></p>
 <hr>
@@ -641,17 +788,28 @@
 <ul>
 <li>方案一：<br><code>tzselect</code><br>按照步骤使用命令<code>tzselect</code>选择国家时区<br>执行TZ=’Asia/Shanghai’; export TZ 并将这行命令添加到.bash_profile中，然后退出并重新登录。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">You can make this change permanent for yourself by appending the line</span><br><span class="line"></span><br><span class="line">to the file &apos;.profile&apos; in your home directory; then log out and log in again.</span><br><span class="line"></span><br><span class="line">Here is that TZ value again, this time on standard output so that you</span><br><span class="line">can use the /usr/bin/tzselect command in shell scripts:</span><br><span class="line">Asia/Shanghai</span><br><span class="line">```     </span><br><span class="line"></span><br><span class="line">* 方案二：    </span><br><span class="line">`timedatectl`   </span><br><span class="line">直接设置中国-上海时区 `timedatectl set-timezone Asia/Shanghai`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">----------------------------</span><br><span class="line">###### 键盘配置   </span><br><span class="line">`localectl set-keycap us`</span><br><span class="line"></span><br><span class="line">##### 高级配置</span><br><span class="line">###### 切换软件源</span><br><span class="line">&gt; [详情切花软件源网址](https://www.jianshu.com/p/541c737bc947)</span><br><span class="line"></span><br><span class="line">* 将软件源替换为阿里源   </span><br><span class="line">* 先进入源的目录   </span><br><span class="line">`cd /etc/yum.repo.d`</span><br><span class="line">* 备份一下官方源   </span><br><span class="line">`mv CentOS-Base.repo CentOS-Base.repo.bak`</span><br><span class="line">* 将阿里源文件下载下来  </span><br><span class="line">`wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo`</span><br><span class="line">* 重建源数据缓存  </span><br><span class="line">`yum clean all`</span><br><span class="line">`yum makecache`</span><br><span class="line"></span><br><span class="line">###### 设置域名解析地址</span><br><span class="line">&gt; [国内常用公共DNS服务器地址有哪些？](https://zhuanlan.zhihu.com/p/39406412)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">You can make this change permanent for yourself by appending the line</span><br><span class="line"></span><br><span class="line">to the file &apos;.profile&apos; in your home directory; then log out and log in again.</span><br><span class="line"></span><br><span class="line">Here is that TZ value again, this time on standard output so that you</span><br><span class="line">can use the /usr/bin/tzselect command in shell scripts:</span><br><span class="line">Asia/Shanghai</span><br><span class="line">```     </span><br><span class="line"></span><br><span class="line">* 方案二：    </span><br><span class="line">`timedatectl`   </span><br><span class="line">直接设置中国-上海时区 `timedatectl set-timezone Asia/Shanghai`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">----------------------------</span><br><span class="line">###### 键盘配置   </span><br><span class="line">`localectl set-keymap us`</span><br><span class="line"></span><br><span class="line">##### 高级配置</span><br><span class="line">###### 切换软件源</span><br><span class="line">&gt; [详情切花软件源网址](https://www.jianshu.com/p/541c737bc947)</span><br><span class="line"></span><br><span class="line">* 将软件源替换为阿里源   </span><br><span class="line">* 先进入源的目录   </span><br><span class="line">`cd /etc/yum.repos.d`</span><br><span class="line">* 备份一下官方源   </span><br><span class="line">`mv CentOS-Base.repo CentOS-Base.repo.bak`</span><br><span class="line">* 将阿里源文件下载下来  </span><br><span class="line">`wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo`</span><br><span class="line">* 重建源数据缓存  </span><br><span class="line">`yum clean all`</span><br><span class="line">`yum makecache`</span><br><span class="line"></span><br><span class="line">###### 设置域名解析地址</span><br><span class="line">&gt; [国内常用公共DNS服务器地址有哪些？](https://zhuanlan.zhihu.com/p/39406412)</span><br></pre></td></tr></table></figure>
 
 <p>[root@localhost ~]# cat /etc/resolv.conf</p>
 <h1 id="Generated-by-NetworkManager"><a href="#Generated-by-NetworkManager" class="headerlink" title="Generated by NetworkManager"></a>Generated by NetworkManager</h1><p>nameserver 114.114.114.114<br>nameserver 8.8.8.8</p>
 <pre><code>
+
 ###### 更改语言包
 
 ##### 其他
-私有内网的linux获取出口公网地址命令   
+私有内网的linux获取出口公网地址命令  
+
 `curl ifconfig.me`    
 `curl ipinfo.io`
+
+#### 挂载移动硬盘
+* 只需要在修改/etc/fstab文件后执行该命令`mount -a` ，即可在不重启的情况下挂载fstab！
+* `blkid` 打印块设备属性
+* `lsblk` 块设备列表
+* `mkfs`  格式化硬盘分区 ext4主流centos7文件系统
+* `/etc/fstab` 设置`default,nofail`可以让硬盘不存在启动
+
+[/etc/fstab](http://einverne.github.io/post/2019/02/fstab-file.html)
 
 
 ##### 学习

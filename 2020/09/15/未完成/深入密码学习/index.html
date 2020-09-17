@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="吐槽、建议、解惑入口网址 密码 作者研读《图解密码技术-第三版》的学习总结  图表面对不同场景应运而生技术    信息安全所面对威胁 受威胁的特性 用来应对技术    窃听(秘密泄露) 机密性 对称密码、公钥密码即非对称密码   篡改(信息被修改) 完整性 单项散列函数、消息认证码、数字签名   伪装(伪装成真正的发送者) 认证 消息认证码、数字签名   否认(事后称自己没有做) 不可否认性 数字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入密码学习">
+<meta property="og:url" content="https://drgonroot.github.io/2020/09/15/未完成/深入密码学习/index.html">
+<meta property="og:site_name" content="断线风筝">
+<meta property="og:description" content="吐槽、建议、解惑入口网址 密码 作者研读《图解密码技术-第三版》的学习总结  图表面对不同场景应运而生技术    信息安全所面对威胁 受威胁的特性 用来应对技术    窃听(秘密泄露) 机密性 对称密码、公钥密码即非对称密码   篡改(信息被修改) 完整性 单项散列函数、消息认证码、数字签名   伪装(伪装成真正的发送者) 认证 消息认证码、数字签名   否认(事后称自己没有做) 不可否认性 数字">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-09-16T02:55:10.629Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入密码学习">
+<meta name="twitter:description" content="吐槽、建议、解惑入口网址 密码 作者研读《图解密码技术-第三版》的学习总结  图表面对不同场景应运而生技术    信息安全所面对威胁 受威胁的特性 用来应对技术    窃听(秘密泄露) 机密性 对称密码、公钥密码即非对称密码   篡改(信息被修改) 完整性 单项散列函数、消息认证码、数字签名   伪装(伪装成真正的发送者) 认证 消息认证码、数字签名   否认(事后称自己没有做) 不可否认性 数字">
+
+
+
+
+
+
+  <link rel="canonical" href="https://drgonroot.github.io/2020/09/15/未完成/深入密码学习/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>深入密码学习 | 断线风筝</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135039274-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-135039274-1');
+</script>
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">断线风筝</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://drgonroot.github.io/2020/09/15/未完成/深入密码学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="drgonroot">
+      <meta itemprop="description" content="不曾拥有，所以努力。热爱技术|热爱思考">
+      <meta itemprop="image" content="/images/ciwei.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="断线风筝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深入密码学习
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-09-15 17:00:52" itemprop="dateCreated datePublished" datetime="2020-09-15T17:00:52+08:00">2020-09-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-09-16 10:55:10" itemprop="dateModified" datetime="2020-09-16T10:55:10+08:00">2020-09-16</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h3 id="密码"><a href="#密码" class="headerlink" title="密码"></a>密码</h3><blockquote>
+<p>作者研读《图解密码技术-第三版》的学习总结</p>
+</blockquote>
+<p>图表面对不同场景应运而生技术</p>
+<table>
+<thead>
+<tr>
+<th>信息安全所面对威胁</th>
+<th>受威胁的特性</th>
+<th>用来应对技术</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>窃听(秘密泄露)</td>
+<td>机密性</td>
+<td>对称密码、公钥密码即非对称密码</td>
+</tr>
+<tr>
+<td>篡改(信息被修改)</td>
+<td>完整性</td>
+<td>单项散列函数、消息认证码、数字签名</td>
+</tr>
+<tr>
+<td>伪装(伪装成真正的发送者)</td>
+<td>认证</td>
+<td>消息认证码、数字签名</td>
+</tr>
+<tr>
+<td>否认(事后称自己没有做)</td>
+<td>不可否认性</td>
+<td>数字签名</td>
+</tr>
+</tbody></table>
+<h4 id="对称密码-共享密钥密码"><a href="#对称密码-共享密钥密码" class="headerlink" title="对称密码/共享密钥密码"></a>对称密码/共享密钥密码</h4><blockquote>
+<p>算法涵盖：比特异或运算，XOR<br><strong>用相同的密钥进行加密和解密</strong><br><strong>对称密码是通过将明文转换为复杂的形式来保证其机密性。</strong>   </p>
+</blockquote>
+<p><strong>分组密码</strong><br>&emsp;&emsp;分组密码是每次只能处理特定长度的一块明文数据的一类密码算法，这里的“一块”就是<code>分组(block)</code>。此外一个分组的比特数称为<code>分组长度（block length）</code>。</p>
+<h5 id="DES-2000年前被破译，可以废弃"><a href="#DES-2000年前被破译，可以废弃" class="headerlink" title="DES [2000年前被破译，可以废弃]"></a>DES [2000年前被破译，可以废弃]</h5><p>&emsp;&emsp;DES（Data Encryption Standard）是1977年美国联邦信息处理标准（FIPS）中采用的一种对称密码，也是分组密码，分组长度为64比特，密码算法一次只能加密64比特的明文，并生成64比特的密文。如果要加密的明文比较长，则需要使用DES加密算法反复迭代加密明文。DES的密钥长度是64比特，但由于每隔7比特会设置一个用于错误检查的比特，因此实质上其密钥长度为56比特。</p>
+<p>&emsp;&emsp;后续DES破译后，出现了三重DES(triple-DES，DES-EDE3, 3DES)。三重DES是为了增加DES的强度，将DES重复3次所得到一种密码算法。</p>
+<h5 id="AES"><a href="#AES" class="headerlink" title="AES"></a>AES</h5><p>&emsp;&emsp;AES（Advanced Encryption Standard, Rijdael）是分组密码，分组长度为128比特，密码算法一次可加密128比特的明文，并生成128比特的密文。如果要加密的明文比较长，则需要使用AES加密算法反复迭代加密明文。AES的规格中密钥长度有128、192和256比特三种。</p>
+<h5 id="分组密码的模式"><a href="#分组密码的模式" class="headerlink" title="分组密码的模式"></a>分组密码的模式</h5><p><strong>模式</strong><br>&emsp;&emsp;分组密码算法只能加密固定长度的分组，但是我们需要加密的明文长度可能会超过分组密码的分组长度，这是就需要对分组密码算法进行迭代，以便将一段明文全部加密完成。而迭代的方法就称为分组密码的<code>模式</code>。</p>
+<p>攻击模式：</p>
+<ul>
+<li>直接操作密文从而直接影响到明文，导致解密后明文和加密前明文意思完全不一样。</li>
+<li>通信过程某些比特缺失，导致密文无法解密。</li>
+<li>填充提示攻击是一种利用分组密码中的填充部分来进行攻击的方法。</li>
+<li>重放攻击是用使用历史上某次中几段分组密文替换本次密文中某些分组密文。这个方式让接收解密明文的人无法判断解密明文中错误是通信错误还是人为攻击。</li>
+</ul>
+<p>常用分组密码的模式比较表：</p>
+<blockquote>
+<p>CRYPTREC (Cryptography Research and Evaluation Committees) 密码学研究和评估委员会</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>名称</th>
+<th>优点</th>
+<th>缺点</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ECB模式</td>
+<td>Electronic CodeBook 电子密码本模式</td>
+<td><li>简单</li> <li>快速</li><li>支持并行计算（加密、解密）</li></td>
+<td><li>明文中重复排列反映在密文中</li><li>通过删除、替换密文分组可以对明文进行操作</li><li>对包含某些比特错误的密文进行解密时，对应的分组会出错</li><li>不能抵御重放攻击</li></td>
+<td>不应使用</td>
+</tr>
+<tr>
+<td>CBC模式</td>
+<td>Cipher Block Chainning 密文分组链接模式</td>
+<td><li>明文的重复排列不会反映在密文中</li><li>支持并行计算</li><li>能够解密任意密文分组</li></td>
+<td><li>对包含某些错误比特的密文进行解密时，第一个分组的全部比特以及后一个分组的相应比特会出错</li><li>加密不支持并行计算</li></td>
+<td>CRYPTREC 推荐；《实用密码学》推荐</td>
+</tr>
+<tr>
+<td>CFB模式</td>
+<td>Cipher FeedBack 密文反馈模式</td>
+<td><li>不需要填充（padding）</li><li>支持并行计算（仅解密）</li><li>能够解密任意密文分组</li></td>
+<td><li>加密不支持并行计算</li><li>对包含某些错误比特的密文进行解密时，第一个分组的相应比特以及后一个分组的全部比特会出错</li><li>不能抵御重放攻击</li></td>
+<td>CRYPTREC 推荐</td>
+</tr>
+<tr>
+<td>OFB模式</td>
+<td>Output-FeedBack 输出反馈模式</td>
+<td><li>不需要填充（padding）</li><li>可事先进行加密、解密的准备</li><li>加密、解密使用相同的结构</li><li>对包含某些错误比特的密文进行解密时，只有明文中相对应的比特会出错</li></td>
+<td><li>不支持并行运算</li><li>主动攻击者反转密文分组中的某些比特是，明文中对应的比特也会被反转</li></td>
+<td>CRYPTREC 推荐</td>
+</tr>
+<tr>
+<td>CTR模式</td>
+<td>CounTeR 计数器模式</td>
+<td><li>不需要填充（padding）</li><li>可事先进行加密、解密准备</li><li>加密、解密使用相同结构</li><li>对包含某些错误比特的密文进行解密是，只有明文中相对应的比特会出错</li><li>支持并行计算（加密、解密）</li></td>
+<td>主动攻击者反转密文分组中某些比特时，明文分组中相对应的比特也会被反转</td>
+<td>CRYPTREC 推荐；《实用密码学》推荐</td>
+</tr>
+</tbody></table>
+<h4 id="公钥密码（非对称加密"><a href="#公钥密码（非对称加密" class="headerlink" title="公钥密码（非对称加密)"></a>公钥密码（非对称加密)</h4><blockquote>
+<p>公钥密码（public-key Cryptography）中，密钥分为加密密钥和解密密钥两种。发送者用加密密钥对消息进行加密，接收者用解密密钥对密文机型解密。<br><strong>公钥密码是基于数学上的困难的问题来保证机密性。</strong></p>
+</blockquote>
+<p>&emsp;&emsp;公钥密码中，加密密钥一般是公开的。由于加密密钥可以任意公开，因此该密钥被称为<code>公钥（public key）</code>。解密密钥是绝对不能公开的，这个密钥只能有自己保管，因此称为<code>私钥(private key)</code>。公钥和私钥是一一对应的，一对公钥和私钥统称为<code>密钥对（key pair）</code>。由公钥进行加密的密文，必须使用由该公钥配对的私钥才能解密。</p>
+<h5 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h5><blockquote>
+<p>RSA 开发者首字母大写（Ron Rivest、Adi Shamir、Leonard Adleman）<br>RSA的机密性：</p>
+</blockquote>
+<ol>
+<li>依赖目前发展，还没有发现求离散对数的高效算法</li>
+<li>依赖目前发展，对大整数进行质因数分解的高效算法</li>
+</ol>
+<p>RSA加密：密文 = 明文^E mod N<br>E和N的组合就是公钥  </p>
+<p>RSA解密：明文 = 密文^D mod N<br>D和N的组合就是私钥</p>
+<p>攻击模式：</p>
+<ol>
+<li>中间人攻击（man-in-the-middle Attack）</li>
+<li>选择密文攻击（Chosen Cipher Attack ）<br>对应解决方案是在RSA的明文中加入认证的信息，解密进行识别是否是认证人明文信息。即RSA-OAEP(Optimal Asymmetric Encryption Padding，最优非对称加密填充)</li>
+</ol>
+<p>在RSA Chanllenge，有公开记录的被成功分解的最长的RSA数为RSA-768(232位)。但是长度为2048比特的整数目前是安全的即RSA-2048(617位)。因此默认RSA的密钥长度是2048比特。</p>
+<p>公钥密码的运行速度远远低于对称密。</p>
+<h4 id="混合密码系统了解"><a href="#混合密码系统了解" class="headerlink" title="混合密码系统了解"></a>混合密码系统了解</h4><blockquote>
+<p>用对称密码提高速度，用公钥密码保护会话密钥<br>应用：SSL/TLS</p>
+</blockquote>
+<p>混合密码系统（hybrid cryptosystem）是将对称密码和公钥密码的优势相结合的方法。<br>组成机制：</p>
+<blockquote>
+<p>会话密钥是指本次通信而生成的临时密钥，它一般是通过伪随机数生成器产生的。会话密钥是对称密码的密钥，同时也是公钥密码的明文。</p>
+</blockquote>
+<ul>
+<li>用对称密码加密消息</li>
+<li>通过伪随机数生成器生成对称密码作为会话密钥，加密时使用</li>
+<li>用公钥密码加密会话密钥</li>
+<li>从混合密码系统外部赋予公钥密码加密时使用的密钥</li>
+</ul>
+<p>数字签名，是由单向散列函数和公钥密码组合而成的<br>证书，是由公钥和数字签名组合而成的<br>消息认证码，是由单向散列函数和密钥组合而成的，也可以通过对称密码来生成  </p>
+<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><h4 id="openssl-加密工具"><a href="#openssl-加密工具" class="headerlink" title="openssl 加密工具"></a>openssl 加密工具</h4><blockquote>
+<p>摘抄至 <a href="https://www.openssl.org/docs/man1.0.2/man1/enc.html" target="_blank" rel="noopener">OpenSSL</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">base64             Base 64</span><br><span class="line"></span><br><span class="line"> bf-cbc             Blowfish in CBC mode</span><br><span class="line"> bf                 Alias for bf-cbc</span><br><span class="line"> bf-cfb             Blowfish in CFB mode</span><br><span class="line"> bf-ecb             Blowfish in ECB mode</span><br><span class="line"> bf-ofb             Blowfish in OFB mode</span><br><span class="line"></span><br><span class="line"> cast-cbc           CAST in CBC mode</span><br><span class="line"> cast               Alias for cast-cbc</span><br><span class="line"> cast5-cbc          CAST5 in CBC mode</span><br><span class="line"> cast5-cfb          CAST5 in CFB mode</span><br><span class="line"> cast5-ecb          CAST5 in ECB mode</span><br><span class="line"> cast5-ofb          CAST5 in OFB mode</span><br><span class="line"></span><br><span class="line"> des-cbc            DES in CBC mode</span><br><span class="line"> des                Alias for des-cbc</span><br><span class="line"> des-cfb            DES in CBC mode</span><br><span class="line"> des-ofb            DES in OFB mode</span><br><span class="line"> des-ecb            DES in ECB mode</span><br><span class="line"></span><br><span class="line"> des-ede-cbc        Two key triple DES EDE in CBC mode</span><br><span class="line"> des-ede            Two key triple DES EDE in ECB mode</span><br><span class="line"> des-ede-cfb        Two key triple DES EDE in CFB mode</span><br><span class="line"> des-ede-ofb        Two key triple DES EDE in OFB mode</span><br><span class="line"></span><br><span class="line"> des-ede3-cbc       Three key triple DES EDE in CBC mode</span><br><span class="line"> des-ede3           Three key triple DES EDE in ECB mode</span><br><span class="line"> des3               Alias for des-ede3-cbc</span><br><span class="line"> des-ede3-cfb       Three key triple DES EDE CFB mode</span><br><span class="line"> des-ede3-ofb       Three key triple DES EDE in OFB mode</span><br><span class="line"></span><br><span class="line"> desx               DESX algorithm.</span><br><span class="line"></span><br><span class="line"> gost89             GOST 28147-89 in CFB mode (provided by ccgost engine)</span><br><span class="line"> gost89-cnt        `GOST 28147-89 in CNT mode (provided by ccgost engine)</span><br><span class="line"></span><br><span class="line"> idea-cbc           IDEA algorithm in CBC mode</span><br><span class="line"> idea               same as idea-cbc</span><br><span class="line"> idea-cfb           IDEA in CFB mode</span><br><span class="line"> idea-ecb           IDEA in ECB mode</span><br><span class="line"> idea-ofb           IDEA in OFB mode</span><br><span class="line"></span><br><span class="line"> rc2-cbc            128 bit RC2 in CBC mode</span><br><span class="line"> rc2                Alias for rc2-cbc</span><br><span class="line"> rc2-cfb            128 bit RC2 in CFB mode</span><br><span class="line"> rc2-ecb            128 bit RC2 in ECB mode</span><br><span class="line"> rc2-ofb            128 bit RC2 in OFB mode</span><br><span class="line"> rc2-64-cbc         64 bit RC2 in CBC mode</span><br><span class="line"> rc2-40-cbc         40 bit RC2 in CBC mode</span><br><span class="line"></span><br><span class="line"> rc4                128 bit RC4</span><br><span class="line"> rc4-64             64 bit RC4</span><br><span class="line"> rc4-40             40 bit RC4</span><br><span class="line"></span><br><span class="line"> rc5-cbc            RC5 cipher in CBC mode</span><br><span class="line"> rc5                Alias for rc5-cbc</span><br><span class="line"> rc5-cfb            RC5 cipher in CFB mode</span><br><span class="line"> rc5-ecb            RC5 cipher in ECB mode</span><br><span class="line"> rc5-ofb            RC5 cipher in OFB mode</span><br><span class="line"></span><br><span class="line"> aes-[128|192|256]-cbc  128/192/256 bit AES in CBC mode</span><br><span class="line"> aes-[128|192|256]      Alias for aes-[128|192|256]-cbc</span><br><span class="line"> aes-[128|192|256]-cfb  128/192/256 bit AES in 128 bit CFB mode</span><br><span class="line"> aes-[128|192|256]-cfb1 128/192/256 bit AES in 1 bit CFB mode</span><br><span class="line"> aes-[128|192|256]-cfb8 128/192/256 bit AES in 8 bit CFB mode</span><br><span class="line"> aes-[128|192|256]-ecb  128/192/256 bit AES in ECB mode</span><br><span class="line"> aes-[128|192|256]-ofb  128/192/256 bit AES in OFB mode</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>不曾拥有，所以努力。（坚持原创技术分享，您的支持将鼓励我继续创作！）</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin_reward.jpeg" alt="drgonroot 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>drgonroot</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://drgonroot.github.io/2020/09/15/未完成/深入密码学习/" title="深入密码学习">https://drgonroot.github.io/2020/09/15/未完成/深入密码学习/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/08/读书/互联网项目管理实践精粹（一）/" rel="next" title="互联网项目管理实践精粹（一）">
+                <i class="fa fa-chevron-left"></i> 互联网项目管理实践精粹（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/ciwei.jpg" alt="drgonroot">
+            
+              <p class="site-author-name" itemprop="name">drgonroot</p>
+              <p class="site-description motion-element" itemprop="description">不曾拥有，所以努力。热爱技术|热爱思考</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/drgonroot" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#密码"><span class="nav-number">1.</span> <span class="nav-text">密码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对称密码-共享密钥密码"><span class="nav-number">1.1.</span> <span class="nav-text">对称密码/共享密钥密码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#DES-2000年前被破译，可以废弃"><span class="nav-number">1.1.1.</span> <span class="nav-text">DES [2000年前被破译，可以废弃]</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AES"><span class="nav-number">1.1.2.</span> <span class="nav-text">AES</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分组密码的模式"><span class="nav-number">1.1.3.</span> <span class="nav-text">分组密码的模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公钥密码（非对称加密"><span class="nav-number">1.2.</span> <span class="nav-text">公钥密码（非对称加密)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#RSA"><span class="nav-number">1.2.1.</span> <span class="nav-text">RSA</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#混合密码系统了解"><span class="nav-number">1.3.</span> <span class="nav-text">混合密码系统了解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用"><span class="nav-number">1.4.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#openssl-加密工具"><span class="nav-number">1.5.</span> <span class="nav-text">openssl 加密工具</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">drgonroot</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
