@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="断线风筝">
 <meta property="og:description" content="吐槽、建议、解惑入口网址 密码 作者研读《图解密码技术-第三版》的学习总结  图表面对不同场景应运而生技术    信息安全所面对威胁 受威胁的特性 用来应对技术    窃听(秘密泄露) 机密性 对称密码、公钥密码即非对称密码   篡改(信息被修改) 完整性 单项散列函数、消息认证码、数字签名   伪装(伪装成真正的发送者) 认证 消息认证码、数字签名   否认(事后称自己没有做) 不可否认性 数字">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-09-16T02:55:10.629Z">
+<meta property="og:updated_time" content="2020-09-19T11:04:52.554Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入密码学习">
 <meta name="twitter:description" content="吐槽、建议、解惑入口网址 密码 作者研读《图解密码技术-第三版》的学习总结  图表面对不同场景应运而生技术    信息安全所面对威胁 受威胁的特性 用来应对技术    窃听(秘密泄露) 机密性 对称密码、公钥密码即非对称密码   篡改(信息被修改) 完整性 单项散列函数、消息认证码、数字签名   伪装(伪装成真正的发送者) 认证 消息认证码、数字签名   否认(事后称自己没有做) 不可否认性 数字">
@@ -356,7 +356,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-09-16 10:55:10" itemprop="dateModified" datetime="2020-09-16T10:55:10+08:00">2020-09-16</time>
+                <time title="修改时间：2020-09-19 19:04:52" itemprop="dateModified" datetime="2020-09-19T19:04:52+08:00">2020-09-19</time>
               
             
           </span>
@@ -429,6 +429,7 @@
 <p><strong>分组密码</strong><br>&emsp;&emsp;分组密码是每次只能处理特定长度的一块明文数据的一类密码算法，这里的“一块”就是<code>分组(block)</code>。此外一个分组的比特数称为<code>分组长度（block length）</code>。</p>
 <h5 id="DES-2000年前被破译，可以废弃"><a href="#DES-2000年前被破译，可以废弃" class="headerlink" title="DES [2000年前被破译，可以废弃]"></a>DES [2000年前被破译，可以废弃]</h5><p>&emsp;&emsp;DES（Data Encryption Standard）是1977年美国联邦信息处理标准（FIPS）中采用的一种对称密码，也是分组密码，分组长度为64比特，密码算法一次只能加密64比特的明文，并生成64比特的密文。如果要加密的明文比较长，则需要使用DES加密算法反复迭代加密明文。DES的密钥长度是64比特，但由于每隔7比特会设置一个用于错误检查的比特，因此实质上其密钥长度为56比特。</p>
 <p>&emsp;&emsp;后续DES破译后，出现了三重DES(triple-DES，DES-EDE3, 3DES)。三重DES是为了增加DES的强度，将DES重复3次所得到一种密码算法。</p>
+<a id="more"></a>
 <h5 id="AES"><a href="#AES" class="headerlink" title="AES"></a>AES</h5><p>&emsp;&emsp;AES（Advanced Encryption Standard, Rijdael）是分组密码，分组长度为128比特，密码算法一次可加密128比特的明文，并生成128比特的密文。如果要加密的明文比较长，则需要使用AES加密算法反复迭代加密明文。AES的规格中密钥长度有128、192和256比特三种。</p>
 <h5 id="分组密码的模式"><a href="#分组密码的模式" class="headerlink" title="分组密码的模式"></a>分组密码的模式</h5><p><strong>模式</strong><br>&emsp;&emsp;分组密码算法只能加密固定长度的分组，但是我们需要加密的明文长度可能会超过分组密码的分组长度，这是就需要对分组密码算法进行迭代，以便将一段明文全部加密完成。而迭代的方法就称为分组密码的<code>模式</code>。</p>
 <p>攻击模式：</p>
@@ -522,7 +523,142 @@
 <li>从混合密码系统外部赋予公钥密码加密时使用的密钥</li>
 </ul>
 <p>数字签名，是由单向散列函数和公钥密码组合而成的<br>证书，是由公钥和数字签名组合而成的<br>消息认证码，是由单向散列函数和密钥组合而成的，也可以通过对称密码来生成  </p>
-<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><h4 id="openssl-加密工具"><a href="#openssl-加密工具" class="headerlink" title="openssl 加密工具"></a>openssl 加密工具</h4><blockquote>
+<h4 id="单向散列函数"><a href="#单向散列函数" class="headerlink" title="单向散列函数"></a>单向散列函数</h4><blockquote>
+<p>获取消息的“指纹”，单向散列函数也称为消息摘要函数（message digest function）、哈希函数。<br>输入单向散列函数的消息也称为原像。<br>单向散列函数输出的散列值也称为消息摘要（message digest）或者指纹（fingerprint）。完整性也称为一致性。</p>
+</blockquote>
+<p>&emsp;&emsp;<code>单向散列函数</code>(one-way hash function) 有一个输入和一个输出，其中输入消息称为消息（message）,输出称为散列值（hash value）。单向散列函数可以根据消息内容计算出散列值，而散列值就可以被用来检查消息的完整性。<br>&emsp;&emsp;单向散列函数根据任意长度的消息计算出固定长度的散列值，能够快速计算出散列值。单向散列函数一般要具备弱抗碰撞性（要找到和该消息具有相同的散列值的另外一条消息是非常困难的）和强抗碰撞性（要找到散列值相同的两条不同消息是非常困难的）。</p>
+<h5 id="MD4和MD5"><a href="#MD4和MD5" class="headerlink" title="MD4和MD5"></a>MD4和MD5</h5><p>&emsp;&emsp;MD4 是1990年Rivest设计出的单向散列函数，可以产生出128比特的散列值。后续MD4已经被Dobbertin找到MD4散列碰撞方法，现在已经不安全了。<br>&emsp;&emsp;MD5 是1991年Rivest设计的单向散列函数，能够产生生128比特的散列值。后续MD5的强抗碰撞性被攻破，因此它也不安全了。</p>
+<h5 id="SHA-1和SHA-2"><a href="#SHA-1和SHA-2" class="headerlink" title="SHA-1和SHA-2"></a>SHA-1和SHA-2</h5><blockquote>
+<p>SHA-1和SHA-2是基于相同MD（message digest）结构的单向散列函数。</p>
+</blockquote>
+<p>&emsp;&emsp;SHA-1是一种能够产生160比特的散列值的单向散列函数，但是针对于SHA-1的碰撞攻击算法在2005年已经实现了，所以SHA-1是不安全的。   </p>
+<p>&emsp;&emsp;SHA-2一共包含6种版本。但其实这6种版本SHA-2实质上都是由SHA-256和SHA-512这个两个版本衍生出来的，其他版本都是通过将上述两种版本所生成的结果截取得到的。SHA-2现在还没有攻破是安全的。</p>
+<p>6种版本的SHA-2   </p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>输出长度</th>
+<th>内部状态</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SHA-224</td>
+<td>224</td>
+<td>32*8</td>
+<td>将SHA-256的结果截掉32比特</td>
+</tr>
+<tr>
+<td>SHA-256</td>
+<td>256</td>
+<td>32*8</td>
+<td></td>
+</tr>
+<tr>
+<td>SHA-512/224</td>
+<td>224</td>
+<td>64*8</td>
+<td>将SHA-512的结果截掉288比特</td>
+</tr>
+<tr>
+<td>SHA-512/256</td>
+<td>256</td>
+<td>64*8</td>
+<td>将SHA-512的结果截掉256比特</td>
+</tr>
+<tr>
+<td>SHA-385</td>
+<td>384</td>
+<td>64*8</td>
+<td>将SHA-512的结果截掉128比特</td>
+</tr>
+<tr>
+<td>SHA-512</td>
+<td>512</td>
+<td>64*8</td>
+<td></td>
+</tr>
+</tbody></table>
+<h5 id="SHA-3-Keccak"><a href="#SHA-3-Keccak" class="headerlink" title="SHA-3 (Keccak)"></a>SHA-3 (Keccak)</h5><blockquote>
+<p>SHA-3(Secure Hash algorithm-3)是一种作为新标准发布的单向散列函数算法，用来替代在理论上已被找出攻击方法的SHA-1算法。全世界的企业和密码学家提交了很多SHA-3的标准方案，经过长达5年的选拔，最终于在2012年正式确定将Keccak算法作为SHA-3标准。</p>
+</blockquote>
+<p>SHA-3(Keccak)可以生成任意长度的散列值，但为了配合SHA-2的散列值长度，SHA-3标准中共规定了SHA3-224,SHA3-256,SHA3-384,SHA3-512这4种版本。SHA-3是安全的。</p>
+<h4 id="消息认证码"><a href="#消息认证码" class="headerlink" title="消息认证码"></a>消息认证码</h4><blockquote>
+<p>目的解决消能够息被正确传送了,中间没有发生篡改且能否，确认消息是对方发送的</p>
+</blockquote>
+<p>&emsp;&emsp;消息认证码的输入包括任意长度的消息和<code>一个发送者与接收者之间共享的密钥</code>，它可以输出固定长度的数据，这个数据称为<code>MAC值</code>。</p>
+<p>消息认证码的实现方法：使用单向散列函数实现（eg: HMAC）,使用分组密码实现（eg:AES-CMAC）等等<br>我们是可以对消息认证码进行重放攻击的，一般针对这种情况，我们可以是以下方法进行防御：</p>
+<ul>
+<li>约定每次都对发送的消息赋予一个递增的编号（序号），并且在计算MAC的值时将序号也包含在消息中。这种方法虽然有效，但是对于每个通信都需要记录最后一个消息的序号。（微信支付中微信代扣requestId）</li>
+<li>约定在发送消息时包含当前的时间啊，如果收到以前的消息，即便MAC值正确也将其当做错误消息来处理，这就能防御重放攻击。这种方法虽然有效，但是发送者和接收者的时钟必须一致，而且考虑到通信延迟，必须在时间的判断上留下缓冲，于是多多少少还是存在可以进行重放攻击的空间。</li>
+<li>在通信之前，接收者先向发送者发送一个一次性的随机数，这个随机数一般称为nonce。发送者咋消息中包含这个nonce并计算MAC值。由于每次同时nonce的值发生变化，因此无法进行重放攻击。这种方法虽然有效，但是通信的数据会有所增加。（广泛运用在微信支付、支付宝支付上）</li>
+</ul>
+<p>&emsp;&emsp;消息认证码对于防止否认和第三方证明上无法解决的。</p>
+<h5 id="HMAC"><a href="#HMAC" class="headerlink" title="HMAC"></a>HMAC</h5><p>&emsp;&emsp;因为使用单向散列函数构造消息认证码，所以可以使用SHA-1,SHA-224,SHA-256,SHA-384,SHA-512构造消息认证码。这些方式构造消息认证码叫HMAC-SHA1,HMAC-SHA-224,HMAC-SHA-384,HMAC-SHA-512。</p>
+<h4 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h4><blockquote>
+<p>目的是解决消息是谁写的问题</p>
+</blockquote>
+<p>&emsp;&emsp;数字签名（digital signnature）是将消息认证码中对称密码换成公钥密码，这样发送者和接收者都使用者不同的密码。 发送者使用公钥密码的私钥对消息进行签名处理，接收者是用公钥密码的公钥验证消息的签名。<br>&emsp;&emsp;数字签名对签名密钥和验证密钥进行了区分，使用验证密钥是无法生成签名的。签名密钥只能由签名的人持有，而验证签名则是任何需要验证签名的人都可以持有。换句话说数字签名就是通过将公钥密码“反过来用”而实现的。</p>
+<p>公钥密码与数字签名的密钥使用方式</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>私钥</th>
+<th>公钥</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>公钥密码</td>
+<td>接收者解密时使用</td>
+<td>发送者加密时使用</td>
+</tr>
+<tr>
+<td>数字签名</td>
+<td>签名者生成签名时使用</td>
+<td>验证者验证签名时使用</td>
+</tr>
+<tr>
+<td>谁持有密钥？</td>
+<td>个人持有</td>
+<td>只要需要，任何人都可以持有</td>
+</tr>
+</tbody></table>
+<p>对消息散列值签名的使用流程：</p>
+<ol>
+<li>发送方使用单向散列函数将消息生成一个散列值</li>
+<li>发送方使用数字签名的私钥对散列值进行签名</li>
+<li>然后将消息和签名一起发送给接收方</li>
+<li>接收方使用数字签名的公钥解密签名</li>
+<li>接收方使用单向散列函数将接收消息生成一个散列值，和解密后签名进行对照</li>
+</ol>
+<p>&emsp;&emsp;数字签名不会保证消息的机密性，数字签名的作用是防止否认的及第三方也可以认证。但是数字签名容易受到“中间人攻击”，同时我们也无法高效验证自己手中公钥是否是有效的。<br>&emsp;&emsp;对称密码的密钥是机密性的精华，单向散列函数的散列值是完整性的精华。</p>
+<h4 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h4><blockquote>
+<p>为公钥加上数字签名</p>
+</blockquote>
+<p>&emsp;&emsp;公钥证书（Public Key Certificat, PKC）其实和驾照很相似，里面记有姓名、组织、邮箱地址等个人信息，以及属于此人的公钥，并由认证机构（Certification Authority、Certifying Authority，CA）施加数字签名。只要看到公钥证书，我们就可以知道认证机构认定该公钥的确属于此人。公钥证书也简称为证书（certificate）。</p>
+<p>&emsp;&emsp;公钥基础设施（Public Key Infrastructure）,简称PKI.公钥基础设施是为了能够更有效地运用公钥而制定的一系列规范和规格的总称。</p>
+<p>####随机数</p>
+<blockquote>
+<p>不可预测性源泉  </p>
+</blockquote>
+<ul>
+<li>随机性 不存在统计学偏差，是完全杂乱的数列</li>
+<li>不可预测性 不能从过去的数列推测出下一个出现的数</li>
+<li>不可重现性 除非将数列本身部分保存下来，否则不能重现相同的数列</li>
+</ul>
+<p><strong>伪随机数生成器</strong><br>&emsp;&emsp;通过硬件生成的随机数列，是根据传感器收集的热量、声音的变化等事实上无法预测和重现的自然现象信息来生成的。像这样的硬件设备就称为随机数生成器（Random Number Generator， RNG）。<br>&emsp;&emsp;而可以生成随机数的软件则称为伪随机数生成器（Pseudo Random Number Generator，PRNG）。因为仅靠软件无法生成真随机数。<br>&emsp;&emsp;为了生成伪随机数，伪随机数生成器需要被称为种子（seed）的信息。伪随机数的种子是用来对伪随机数生成器的内部状态进行初始化的。伪随机数的种子是一串随机的比特序列，根据种子就可以生成出专属于自己的伪随机数列。<br>单向单列函数的单向性是支撑伪随机数生成器不可预测性的基础。<br>密码的机密性是支持伪随机生成器不可预测的基础。</p>
+<p><strong>随机数应用：</strong></p>
+<ul>
+<li>生成密钥<br>用于对称密码和消息认证码</li>
+<li>生成密钥对<br>用于公钥密码和数字签名     </li>
+<li>生成初始化向量（IV）<br>用分组密码的CBC、CFB和OFB模式    </li>
+<li>生成nonce<br>用于防御重放攻击以及分组密码的CTR模式等   </li>
+<li>生成盐<br>用于基于口令的密码（PBE）等</li>
+</ul>
+<p><strong>备注</strong><br>Java中有个用于生成随机数数列的类，名叫java.util.Random,然而这个类也不能用于安全相关用途。如果要用于安全相关用途，可以使用另一个名叫java.security.SecureRandom的类。</p>
+<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><h5 id="openssl-加密工具"><a href="#openssl-加密工具" class="headerlink" title="openssl 加密工具"></a>openssl 加密工具</h5><blockquote>
 <p>摘抄至 <a href="https://www.openssl.org/docs/man1.0.2/man1/enc.html" target="_blank" rel="noopener">OpenSSL</a></p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">base64             Base 64</span><br><span class="line"></span><br><span class="line"> bf-cbc             Blowfish in CBC mode</span><br><span class="line"> bf                 Alias for bf-cbc</span><br><span class="line"> bf-cfb             Blowfish in CFB mode</span><br><span class="line"> bf-ecb             Blowfish in ECB mode</span><br><span class="line"> bf-ofb             Blowfish in OFB mode</span><br><span class="line"></span><br><span class="line"> cast-cbc           CAST in CBC mode</span><br><span class="line"> cast               Alias for cast-cbc</span><br><span class="line"> cast5-cbc          CAST5 in CBC mode</span><br><span class="line"> cast5-cfb          CAST5 in CFB mode</span><br><span class="line"> cast5-ecb          CAST5 in ECB mode</span><br><span class="line"> cast5-ofb          CAST5 in OFB mode</span><br><span class="line"></span><br><span class="line"> des-cbc            DES in CBC mode</span><br><span class="line"> des                Alias for des-cbc</span><br><span class="line"> des-cfb            DES in CBC mode</span><br><span class="line"> des-ofb            DES in OFB mode</span><br><span class="line"> des-ecb            DES in ECB mode</span><br><span class="line"></span><br><span class="line"> des-ede-cbc        Two key triple DES EDE in CBC mode</span><br><span class="line"> des-ede            Two key triple DES EDE in ECB mode</span><br><span class="line"> des-ede-cfb        Two key triple DES EDE in CFB mode</span><br><span class="line"> des-ede-ofb        Two key triple DES EDE in OFB mode</span><br><span class="line"></span><br><span class="line"> des-ede3-cbc       Three key triple DES EDE in CBC mode</span><br><span class="line"> des-ede3           Three key triple DES EDE in ECB mode</span><br><span class="line"> des3               Alias for des-ede3-cbc</span><br><span class="line"> des-ede3-cfb       Three key triple DES EDE CFB mode</span><br><span class="line"> des-ede3-ofb       Three key triple DES EDE in OFB mode</span><br><span class="line"></span><br><span class="line"> desx               DESX algorithm.</span><br><span class="line"></span><br><span class="line"> gost89             GOST 28147-89 in CFB mode (provided by ccgost engine)</span><br><span class="line"> gost89-cnt        `GOST 28147-89 in CNT mode (provided by ccgost engine)</span><br><span class="line"></span><br><span class="line"> idea-cbc           IDEA algorithm in CBC mode</span><br><span class="line"> idea               same as idea-cbc</span><br><span class="line"> idea-cfb           IDEA in CFB mode</span><br><span class="line"> idea-ecb           IDEA in ECB mode</span><br><span class="line"> idea-ofb           IDEA in OFB mode</span><br><span class="line"></span><br><span class="line"> rc2-cbc            128 bit RC2 in CBC mode</span><br><span class="line"> rc2                Alias for rc2-cbc</span><br><span class="line"> rc2-cfb            128 bit RC2 in CFB mode</span><br><span class="line"> rc2-ecb            128 bit RC2 in ECB mode</span><br><span class="line"> rc2-ofb            128 bit RC2 in OFB mode</span><br><span class="line"> rc2-64-cbc         64 bit RC2 in CBC mode</span><br><span class="line"> rc2-40-cbc         40 bit RC2 in CBC mode</span><br><span class="line"></span><br><span class="line"> rc4                128 bit RC4</span><br><span class="line"> rc4-64             64 bit RC4</span><br><span class="line"> rc4-40             40 bit RC4</span><br><span class="line"></span><br><span class="line"> rc5-cbc            RC5 cipher in CBC mode</span><br><span class="line"> rc5                Alias for rc5-cbc</span><br><span class="line"> rc5-cfb            RC5 cipher in CFB mode</span><br><span class="line"> rc5-ecb            RC5 cipher in ECB mode</span><br><span class="line"> rc5-ofb            RC5 cipher in OFB mode</span><br><span class="line"></span><br><span class="line"> aes-[128|192|256]-cbc  128/192/256 bit AES in CBC mode</span><br><span class="line"> aes-[128|192|256]      Alias for aes-[128|192|256]-cbc</span><br><span class="line"> aes-[128|192|256]-cfb  128/192/256 bit AES in 128 bit CFB mode</span><br><span class="line"> aes-[128|192|256]-cfb1 128/192/256 bit AES in 1 bit CFB mode</span><br><span class="line"> aes-[128|192|256]-cfb8 128/192/256 bit AES in 8 bit CFB mode</span><br><span class="line"> aes-[128|192|256]-ecb  128/192/256 bit AES in ECB mode</span><br><span class="line"> aes-[128|192|256]-ofb  128/192/256 bit AES in OFB mode</span><br></pre></td></tr></table></figure>
@@ -772,7 +908,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#密码"><span class="nav-number">1.</span> <span class="nav-text">密码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对称密码-共享密钥密码"><span class="nav-number">1.1.</span> <span class="nav-text">对称密码/共享密钥密码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#DES-2000年前被破译，可以废弃"><span class="nav-number">1.1.1.</span> <span class="nav-text">DES [2000年前被破译，可以废弃]</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AES"><span class="nav-number">1.1.2.</span> <span class="nav-text">AES</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分组密码的模式"><span class="nav-number">1.1.3.</span> <span class="nav-text">分组密码的模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公钥密码（非对称加密"><span class="nav-number">1.2.</span> <span class="nav-text">公钥密码（非对称加密)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#RSA"><span class="nav-number">1.2.1.</span> <span class="nav-text">RSA</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#混合密码系统了解"><span class="nav-number">1.3.</span> <span class="nav-text">混合密码系统了解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用"><span class="nav-number">1.4.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#openssl-加密工具"><span class="nav-number">1.5.</span> <span class="nav-text">openssl 加密工具</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#密码"><span class="nav-number">1.</span> <span class="nav-text">密码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对称密码-共享密钥密码"><span class="nav-number">1.1.</span> <span class="nav-text">对称密码/共享密钥密码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#DES-2000年前被破译，可以废弃"><span class="nav-number">1.1.1.</span> <span class="nav-text">DES [2000年前被破译，可以废弃]</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AES"><span class="nav-number">1.1.2.</span> <span class="nav-text">AES</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分组密码的模式"><span class="nav-number">1.1.3.</span> <span class="nav-text">分组密码的模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公钥密码（非对称加密"><span class="nav-number">1.2.</span> <span class="nav-text">公钥密码（非对称加密)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#RSA"><span class="nav-number">1.2.1.</span> <span class="nav-text">RSA</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#混合密码系统了解"><span class="nav-number">1.3.</span> <span class="nav-text">混合密码系统了解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单向散列函数"><span class="nav-number">1.4.</span> <span class="nav-text">单向散列函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#MD4和MD5"><span class="nav-number">1.4.1.</span> <span class="nav-text">MD4和MD5</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SHA-1和SHA-2"><span class="nav-number">1.4.2.</span> <span class="nav-text">SHA-1和SHA-2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SHA-3-Keccak"><span class="nav-number">1.4.3.</span> <span class="nav-text">SHA-3 (Keccak)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息认证码"><span class="nav-number">1.5.</span> <span class="nav-text">消息认证码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#HMAC"><span class="nav-number">1.5.1.</span> <span class="nav-text">HMAC</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数字签名"><span class="nav-number">1.6.</span> <span class="nav-text">数字签名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#证书"><span class="nav-number">1.7.</span> <span class="nav-text">证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用"><span class="nav-number">1.8.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#openssl-加密工具"><span class="nav-number">1.8.1.</span> <span class="nav-text">openssl 加密工具</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

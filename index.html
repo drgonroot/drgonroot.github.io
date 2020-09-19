@@ -360,7 +360,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-09-16 10:55:10" itemprop="dateModified" datetime="2020-09-16T10:55:10+08:00">2020-09-16</time>
+                <time title="修改时间：2020-09-19 19:04:52" itemprop="dateModified" datetime="2020-09-19T19:04:52+08:00">2020-09-19</time>
               
             
           </span>
@@ -394,8 +394,7 @@
 
       
         
-          
-            <p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+          <p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
 <h3 id="密码"><a href="#密码" class="headerlink" title="密码"></a>密码</h3><blockquote>
 <p>作者研读《图解密码技术-第三版》的学习总结</p>
 </blockquote>
@@ -435,106 +434,13 @@
 <p><strong>分组密码</strong><br>&emsp;&emsp;分组密码是每次只能处理特定长度的一块明文数据的一类密码算法，这里的“一块”就是<code>分组(block)</code>。此外一个分组的比特数称为<code>分组长度（block length）</code>。</p>
 <h5 id="DES-2000年前被破译，可以废弃"><a href="#DES-2000年前被破译，可以废弃" class="headerlink" title="DES [2000年前被破译，可以废弃]"></a>DES [2000年前被破译，可以废弃]</h5><p>&emsp;&emsp;DES（Data Encryption Standard）是1977年美国联邦信息处理标准（FIPS）中采用的一种对称密码，也是分组密码，分组长度为64比特，密码算法一次只能加密64比特的明文，并生成64比特的密文。如果要加密的明文比较长，则需要使用DES加密算法反复迭代加密明文。DES的密钥长度是64比特，但由于每隔7比特会设置一个用于错误检查的比特，因此实质上其密钥长度为56比特。</p>
 <p>&emsp;&emsp;后续DES破译后，出现了三重DES(triple-DES，DES-EDE3, 3DES)。三重DES是为了增加DES的强度，将DES重复3次所得到一种密码算法。</p>
-<h5 id="AES"><a href="#AES" class="headerlink" title="AES"></a>AES</h5><p>&emsp;&emsp;AES（Advanced Encryption Standard, Rijdael）是分组密码，分组长度为128比特，密码算法一次可加密128比特的明文，并生成128比特的密文。如果要加密的明文比较长，则需要使用AES加密算法反复迭代加密明文。AES的规格中密钥长度有128、192和256比特三种。</p>
-<h5 id="分组密码的模式"><a href="#分组密码的模式" class="headerlink" title="分组密码的模式"></a>分组密码的模式</h5><p><strong>模式</strong><br>&emsp;&emsp;分组密码算法只能加密固定长度的分组，但是我们需要加密的明文长度可能会超过分组密码的分组长度，这是就需要对分组密码算法进行迭代，以便将一段明文全部加密完成。而迭代的方法就称为分组密码的<code>模式</code>。</p>
-<p>攻击模式：</p>
-<ul>
-<li>直接操作密文从而直接影响到明文，导致解密后明文和加密前明文意思完全不一样。</li>
-<li>通信过程某些比特缺失，导致密文无法解密。</li>
-<li>填充提示攻击是一种利用分组密码中的填充部分来进行攻击的方法。</li>
-<li>重放攻击是用使用历史上某次中几段分组密文替换本次密文中某些分组密文。这个方式让接收解密明文的人无法判断解密明文中错误是通信错误还是人为攻击。</li>
-</ul>
-<p>常用分组密码的模式比较表：</p>
-<blockquote>
-<p>CRYPTREC (Cryptography Research and Evaluation Committees) 密码学研究和评估委员会</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>模式</th>
-<th>名称</th>
-<th>优点</th>
-<th>缺点</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ECB模式</td>
-<td>Electronic CodeBook 电子密码本模式</td>
-<td><li>简单</li> <li>快速</li><li>支持并行计算（加密、解密）</li></td>
-<td><li>明文中重复排列反映在密文中</li><li>通过删除、替换密文分组可以对明文进行操作</li><li>对包含某些比特错误的密文进行解密时，对应的分组会出错</li><li>不能抵御重放攻击</li></td>
-<td>不应使用</td>
-</tr>
-<tr>
-<td>CBC模式</td>
-<td>Cipher Block Chainning 密文分组链接模式</td>
-<td><li>明文的重复排列不会反映在密文中</li><li>支持并行计算</li><li>能够解密任意密文分组</li></td>
-<td><li>对包含某些错误比特的密文进行解密时，第一个分组的全部比特以及后一个分组的相应比特会出错</li><li>加密不支持并行计算</li></td>
-<td>CRYPTREC 推荐；《实用密码学》推荐</td>
-</tr>
-<tr>
-<td>CFB模式</td>
-<td>Cipher FeedBack 密文反馈模式</td>
-<td><li>不需要填充（padding）</li><li>支持并行计算（仅解密）</li><li>能够解密任意密文分组</li></td>
-<td><li>加密不支持并行计算</li><li>对包含某些错误比特的密文进行解密时，第一个分组的相应比特以及后一个分组的全部比特会出错</li><li>不能抵御重放攻击</li></td>
-<td>CRYPTREC 推荐</td>
-</tr>
-<tr>
-<td>OFB模式</td>
-<td>Output-FeedBack 输出反馈模式</td>
-<td><li>不需要填充（padding）</li><li>可事先进行加密、解密的准备</li><li>加密、解密使用相同的结构</li><li>对包含某些错误比特的密文进行解密时，只有明文中相对应的比特会出错</li></td>
-<td><li>不支持并行运算</li><li>主动攻击者反转密文分组中的某些比特是，明文中对应的比特也会被反转</li></td>
-<td>CRYPTREC 推荐</td>
-</tr>
-<tr>
-<td>CTR模式</td>
-<td>CounTeR 计数器模式</td>
-<td><li>不需要填充（padding）</li><li>可事先进行加密、解密准备</li><li>加密、解密使用相同结构</li><li>对包含某些错误比特的密文进行解密是，只有明文中相对应的比特会出错</li><li>支持并行计算（加密、解密）</li></td>
-<td>主动攻击者反转密文分组中某些比特时，明文分组中相对应的比特也会被反转</td>
-<td>CRYPTREC 推荐；《实用密码学》推荐</td>
-</tr>
-</tbody></table>
-<h4 id="公钥密码（非对称加密"><a href="#公钥密码（非对称加密" class="headerlink" title="公钥密码（非对称加密)"></a>公钥密码（非对称加密)</h4><blockquote>
-<p>公钥密码（public-key Cryptography）中，密钥分为加密密钥和解密密钥两种。发送者用加密密钥对消息进行加密，接收者用解密密钥对密文机型解密。<br><strong>公钥密码是基于数学上的困难的问题来保证机密性。</strong></p>
-</blockquote>
-<p>&emsp;&emsp;公钥密码中，加密密钥一般是公开的。由于加密密钥可以任意公开，因此该密钥被称为<code>公钥（public key）</code>。解密密钥是绝对不能公开的，这个密钥只能有自己保管，因此称为<code>私钥(private key)</code>。公钥和私钥是一一对应的，一对公钥和私钥统称为<code>密钥对（key pair）</code>。由公钥进行加密的密文，必须使用由该公钥配对的私钥才能解密。</p>
-<h5 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h5><blockquote>
-<p>RSA 开发者首字母大写（Ron Rivest、Adi Shamir、Leonard Adleman）<br>RSA的机密性：</p>
-</blockquote>
-<ol>
-<li>依赖目前发展，还没有发现求离散对数的高效算法</li>
-<li>依赖目前发展，对大整数进行质因数分解的高效算法</li>
-</ol>
-<p>RSA加密：密文 = 明文^E mod N<br>E和N的组合就是公钥  </p>
-<p>RSA解密：明文 = 密文^D mod N<br>D和N的组合就是私钥</p>
-<p>攻击模式：</p>
-<ol>
-<li>中间人攻击（man-in-the-middle Attack）</li>
-<li>选择密文攻击（Chosen Cipher Attack ）<br>对应解决方案是在RSA的明文中加入认证的信息，解密进行识别是否是认证人明文信息。即RSA-OAEP(Optimal Asymmetric Encryption Padding，最优非对称加密填充)</li>
-</ol>
-<p>在RSA Chanllenge，有公开记录的被成功分解的最长的RSA数为RSA-768(232位)。但是长度为2048比特的整数目前是安全的即RSA-2048(617位)。因此默认RSA的密钥长度是2048比特。</p>
-<p>公钥密码的运行速度远远低于对称密。</p>
-<h4 id="混合密码系统了解"><a href="#混合密码系统了解" class="headerlink" title="混合密码系统了解"></a>混合密码系统了解</h4><blockquote>
-<p>用对称密码提高速度，用公钥密码保护会话密钥<br>应用：SSL/TLS</p>
-</blockquote>
-<p>混合密码系统（hybrid cryptosystem）是将对称密码和公钥密码的优势相结合的方法。<br>组成机制：</p>
-<blockquote>
-<p>会话密钥是指本次通信而生成的临时密钥，它一般是通过伪随机数生成器产生的。会话密钥是对称密码的密钥，同时也是公钥密码的明文。</p>
-</blockquote>
-<ul>
-<li>用对称密码加密消息</li>
-<li>通过伪随机数生成器生成对称密码作为会话密钥，加密时使用</li>
-<li>用公钥密码加密会话密钥</li>
-<li>从混合密码系统外部赋予公钥密码加密时使用的密钥</li>
-</ul>
-<p>数字签名，是由单向散列函数和公钥密码组合而成的<br>证书，是由公钥和数字签名组合而成的<br>消息认证码，是由单向散列函数和密钥组合而成的，也可以通过对称密码来生成  </p>
-<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><h4 id="openssl-加密工具"><a href="#openssl-加密工具" class="headerlink" title="openssl 加密工具"></a>openssl 加密工具</h4><blockquote>
-<p>摘抄至 <a href="https://www.openssl.org/docs/man1.0.2/man1/enc.html" target="_blank" rel="noopener">OpenSSL</a></p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">base64             Base 64</span><br><span class="line"></span><br><span class="line"> bf-cbc             Blowfish in CBC mode</span><br><span class="line"> bf                 Alias for bf-cbc</span><br><span class="line"> bf-cfb             Blowfish in CFB mode</span><br><span class="line"> bf-ecb             Blowfish in ECB mode</span><br><span class="line"> bf-ofb             Blowfish in OFB mode</span><br><span class="line"></span><br><span class="line"> cast-cbc           CAST in CBC mode</span><br><span class="line"> cast               Alias for cast-cbc</span><br><span class="line"> cast5-cbc          CAST5 in CBC mode</span><br><span class="line"> cast5-cfb          CAST5 in CFB mode</span><br><span class="line"> cast5-ecb          CAST5 in ECB mode</span><br><span class="line"> cast5-ofb          CAST5 in OFB mode</span><br><span class="line"></span><br><span class="line"> des-cbc            DES in CBC mode</span><br><span class="line"> des                Alias for des-cbc</span><br><span class="line"> des-cfb            DES in CBC mode</span><br><span class="line"> des-ofb            DES in OFB mode</span><br><span class="line"> des-ecb            DES in ECB mode</span><br><span class="line"></span><br><span class="line"> des-ede-cbc        Two key triple DES EDE in CBC mode</span><br><span class="line"> des-ede            Two key triple DES EDE in ECB mode</span><br><span class="line"> des-ede-cfb        Two key triple DES EDE in CFB mode</span><br><span class="line"> des-ede-ofb        Two key triple DES EDE in OFB mode</span><br><span class="line"></span><br><span class="line"> des-ede3-cbc       Three key triple DES EDE in CBC mode</span><br><span class="line"> des-ede3           Three key triple DES EDE in ECB mode</span><br><span class="line"> des3               Alias for des-ede3-cbc</span><br><span class="line"> des-ede3-cfb       Three key triple DES EDE CFB mode</span><br><span class="line"> des-ede3-ofb       Three key triple DES EDE in OFB mode</span><br><span class="line"></span><br><span class="line"> desx               DESX algorithm.</span><br><span class="line"></span><br><span class="line"> gost89             GOST 28147-89 in CFB mode (provided by ccgost engine)</span><br><span class="line"> gost89-cnt        `GOST 28147-89 in CNT mode (provided by ccgost engine)</span><br><span class="line"></span><br><span class="line"> idea-cbc           IDEA algorithm in CBC mode</span><br><span class="line"> idea               same as idea-cbc</span><br><span class="line"> idea-cfb           IDEA in CFB mode</span><br><span class="line"> idea-ecb           IDEA in ECB mode</span><br><span class="line"> idea-ofb           IDEA in OFB mode</span><br><span class="line"></span><br><span class="line"> rc2-cbc            128 bit RC2 in CBC mode</span><br><span class="line"> rc2                Alias for rc2-cbc</span><br><span class="line"> rc2-cfb            128 bit RC2 in CFB mode</span><br><span class="line"> rc2-ecb            128 bit RC2 in ECB mode</span><br><span class="line"> rc2-ofb            128 bit RC2 in OFB mode</span><br><span class="line"> rc2-64-cbc         64 bit RC2 in CBC mode</span><br><span class="line"> rc2-40-cbc         40 bit RC2 in CBC mode</span><br><span class="line"></span><br><span class="line"> rc4                128 bit RC4</span><br><span class="line"> rc4-64             64 bit RC4</span><br><span class="line"> rc4-40             40 bit RC4</span><br><span class="line"></span><br><span class="line"> rc5-cbc            RC5 cipher in CBC mode</span><br><span class="line"> rc5                Alias for rc5-cbc</span><br><span class="line"> rc5-cfb            RC5 cipher in CFB mode</span><br><span class="line"> rc5-ecb            RC5 cipher in ECB mode</span><br><span class="line"> rc5-ofb            RC5 cipher in OFB mode</span><br><span class="line"></span><br><span class="line"> aes-[128|192|256]-cbc  128/192/256 bit AES in CBC mode</span><br><span class="line"> aes-[128|192|256]      Alias for aes-[128|192|256]-cbc</span><br><span class="line"> aes-[128|192|256]-cfb  128/192/256 bit AES in 128 bit CFB mode</span><br><span class="line"> aes-[128|192|256]-cfb1 128/192/256 bit AES in 1 bit CFB mode</span><br><span class="line"> aes-[128|192|256]-cfb8 128/192/256 bit AES in 8 bit CFB mode</span><br><span class="line"> aes-[128|192|256]-ecb  128/192/256 bit AES in ECB mode</span><br><span class="line"> aes-[128|192|256]-ofb  128/192/256 bit AES in OFB mode</span><br></pre></td></tr></table></figure>
-
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/09/15/未完成/深入密码学习/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
