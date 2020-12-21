@@ -1,87 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>MacOX安装JMagick、Jmagick安装学习、Jmagick爬坑指南</title>
-    <url>/2019/01/29/MacOX%E5%AE%89%E8%A3%85JMagick/</url>
+    <title>Mac os thrift旧版本安装爬坑指南、Mac thrift安装指南、thrift安装学习、thrift安装爬坑</title>
+    <url>/2019/06/01/MacOS%20thrift%E6%97%A7%E7%89%88%E6%9C%AC%E5%AE%89%E8%A3%85%E7%88%AC%E5%9D%91%E6%8C%87%E5%8D%97/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h5 id="MacOX安装JMgick原因和使用JMagick执行流程"><a href="#MacOX安装JMgick原因和使用JMagick执行流程" class="headerlink" title="MacOX安装JMgick原因和使用JMagick执行流程"></a>MacOX安装JMgick原因和使用JMagick执行流程</h5><blockquote>
-<p>目前对于图片处理，很少采用java去处理图片，性能不是很好。目前我们公司采用ImageMagick图片处理，有些采用Process执行cmd命令，有些采用jmagick的java接口进行处理。</p>
+<h5 id="Mac-os-thrift旧版本安装爬坑指南"><a href="#Mac-os-thrift旧版本安装爬坑指南" class="headerlink" title="Mac os thrift旧版本安装爬坑指南"></a>Mac os thrift旧版本安装爬坑指南</h5><p>喜欢使用brew来进行一键安装:</p>
+<blockquote>
+<p><a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">homebrew官网</a><br><a href="https://github.com/Homebrew/homebrew-core" target="_blank" rel="noopener">homebrew-core github网址</a></p>
 </blockquote>
-<p><a href="https://www.imagemagick.org/index.php" target="_blank" rel="noopener">ImageMagick官网</a><br>通过jmagick调用native方法来调用JMagick的方法, 再由JMagick调用ImageMagick的方法。jmagick使用Java代码写的。JMagick使用C语言写的，含有java JNI生成的头文件。ImageMagick使用C语言写的，没有含有java JNI生成的头文件。 <a href="https://elf8848.iteye.com/blog/455675" target="_blank" rel="noopener">ImageMagick介绍和执行流程原因解释</a>         </p>
 <ul>
-<li>执行流程:                     </li>
-<li>jmagick（java） –&gt; JMagick(C) –&gt; ImageMagick(C)</li>
-</ul>
-<a id="more"></a>
-<h5 id="本地MacOX执行遇到问题"><a href="#本地MacOX执行遇到问题" class="headerlink" title="本地MacOX执行遇到问题"></a>本地MacOX执行遇到问题</h5><p>new MagickInfo(“”); 调用时出现无法加载MagickLoader，实际无法加载资源JMagick；</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ClassLoader.getSystemClassLoader().loadClass(&quot;magick.MagickLoader&quot;).newInstance();</span><br><span class="line">public class MagickLoader &#123;</span><br><span class="line">    static &#123;      </span><br><span class="line">        System.loadLibrary(&quot;JMagick&quot;);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>因为jmagick的接口都是本地调用，需要加载JNI的JMagick动态库。因此，接下来我们的主要任务是生成JMagick的动态库。<br>通过Brew install ImageMagick直接安装使用。但是JMagick只用源码包，需要进行编译安装。尽量将ImageMagick和JMagick安装在同一路径下。</p>
-<h6 id="Brew-install-ImageMagick-开始编译JMagick，生成JMagick动态库。"><a href="#Brew-install-ImageMagick-开始编译JMagick，生成JMagick动态库。" class="headerlink" title="Brew install ImageMagick,开始编译JMagick，生成JMagick动态库。"></a>Brew install ImageMagick,开始编译JMagick，生成JMagick动态库。</h6><ul>
-<li>遇到JMagick出现找不到api.h文件(实际上在ImageMagick-7是没有这个api.h文件，在ImageMagick-6是有api.h文件):<br>checking magick/api.h usability… no<br>checking magick/api.h presence… no<br>checking for magick/api.h… no<br>configure: error: ‘Unable to find ImageMagick header files’。</li>
-</ul>
-<p>出现这种情况通过pkg-config、修改configure的参数、查看configure源码，根据报错来修改文件路径，让其能够找到header files等等方法。这些方法都没有解决问题。    </p>
-<ul>
-<li><a href="http://promiselove.github.io/2017/11/30/Mac%E5%AE%89%E8%A3%85Imagemagick%E5%92%8CJMagick/" target="_blank" rel="noopener">该文章找到原因</a></li>
-</ul>
-<p>主要是因为JMagick版本老(最新版本是2013更新的)，无法跟上ImageMagick的节奏。ImageMagick的文件位置都发生了很大的变化。(注.看configure源码，可以看到一些文件路径不在了)。</p>
-<ul>
-<li><p>我们需要做的是：ImageMagick不要安装最新版本，安装旧版ImageMaick6相关版本，并且下载JMagick6.4.0版本。</p>
+<li><p>对于安装最新新版本thrift,我们可以直接是用brew install thrift     </p>
 </li>
-<li><p>根据configure的部分源码</p>
+<li><p>使用brew search thrift;查看不同版本的thrift。然后brew install <a href="mailto:thrift@0.9.0" target="_blank" rel="noopener">thrift@0.9.0</a></p>
 </li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Check whether --with-magick-home was given.</span><br><span class="line">if test &quot;$&#123;with_magick_home+set&#125;&quot; = set; then</span><br><span class="line">  withval=$with_magick_home; MAGICK_HOME=$&#123;withval&#125;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">for MPATH in /usr /usr/local /usr/local/ImageMagick /usr/local/ImageMagick-$&#123;VER_MAJOR&#125;.$&#123;VER_MINOR&#125;.$&#123;VER_MICRO&#125; $&#123;MAGICK_HOME&#125; ; do</span><br><span class="line">        # Location before IM 6.3.8.something</span><br><span class="line">        if  test -f $&#123;MPATH&#125;/include/magick/api.h  ; then</span><br><span class="line">                MAGICK_LIB_PATH=$&#123;MPATH&#125;/lib</span><br><span class="line">                MAGICK_LIBS=&quot;-L$&#123;MPATH&#125;/lib -lMagick&quot;</span><br><span class="line">                MAGICK_INCLUDES=-I$&#123;MPATH&#125;/include</span><br><span class="line">                MAGICK_REALHOME=$&#123;MPATH&#125;</span><br><span class="line">        fi</span><br><span class="line">        # Location after IM 6.3.8.something</span><br><span class="line">        if  test -f $&#123;MPATH&#125;/include/ImageMagick/magick/api.h  ; then</span><br><span class="line">                MAGICK_LIB_PATH=$&#123;MPATH&#125;/lib</span><br><span class="line">                MAGICK_LIBS=&quot;-L$&#123;MPATH&#125;/lib -lMagick&quot;</span><br><span class="line">                MAGICK_INCLUDES=-I$&#123;MPATH&#125;/include/ImageMagick</span><br><span class="line">                MAGICK_REALHOME=$&#123;MPATH&#125;</span><br><span class="line">        fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-
-<p>因为编译的该文件的<code>${MPATH}/include/magick/api.h</code>。由于目前include路径下存放的文件多了一层Imagemagick-6，我们要将Imagemagick-6里的所有文件ln -s到include目录下。<br>eg:我的configure命令：</p>
-<ul>
-<li><p><code>JAVA_HOME=&quot;/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/&quot; CFLAGS=&quot;-I/Library/Java/JavaVirtualMachines/jdk1.8.0_74.jdk/Contents/Home/include/ -I/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/include/darwin&quot;  ./configure --with-magick-inc-dir=-I/usr/local/Cellar/imagemagick/6.9.10-14/include/ --with-magick-lib-dir=-L/usr/local/Cellar/imagemagick/6.9.10-14/lib/</code></p>
-</li>
-<li><p><code>./configure --with-java-home=</code>/usr/libexec/java_home<code>--with-java-includes=/System/Library/Frameworks/JavaVM.framework/Headers --with-magick-inc-dir=/usr/local/Cellar/imagemagick@6/6.9.10-14/include/ --with-magick-lib-dir=/usr/local/Cellar/imagemagick@6/6.9.10-14/lib/</code></p>
-</li>
-</ul>
-<p>接下来有些问题下面链接可以解决一部分由<br><a href="https://www.zybuluo.com/yibo/note/125940" target="_blank" rel="noopener">Mac OS X 安装JMagick</a>来解决我们configure的问题。<br>因为还有编译文件中的<code>withval=$with_magick_home; MAGICK_HOME=${withval}</code>,因此我们可以通过增加 – with_magick_home参数，解决某些问题。</p>
-<p>make过程中ERROR ：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">make[1]: Entering directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src&apos;</span><br><span class="line">make[2]: Entering directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src/magick&apos;</span><br><span class="line">make[2]: *** No rule to make target `/usr/local/Cellar/imagemagick/6.9.10-14/include/magick/api.h&apos;, needed by `/usr/local/Cellar/jmagick-6.4.0/6.4.0/obj/magick/magick_PixelPacket.lo&apos;.  Stop.</span><br><span class="line">make[2]: Leaving directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src/magick&apos;</span><br><span class="line">make[1]: *** [dir_target] Error 2</span><br><span class="line">make[1]: Leaving directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src&apos;</span><br><span class="line">make: *** [dir_target] Error 2</span><br></pre></td></tr></table></figure>
-
-<p>因为api.h的路径不对，可以通过ln -s 下。eg: cd /usr/local/Cellar/ &amp;&amp; ln -s ./imagemagick@6/ imagemagick</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">make[1]: Entering directory `/Users/yibo/Downloads/6.4.0/src&apos;</span><br><span class="line">make[2]: Entering directory `/Users/yibo/Downloads/6.4.0/src/magick&apos;</span><br><span class="line">../../Make.rules:175: *** missing separator.  Stop.</span><br><span class="line">make[2]: Leaving directory `/Users/yibo/Downloads/6.4.0/src/magick&apos;</span><br><span class="line">make[1]: *** [dir_target] Error 2</span><br><span class="line">make[1]: Leaving directory `/Users/yibo/Downloads/6.4.0/src&apos;</span><br><span class="line">make: *** [dir_target] Error 2</span><br></pre></td></tr></table></figure>
-
-<p>修改Make.rules, 175,176 四个空格换成tab，参见: <a href="http://stackoverflow.com/a/15880079/3368344" target="_blank" rel="noopener">http://stackoverflow.com/a/15880079/3368344</a></p>
-<h6 id="make-make-install-成功之后"><a href="#make-make-install-成功之后" class="headerlink" title="make make install 成功之后"></a>make make install 成功之后</h6><p>在/usr/local/lib会生成三个文件</p>
-<ul>
-<li>jmagick-6.4.0.jar</li>
-<li>libJMagick-6.4.0.so</li>
-<li>libJMagick.so -&gt; ./libJMagick-6.4.0.so<br>在动态链接库在不同平台的形式：</li>
-<li>windows .dll</li>
-<li>linux .so</li>
-<li>macos .dylib (最新的动态链接库) .jnilib (以前的动态链接库)<br>需要在mac上使用动态链接库，需要使用dylib的后缀的名称。<br>cp libJMagick.so libJMagick.dylib</li>
-</ul>
-<h5 id="测试使用"><a href="#测试使用" class="headerlink" title="测试使用"></a>测试使用</h5><p>IDEA的单元测试没有问题</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">      String property = System.getProperty(&quot;java.library.path&quot;);</span><br><span class="line">      System.out.println(property);  // 输出/usr/local/lib</span><br><span class="line">      // System.setProperty(&quot;java.library.path&quot;, &quot;/usr/local/lib&quot;);</span><br><span class="line">      // System.loadLibrary(&quot;JMagick&quot;);</span><br><span class="line">      System.out.println(&quot;success&quot;);</span><br><span class="line">      MagickInfo magickInfo = new MagickInfo(&quot;myImage&quot;);</span><br><span class="line">    &#125; catch (MagickException e) &#123;</span><br><span class="line">      System.out.println(e);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>IDEA的Tomcat需要额外处理：<br>tomcat的VM options增加：<br>-Djmagick.systemclassloader=no -Djava.library.path=/usr/local/lib</p>
-<p>参考资料：<br><a href="https://www.zybuluo.com/yibo/note/125940" target="_blank" rel="noopener">Mac OS X 安装JMagick</a><br><a href="http://promiselove.github.io/2017/11/30/Mac%E5%AE%89%E8%A3%85Imagemagick%E5%92%8CJMagick/" target="_blank" rel="noopener">Mac安装Imagemagick和JMagick</a><br><a href="http://noahsnail.com/2016/12/12/2016-12-12-Linux%E7%9A%84pkg-config%E5%91%BD%E4%BB%A4/" target="_blank" rel="noopener">Linux的pkg-config命令</a><br><a href="https://elf8848.iteye.com/blog/455675" target="_blank" rel="noopener">ImageMagick +Jmagick安装</a>   </p>
-]]></content>
-      <tags>
-        <tag>后端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>通过nginx控制http转https、http转https请求实现、http变成https请求</title>
-    <url>/2019/06/01/nginx%E6%8E%A7%E5%88%B6http%E8%BD%AChttps/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h5 id="通过nginx控制http转https"><a href="#通过nginx控制http转https" class="headerlink" title="通过nginx控制http转https"></a>通过nginx控制http转https</h5><blockquote>
-<p>现在越来越多的公司选择https的协议。<br>我司的做法: nginx上进行https的认证，在请求在交给tomcat进行处理。而tomcat处理的是http的请求。因为当进行tomcat应用程进行重定向时直接使用http的请求在处理。</p>
-</blockquote>
-<p>为了保证整个请求都是https请求。我们需要将返回的请求进行重定向为https的。</p>
-<p>通过proxy-redirect修改Location中的url。</p>
+<li><p>使用复杂brew方案进行安装。思路同时通过找到旧版本的thrift.rb。</p>
 <ol>
-<li>将 conf/conf.d/proxy_params文件中 <code>proxy_redirect off;</code> 注释掉</li>
-<li>将<br>proxy_redirect <a href="http://www.xxxxx.com/" target="_blank" rel="noopener">http://www.xxxxx.com/</a> <a href="https://www.xxxxx.com/" target="_blank" rel="noopener">https://www.xxxxx.com/</a>;<br>proxy_redirect <a href="http://xxxxx.com/" target="_blank" rel="noopener">http://xxxxx.com/</a> <a href="https://xxxx.com/" target="_blank" rel="noopener">https://xxxx.com/</a>;<br>放入到server {}块中。</li>
+<li>将homebrew-core的git文件下载到本地。</li>
+<li>通过查看Formula/thrift.rb的history。   </li>
 </ol>
-<p>如果一直使用http的协议，容易出现网页中有代码注入广告的现象。运营商就经常将小广告注入到网页中，一般是网页的右下角有个摆动的小图标。使用https的协议，能够降低这一现象。不过一山更比一山高，https的也会有网页代码注入的现象，不过特别隐蔽。我遇到表现是打开应用的中网页时会启动其他应用程序如京东、淘宝。<a href="https://www.zhihu.com/question/35720092/answer/523563873" target="_blank" rel="noopener">对这一现象的说明和解决方案</a></p>
-<p>参考资料:<br><a href="http://info.siven.net/posts/d925bb5d.html" target="_blank" rel="noopener">Nginx SSL 结合Tomcat 重定向URL变成HTTP的问题</a></p>
+<a id="more"></a>
+<p><code>git log 234b34ab1418bd42b14e73dbeea179f40ef1bec2 -- Formula/thrift.rb</code></p>
+<ol start="3">
+<li><p>找到旧版本的commit。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  commit 9d524e4850651cfedd64bc0740f1379b533f607d</span><br><span class="line">Author: BrewTestBot &lt;brew-test-bot@googlegroups.com&gt;</span><br><span class="line">Date:   Thu Dec 29 18:54:26 2016 +0000</span><br><span class="line"></span><br><span class="line">    thrift: update 0.9.3 bottle.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后将链接</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://github.com/Homebrew/homebrew-core/blob/&#123;commit_id&#125;/Formula/thrift.rb</span><br><span class="line">即:</span><br><span class="line">https://github.com/Homebrew/homebrew-core/blob/9d524e4850651cfedd64bc0740f1379b533f607d/Formula/thrift.rb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>点击页面上按钮“Raw”,获取文件内容</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://raw.githubusercontent.com/Homebrew/homebrew-core/&#123;commit_id&#125;/Formula/thrift.rb</span><br><span class="line">即:</span><br><span class="line">https://raw.githubusercontent.com/Homebrew/homebrew-core/9d524e4850651cfedd64bc0740f1379b533f607d/Formula/thrift.rb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在命令行上 brew install <a href="https://raw.githubusercontent.com/Homebrew/homebrew-core/9d524e4850651cfedd64bc0740f1379b533f607d/Formula/thrift.rb" target="_blank" rel="noopener">https://raw.githubusercontent.com/Homebrew/homebrew-core/9d524e4850651cfedd64bc0740f1379b533f607d/Formula/thrift.rb</a><br>即可。<br>安装成功。</p>
+</li>
+</ol>
+<p>参考网址:<br><a href="https://apple.stackexchange.com/questions/352477/install-older-removed-brew-formula-version" target="_blank" rel="noopener">Install older removed brew formula version</a></p>
+</li>
+</ul>
+<h5 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h5><blockquote>
+<p><a href="https://thrift.apache.org/" target="_blank" rel="noopener">thrift快速指南</a></p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/apache/thrift/releases" target="_blank" rel="noopener">下载旧版本</a></li>
+<li><a href="https://thrift.apache.org/docs/install/" target="_blank" rel="noopener">安装下载thrift要求的其他工具|插件</a></li>
+<li><a href="https://thrift.apache.org/docs/BuildingFromSource" target="_blank" rel="noopener">配置、编译、安装</a></li>
+</ul>
+<hr>
+<h5 id="开始爬坑"><a href="#开始爬坑" class="headerlink" title="开始爬坑"></a>开始爬坑</h5><ul>
+<li><p>安装前要求工具 可以使用brew install 进行安装</p>
+<blockquote>
+<p><a href="https://thrift.apache.org/docs/install/os_x" target="_blank" rel="noopener">https://thrift.apache.org/docs/install/os_x</a><br>boost<br>libevent<br>openssl<br>bison 2.5  </p>
+</blockquote>
+</li>
+<li><p>下载thrift文件安装包</p>
+<blockquote>
+<p><a href="https://github.com/apache/thrift/releases/tag/0.9.3" target="_blank" rel="noopener">https://github.com/apache/thrift/releases/tag/0.9.3</a><br>tar -zxvf 解压</p>
+</blockquote>
+</li>
+<li><p>编译流程</p>
+<blockquote>
+<p>./configure –prefix=/usr/local/ –disable-static –without-python –without-csharp –without-ruby –without-perl –without-php –without-haskell –without-erlang<br><a href="https://thrift.apache.org/docs/BuildingFromSource" target="_blank" rel="noopener">https://thrift.apache.org/docs/BuildingFromSource</a><br>出现bison版本低:  <a href="https://stackoverflow.com/questions/31805431/how-to-install-bison-on-mac-osx" target="_blank" rel="noopener">https://stackoverflow.com/questions/31805431/how-to-install-bison-on-mac-osx</a><br>注意需要source  .base_profile</p>
+</blockquote>
+</li>
+<li><p>出现问题：</p>
+<blockquote>
+<p>src/thrift/transport/TSSLSocket.cpp:33:10: fatal error: ‘openssl/err.h’ file not found  #include &lt;openssl/err.h&gt;<br><a href="https://www.jianshu.com/p/f7380139afdd" target="_blank" rel="noopener">https://www.jianshu.com/p/f7380139afdd</a></p>
+</blockquote>
+</li>
+</ul>
+<p>推荐阅读:<br><a href="http://www.ruanyifeng.com/blog/2014/11/compiler.html" target="_blank" rel="noopener">编译器的工作过程</a></p>
 ]]></content>
       <tags>
         <tag>后端</tag>
@@ -228,6 +214,23 @@
 ]]></content>
       <tags>
         <tag>后端</tag>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TCP、HTTP的深入思考</title>
+    <url>/2020/10/12/TCP%E3%80%81HTTP%E7%9A%84%E6%B7%B1%E5%85%A5%E6%80%9D%E8%80%83/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ol>
+<li>TCP上传大文件是如何缓存数据的？当TCP缓存区满时是如何处理的？（滑动窗口）</li>
+<li>TCP连接和Socket之间的关系是什么啊？</li>
+<li>TCP连接保持keepalive时，http1.1请求如何区分进行区分？</li>
+</ol>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="https://www.cnblogs.com/ShaYeBlog/p/9289711.html" target="_blank" rel="noopener">网络通信socket连接数上限</a>   </p>
+]]></content>
+      <tags>
+        <tag>HTTP</tag>
+        <tag>TCP</tag>
       </tags>
   </entry>
   <entry>
@@ -342,207 +345,6 @@
 ]]></content>
       <tags>
         <tag>perl</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac os thrift旧版本安装爬坑指南、Mac thrift安装指南、thrift安装学习、thrift安装爬坑</title>
-    <url>/2019/06/01/MacOS%20thrift%E6%97%A7%E7%89%88%E6%9C%AC%E5%AE%89%E8%A3%85%E7%88%AC%E5%9D%91%E6%8C%87%E5%8D%97/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h5 id="Mac-os-thrift旧版本安装爬坑指南"><a href="#Mac-os-thrift旧版本安装爬坑指南" class="headerlink" title="Mac os thrift旧版本安装爬坑指南"></a>Mac os thrift旧版本安装爬坑指南</h5><p>喜欢使用brew来进行一键安装:</p>
-<blockquote>
-<p><a href="https://brew.sh/index_zh-cn" target="_blank" rel="noopener">homebrew官网</a><br><a href="https://github.com/Homebrew/homebrew-core" target="_blank" rel="noopener">homebrew-core github网址</a></p>
-</blockquote>
-<ul>
-<li><p>对于安装最新新版本thrift,我们可以直接是用brew install thrift     </p>
-</li>
-<li><p>使用brew search thrift;查看不同版本的thrift。然后brew install <a href="mailto:thrift@0.9.0" target="_blank" rel="noopener">thrift@0.9.0</a></p>
-</li>
-<li><p>使用复杂brew方案进行安装。思路同时通过找到旧版本的thrift.rb。</p>
-<ol>
-<li>将homebrew-core的git文件下载到本地。</li>
-<li>通过查看Formula/thrift.rb的history。   </li>
-</ol>
-<a id="more"></a>
-<p><code>git log 234b34ab1418bd42b14e73dbeea179f40ef1bec2 -- Formula/thrift.rb</code></p>
-<ol start="3">
-<li><p>找到旧版本的commit。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  commit 9d524e4850651cfedd64bc0740f1379b533f607d</span><br><span class="line">Author: BrewTestBot &lt;brew-test-bot@googlegroups.com&gt;</span><br><span class="line">Date:   Thu Dec 29 18:54:26 2016 +0000</span><br><span class="line"></span><br><span class="line">    thrift: update 0.9.3 bottle.</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>然后将链接</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://github.com/Homebrew/homebrew-core/blob/&#123;commit_id&#125;/Formula/thrift.rb</span><br><span class="line">即:</span><br><span class="line">https://github.com/Homebrew/homebrew-core/blob/9d524e4850651cfedd64bc0740f1379b533f607d/Formula/thrift.rb</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>点击页面上按钮“Raw”,获取文件内容</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https://raw.githubusercontent.com/Homebrew/homebrew-core/&#123;commit_id&#125;/Formula/thrift.rb</span><br><span class="line">即:</span><br><span class="line">https://raw.githubusercontent.com/Homebrew/homebrew-core/9d524e4850651cfedd64bc0740f1379b533f607d/Formula/thrift.rb</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在命令行上 brew install <a href="https://raw.githubusercontent.com/Homebrew/homebrew-core/9d524e4850651cfedd64bc0740f1379b533f607d/Formula/thrift.rb" target="_blank" rel="noopener">https://raw.githubusercontent.com/Homebrew/homebrew-core/9d524e4850651cfedd64bc0740f1379b533f607d/Formula/thrift.rb</a><br>即可。<br>安装成功。</p>
-</li>
-</ol>
-<p>参考网址:<br><a href="https://apple.stackexchange.com/questions/352477/install-older-removed-brew-formula-version" target="_blank" rel="noopener">Install older removed brew formula version</a></p>
-</li>
-</ul>
-<h5 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h5><blockquote>
-<p><a href="https://thrift.apache.org/" target="_blank" rel="noopener">thrift快速指南</a></p>
-</blockquote>
-<ul>
-<li><a href="https://github.com/apache/thrift/releases" target="_blank" rel="noopener">下载旧版本</a></li>
-<li><a href="https://thrift.apache.org/docs/install/" target="_blank" rel="noopener">安装下载thrift要求的其他工具|插件</a></li>
-<li><a href="https://thrift.apache.org/docs/BuildingFromSource" target="_blank" rel="noopener">配置、编译、安装</a></li>
-</ul>
-<hr>
-<h5 id="开始爬坑"><a href="#开始爬坑" class="headerlink" title="开始爬坑"></a>开始爬坑</h5><ul>
-<li><p>安装前要求工具 可以使用brew install 进行安装</p>
-<blockquote>
-<p><a href="https://thrift.apache.org/docs/install/os_x" target="_blank" rel="noopener">https://thrift.apache.org/docs/install/os_x</a><br>boost<br>libevent<br>openssl<br>bison 2.5  </p>
-</blockquote>
-</li>
-<li><p>下载thrift文件安装包</p>
-<blockquote>
-<p><a href="https://github.com/apache/thrift/releases/tag/0.9.3" target="_blank" rel="noopener">https://github.com/apache/thrift/releases/tag/0.9.3</a><br>tar -zxvf 解压</p>
-</blockquote>
-</li>
-<li><p>编译流程</p>
-<blockquote>
-<p>./configure –prefix=/usr/local/ –disable-static –without-python –without-csharp –without-ruby –without-perl –without-php –without-haskell –without-erlang<br><a href="https://thrift.apache.org/docs/BuildingFromSource" target="_blank" rel="noopener">https://thrift.apache.org/docs/BuildingFromSource</a><br>出现bison版本低:  <a href="https://stackoverflow.com/questions/31805431/how-to-install-bison-on-mac-osx" target="_blank" rel="noopener">https://stackoverflow.com/questions/31805431/how-to-install-bison-on-mac-osx</a><br>注意需要source  .base_profile</p>
-</blockquote>
-</li>
-<li><p>出现问题：</p>
-<blockquote>
-<p>src/thrift/transport/TSSLSocket.cpp:33:10: fatal error: ‘openssl/err.h’ file not found  #include &lt;openssl/err.h&gt;<br><a href="https://www.jianshu.com/p/f7380139afdd" target="_blank" rel="noopener">https://www.jianshu.com/p/f7380139afdd</a></p>
-</blockquote>
-</li>
-</ul>
-<p>推荐阅读:<br><a href="http://www.ruanyifeng.com/blog/2014/11/compiler.html" target="_blank" rel="noopener">编译器的工作过程</a></p>
-]]></content>
-      <tags>
-        <tag>后端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>influxdb+grafana+telegraf服务器统计</title>
-    <url>/2020/08/06/influxdb-grafana-telegraf%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BB%9F%E8%AE%A1/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h2 id="influxdb-grafana-telegraf服务器统计"><a href="#influxdb-grafana-telegraf服务器统计" class="headerlink" title="influxdb+grafana+telegraf服务器统计"></a>influxdb+grafana+telegraf服务器统计</h2><h3 id="influxdb"><a href="#influxdb" class="headerlink" title="influxdb"></a>influxdb</h3><blockquote>
-<p>类似mysql数据库,时序图的数据库<br> <a href="https://docs.influxdata.com/influxdb/v1.8/introduction/install/" target="_blank" rel="noopener">开源Influxdb安装指引</a></p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">应用</th>
-<th align="center">配置文件</th>
-<th align="center">数据文件</th>
-<th align="center">命令</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">influx</td>
-<td align="center">/etc/influxdb/influxdb.conf<br>设置meta、data、wal数据存放地址</td>
-<td align="center">/var/lib/influxdb/…</td>
-<td align="center">influxd config: 输出influxdb的配置文件</td>
-</tr>
-</tbody></table>
-<p>备注：</p>
-<ul>
-<li>当前启动influxdb失败，可能存在meta、data、wal数据存放地址用户组没有访问权限导致的。<code>chown -R influxdb:influxdb [meta、data、wal数据存放地址]</code></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 第一步 设置influxdb的仓库源</span><br><span class="line">cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/influxdb.repo</span><br><span class="line">[influxdb]</span><br><span class="line">name = InfluxDB Repository - RHEL \$releasever</span><br><span class="line">baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable</span><br><span class="line">enabled = 1</span><br><span class="line">gpgcheck = 1</span><br><span class="line">gpgkey = https://repos.influxdata.com/influxdb.key</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># 第二步 启动influxdb和设置开机自启动服务</span><br><span class="line">sudo yum install influxdb</span><br><span class="line">sudo service influxdb start</span><br><span class="line">sudo chkconfig influxdb on</span><br><span class="line"></span><br><span class="line">//////////</span><br><span class="line">sudo yum install influxdb</span><br><span class="line">sudo systemctl start influxdb</span><br><span class="line">sudo systemctl enable influxdb</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-<p><strong>influxdb连接与操作</strong></p>
-<table>
-<thead>
-<tr>
-<th align="center">命令</th>
-<th align="center">操作</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">influx</td>
-<td align="center">连接influxdb的server</td>
-</tr>
-<tr>
-<td align="center">influx -precision rfc3339</td>
-<td align="center">以rfc3339协议格式连接influxdb的server</td>
-</tr>
-<tr>
-<td align="center">show databases</td>
-<td align="center">显示所有数据库</td>
-</tr>
-<tr>
-<td align="center">use [xxx]</td>
-<td align="center">进入[xxx]数据库</td>
-</tr>
-<tr>
-<td align="center">show measurements</td>
-<td align="center">显示[xxx]数据库中的表</td>
-</tr>
-<tr>
-<td align="center">其他命令跟mysql命令差不多</td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<p><strong>http访问influxdb</strong><br>默认端口 8086<br>eg: 192.168.100.100:8086</p>
-<h3 id="grafana"><a href="#grafana" class="headerlink" title="grafana"></a>grafana</h3><blockquote>
-<p>展示influxdb时序数据的Web应用<br><a href="https://grafana.com/docs/grafana/latest/installation/rpm/" target="_blank" rel="noopener">grafana centos 安装</a></p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 第一步 设置grafana的仓库源</span><br><span class="line">vi /ect/yum.repos.d/grafana.repo</span><br><span class="line"></span><br><span class="line">[grafana]</span><br><span class="line">name=grafana</span><br><span class="line">baseurl=https://packages.grafana.com/oss/rpm</span><br><span class="line">repo_gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://packages.grafana.com/gpg.key</span><br><span class="line">sslverify=1</span><br><span class="line">sslcacert=/etc/pki/tls/certs/ca-bundle.crt</span><br><span class="line"></span><br><span class="line"># 第二步 启动grafana和设置开机自启动服务</span><br><span class="line">sudo yum install grafana</span><br><span class="line">sudo service grafana-server start</span><br><span class="line">sudo chkconfig --add grafana-server</span><br></pre></td></tr></table></figure>
-
-<h4 id="配置grafana访问和数据源"><a href="#配置grafana访问和数据源" class="headerlink" title="配置grafana访问和数据源"></a>配置grafana访问和数据源</h4><blockquote>
-<p><a href="https://grafana.com/docs/grafana/latest/administration/configuration/" target="_blank" rel="noopener">grafana config配置</a><br><a href="https://grafana.com/docs/grafana/latest/features/datasources/add-a-data-source/" target="_blank" rel="noopener">grafana Web配置数据源</a></p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">应用</th>
-<th align="center">配置文件</th>
-<th align="center">数据文件</th>
-<th align="center">命令</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">grafana</td>
-<td align="center">/etc/grafana/grafana.ini</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<p><strong>修改访问grafana网页端口</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># The HTTP port  to use</span><br><span class="line">;http_port = 3000</span><br></pre></td></tr></table></figure>
-
-<p>默认管理员: admin  admin<br>eg:<br>访问地址: 192.168.100.100:3000</p>
-<p><img src="/images/grafanaWeb%E6%95%B0%E6%8D%AE%E6%BA%90%E9%85%8D%E7%BD%AE.png" alt="grafanaWeb数据源配置"></p>
-<h3 id="telegraf"><a href="#telegraf" class="headerlink" title="telegraf"></a>telegraf</h3><blockquote>
-<p>服务器性能数据cpu等性能统计<br><a href="https://docs.influxdata.com/telegraf/v1.12/introduction/installation/" target="_blank" rel="noopener">telegraf 安装</a></p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 第一步 设置telegraf的仓库源</span><br><span class="line">cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/influxdb.repo</span><br><span class="line">  [influxdb]</span><br><span class="line">  name = InfluxDB Repository - RHEL \$releasever</span><br><span class="line">  baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable</span><br><span class="line">  enabled = 1</span><br><span class="line">  gpgcheck = 1</span><br><span class="line">  gpgkey = https://repos.influxdata.com/influxdb.key</span><br><span class="line">  EOF</span><br><span class="line"></span><br><span class="line"># 第二步 启动telegraf和设置开机自启动服务</span><br><span class="line">sudo yum install telegraf</span><br><span class="line">sudo service telegraf start</span><br><span class="line">sudo chkconfig telegraf on</span><br><span class="line"></span><br><span class="line">//////////</span><br><span class="line">sudo yum install telegraf</span><br><span class="line">sudo systemctl start telegraf</span><br><span class="line">sudo systemctl enable telegraf</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th align="center">应用</th>
-<th align="center">配置文件</th>
-<th align="center">数据文件</th>
-<th align="center">命令</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">telegraf</td>
-<td align="center">/etc/telegraf/telegraf.conf</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<p><strong>修改config</strong></p>
-<blockquote>
-<p>设置指定influxdb数据源、数据库名称、当前服务器hostname</p>
-</blockquote>
-<p>urls = [“<a href="http://192.168.100.100:8086&quot;]" target="_blank" rel="noopener">http://192.168.100.100:8086&quot;]</a><br>database = “telegraf”<br>hostname = “172.18.0.x”  # (可以用开机脚本修改)</p>
-<p><strong>配置开机时自动修改hostname</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi /etc/rc.local</span><br><span class="line"></span><br><span class="line"># centos6:</span><br><span class="line">IP=$(/sbin/ifconfig | /bin/awk &apos;/inet addr/&#123;print substr($2,6)&#125;&apos;|grep 172.16) &amp;&amp; /bin/sed -i -E &quot;s/hostname\s*=\s*\&quot;.*?\&quot;/hostname=\&quot;$IP\&quot;/&quot; /etc/telegraf/telegraf.conf</span><br><span class="line"></span><br><span class="line"># centos7:</span><br><span class="line">IP=$(/sbin/ifconfig | /bin/awk &apos;/inet /&#123;print substr($2,1)&#125;&apos;|grep 172.16) &amp;&amp; /bin/sed -i -E &quot;s/hostname\s*=\s*\&quot;.*?\&quot;/hostname=\&quot;$IP\&quot;/&quot; /etc/telegraf/telegraf.conf</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>后端</tag>
-        <tag>运维</tag>
       </tags>
   </entry>
   <entry>
@@ -672,6 +474,221 @@
 </tr>
 </tbody></table>
 <h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="http://legendtkl.com/2017/08/12/understanding-ganglia-1/" target="_blank" rel="noopener">深入理解 Ganglia 之 Overview</a><br><a href="https://wiki.archlinux.org/index.php/Ganglia" target="_blank" rel="noopener">nginx 配置ganglia参考</a><br><a href="https://www.dazhuanlan.com/2019/08/21/5d5d10f64d4ed/" target="_blank" rel="noopener">Ganglia部署实战</a><br><a href="https://github.com/ganglia/monitor-core/wiki/Ganglia-Quick-Start" target="_blank" rel="noopener">Ganglia Quick Start</a></p>
+]]></content>
+      <tags>
+        <tag>后端</tag>
+        <tag>运维</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MacOX安装JMagick、Jmagick安装学习、Jmagick爬坑指南</title>
+    <url>/2019/01/29/MacOX%E5%AE%89%E8%A3%85JMagick/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h5 id="MacOX安装JMgick原因和使用JMagick执行流程"><a href="#MacOX安装JMgick原因和使用JMagick执行流程" class="headerlink" title="MacOX安装JMgick原因和使用JMagick执行流程"></a>MacOX安装JMgick原因和使用JMagick执行流程</h5><blockquote>
+<p>目前对于图片处理，很少采用java去处理图片，性能不是很好。目前我们公司采用ImageMagick图片处理，有些采用Process执行cmd命令，有些采用jmagick的java接口进行处理。</p>
+</blockquote>
+<p><a href="https://www.imagemagick.org/index.php" target="_blank" rel="noopener">ImageMagick官网</a><br>通过jmagick调用native方法来调用JMagick的方法, 再由JMagick调用ImageMagick的方法。jmagick使用Java代码写的。JMagick使用C语言写的，含有java JNI生成的头文件。ImageMagick使用C语言写的，没有含有java JNI生成的头文件。 <a href="https://elf8848.iteye.com/blog/455675" target="_blank" rel="noopener">ImageMagick介绍和执行流程原因解释</a>         </p>
+<ul>
+<li>执行流程:                     </li>
+<li>jmagick（java） –&gt; JMagick(C) –&gt; ImageMagick(C)</li>
+</ul>
+<a id="more"></a>
+<h5 id="本地MacOX执行遇到问题"><a href="#本地MacOX执行遇到问题" class="headerlink" title="本地MacOX执行遇到问题"></a>本地MacOX执行遇到问题</h5><p>new MagickInfo(“”); 调用时出现无法加载MagickLoader，实际无法加载资源JMagick；</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ClassLoader.getSystemClassLoader().loadClass(&quot;magick.MagickLoader&quot;).newInstance();</span><br><span class="line">public class MagickLoader &#123;</span><br><span class="line">    static &#123;      </span><br><span class="line">        System.loadLibrary(&quot;JMagick&quot;);    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为jmagick的接口都是本地调用，需要加载JNI的JMagick动态库。因此，接下来我们的主要任务是生成JMagick的动态库。<br>通过Brew install ImageMagick直接安装使用。但是JMagick只用源码包，需要进行编译安装。尽量将ImageMagick和JMagick安装在同一路径下。</p>
+<h6 id="Brew-install-ImageMagick-开始编译JMagick，生成JMagick动态库。"><a href="#Brew-install-ImageMagick-开始编译JMagick，生成JMagick动态库。" class="headerlink" title="Brew install ImageMagick,开始编译JMagick，生成JMagick动态库。"></a>Brew install ImageMagick,开始编译JMagick，生成JMagick动态库。</h6><ul>
+<li>遇到JMagick出现找不到api.h文件(实际上在ImageMagick-7是没有这个api.h文件，在ImageMagick-6是有api.h文件):<br>checking magick/api.h usability… no<br>checking magick/api.h presence… no<br>checking for magick/api.h… no<br>configure: error: ‘Unable to find ImageMagick header files’。</li>
+</ul>
+<p>出现这种情况通过pkg-config、修改configure的参数、查看configure源码，根据报错来修改文件路径，让其能够找到header files等等方法。这些方法都没有解决问题。    </p>
+<ul>
+<li><a href="http://promiselove.github.io/2017/11/30/Mac%E5%AE%89%E8%A3%85Imagemagick%E5%92%8CJMagick/" target="_blank" rel="noopener">该文章找到原因</a></li>
+</ul>
+<p>主要是因为JMagick版本老(最新版本是2013更新的)，无法跟上ImageMagick的节奏。ImageMagick的文件位置都发生了很大的变化。(注.看configure源码，可以看到一些文件路径不在了)。</p>
+<ul>
+<li><p>我们需要做的是：ImageMagick不要安装最新版本，安装旧版ImageMaick6相关版本，并且下载JMagick6.4.0版本。</p>
+</li>
+<li><p>根据configure的部分源码</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Check whether --with-magick-home was given.</span><br><span class="line">if test &quot;$&#123;with_magick_home+set&#125;&quot; = set; then</span><br><span class="line">  withval=$with_magick_home; MAGICK_HOME=$&#123;withval&#125;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">for MPATH in /usr /usr/local /usr/local/ImageMagick /usr/local/ImageMagick-$&#123;VER_MAJOR&#125;.$&#123;VER_MINOR&#125;.$&#123;VER_MICRO&#125; $&#123;MAGICK_HOME&#125; ; do</span><br><span class="line">        # Location before IM 6.3.8.something</span><br><span class="line">        if  test -f $&#123;MPATH&#125;/include/magick/api.h  ; then</span><br><span class="line">                MAGICK_LIB_PATH=$&#123;MPATH&#125;/lib</span><br><span class="line">                MAGICK_LIBS=&quot;-L$&#123;MPATH&#125;/lib -lMagick&quot;</span><br><span class="line">                MAGICK_INCLUDES=-I$&#123;MPATH&#125;/include</span><br><span class="line">                MAGICK_REALHOME=$&#123;MPATH&#125;</span><br><span class="line">        fi</span><br><span class="line">        # Location after IM 6.3.8.something</span><br><span class="line">        if  test -f $&#123;MPATH&#125;/include/ImageMagick/magick/api.h  ; then</span><br><span class="line">                MAGICK_LIB_PATH=$&#123;MPATH&#125;/lib</span><br><span class="line">                MAGICK_LIBS=&quot;-L$&#123;MPATH&#125;/lib -lMagick&quot;</span><br><span class="line">                MAGICK_INCLUDES=-I$&#123;MPATH&#125;/include/ImageMagick</span><br><span class="line">                MAGICK_REALHOME=$&#123;MPATH&#125;</span><br><span class="line">        fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>因为编译的该文件的<code>${MPATH}/include/magick/api.h</code>。由于目前include路径下存放的文件多了一层Imagemagick-6，我们要将Imagemagick-6里的所有文件ln -s到include目录下。<br>eg:我的configure命令：</p>
+<ul>
+<li><p><code>JAVA_HOME=&quot;/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/&quot; CFLAGS=&quot;-I/Library/Java/JavaVirtualMachines/jdk1.8.0_74.jdk/Contents/Home/include/ -I/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/include/darwin&quot;  ./configure --with-magick-inc-dir=-I/usr/local/Cellar/imagemagick/6.9.10-14/include/ --with-magick-lib-dir=-L/usr/local/Cellar/imagemagick/6.9.10-14/lib/</code></p>
+</li>
+<li><p><code>./configure --with-java-home=</code>/usr/libexec/java_home<code>--with-java-includes=/System/Library/Frameworks/JavaVM.framework/Headers --with-magick-inc-dir=/usr/local/Cellar/imagemagick@6/6.9.10-14/include/ --with-magick-lib-dir=/usr/local/Cellar/imagemagick@6/6.9.10-14/lib/</code></p>
+</li>
+</ul>
+<p>接下来有些问题下面链接可以解决一部分由<br><a href="https://www.zybuluo.com/yibo/note/125940" target="_blank" rel="noopener">Mac OS X 安装JMagick</a>来解决我们configure的问题。<br>因为还有编译文件中的<code>withval=$with_magick_home; MAGICK_HOME=${withval}</code>,因此我们可以通过增加 – with_magick_home参数，解决某些问题。</p>
+<p>make过程中ERROR ：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">make[1]: Entering directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src&apos;</span><br><span class="line">make[2]: Entering directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src/magick&apos;</span><br><span class="line">make[2]: *** No rule to make target `/usr/local/Cellar/imagemagick/6.9.10-14/include/magick/api.h&apos;, needed by `/usr/local/Cellar/jmagick-6.4.0/6.4.0/obj/magick/magick_PixelPacket.lo&apos;.  Stop.</span><br><span class="line">make[2]: Leaving directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src/magick&apos;</span><br><span class="line">make[1]: *** [dir_target] Error 2</span><br><span class="line">make[1]: Leaving directory `/usr/local/Cellar/jmagick-6.4.0/6.4.0/src&apos;</span><br><span class="line">make: *** [dir_target] Error 2</span><br></pre></td></tr></table></figure>
+
+<p>因为api.h的路径不对，可以通过ln -s 下。eg: cd /usr/local/Cellar/ &amp;&amp; ln -s ./imagemagick@6/ imagemagick</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">make[1]: Entering directory `/Users/yibo/Downloads/6.4.0/src&apos;</span><br><span class="line">make[2]: Entering directory `/Users/yibo/Downloads/6.4.0/src/magick&apos;</span><br><span class="line">../../Make.rules:175: *** missing separator.  Stop.</span><br><span class="line">make[2]: Leaving directory `/Users/yibo/Downloads/6.4.0/src/magick&apos;</span><br><span class="line">make[1]: *** [dir_target] Error 2</span><br><span class="line">make[1]: Leaving directory `/Users/yibo/Downloads/6.4.0/src&apos;</span><br><span class="line">make: *** [dir_target] Error 2</span><br></pre></td></tr></table></figure>
+
+<p>修改Make.rules, 175,176 四个空格换成tab，参见: <a href="http://stackoverflow.com/a/15880079/3368344" target="_blank" rel="noopener">http://stackoverflow.com/a/15880079/3368344</a></p>
+<h6 id="make-make-install-成功之后"><a href="#make-make-install-成功之后" class="headerlink" title="make make install 成功之后"></a>make make install 成功之后</h6><p>在/usr/local/lib会生成三个文件</p>
+<ul>
+<li>jmagick-6.4.0.jar</li>
+<li>libJMagick-6.4.0.so</li>
+<li>libJMagick.so -&gt; ./libJMagick-6.4.0.so<br>在动态链接库在不同平台的形式：</li>
+<li>windows .dll</li>
+<li>linux .so</li>
+<li>macos .dylib (最新的动态链接库) .jnilib (以前的动态链接库)<br>需要在mac上使用动态链接库，需要使用dylib的后缀的名称。<br>cp libJMagick.so libJMagick.dylib</li>
+</ul>
+<h5 id="测试使用"><a href="#测试使用" class="headerlink" title="测试使用"></a>测试使用</h5><p>IDEA的单元测试没有问题</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">      String property = System.getProperty(&quot;java.library.path&quot;);</span><br><span class="line">      System.out.println(property);  // 输出/usr/local/lib</span><br><span class="line">      // System.setProperty(&quot;java.library.path&quot;, &quot;/usr/local/lib&quot;);</span><br><span class="line">      // System.loadLibrary(&quot;JMagick&quot;);</span><br><span class="line">      System.out.println(&quot;success&quot;);</span><br><span class="line">      MagickInfo magickInfo = new MagickInfo(&quot;myImage&quot;);</span><br><span class="line">    &#125; catch (MagickException e) &#123;</span><br><span class="line">      System.out.println(e);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>IDEA的Tomcat需要额外处理：<br>tomcat的VM options增加：<br>-Djmagick.systemclassloader=no -Djava.library.path=/usr/local/lib</p>
+<p>参考资料：<br><a href="https://www.zybuluo.com/yibo/note/125940" target="_blank" rel="noopener">Mac OS X 安装JMagick</a><br><a href="http://promiselove.github.io/2017/11/30/Mac%E5%AE%89%E8%A3%85Imagemagick%E5%92%8CJMagick/" target="_blank" rel="noopener">Mac安装Imagemagick和JMagick</a><br><a href="http://noahsnail.com/2016/12/12/2016-12-12-Linux%E7%9A%84pkg-config%E5%91%BD%E4%BB%A4/" target="_blank" rel="noopener">Linux的pkg-config命令</a><br><a href="https://elf8848.iteye.com/blog/455675" target="_blank" rel="noopener">ImageMagick +Jmagick安装</a>   </p>
+]]></content>
+      <tags>
+        <tag>后端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>通过nginx控制http转https、http转https请求实现、http变成https请求</title>
+    <url>/2019/06/01/nginx%E6%8E%A7%E5%88%B6http%E8%BD%AChttps/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h5 id="通过nginx控制http转https"><a href="#通过nginx控制http转https" class="headerlink" title="通过nginx控制http转https"></a>通过nginx控制http转https</h5><blockquote>
+<p>现在越来越多的公司选择https的协议。<br>我司的做法: nginx上进行https的认证，在请求在交给tomcat进行处理。而tomcat处理的是http的请求。因为当进行tomcat应用程进行重定向时直接使用http的请求在处理。</p>
+</blockquote>
+<p>为了保证整个请求都是https请求。我们需要将返回的请求进行重定向为https的。</p>
+<p>通过proxy-redirect修改Location中的url。</p>
+<ol>
+<li>将 conf/conf.d/proxy_params文件中 <code>proxy_redirect off;</code> 注释掉</li>
+<li>将<br>proxy_redirect <a href="http://www.xxxxx.com/" target="_blank" rel="noopener">http://www.xxxxx.com/</a> <a href="https://www.xxxxx.com/" target="_blank" rel="noopener">https://www.xxxxx.com/</a>;<br>proxy_redirect <a href="http://xxxxx.com/" target="_blank" rel="noopener">http://xxxxx.com/</a> <a href="https://xxxx.com/" target="_blank" rel="noopener">https://xxxx.com/</a>;<br>放入到server {}块中。</li>
+</ol>
+<p>如果一直使用http的协议，容易出现网页中有代码注入广告的现象。运营商就经常将小广告注入到网页中，一般是网页的右下角有个摆动的小图标。使用https的协议，能够降低这一现象。不过一山更比一山高，https的也会有网页代码注入的现象，不过特别隐蔽。我遇到表现是打开应用的中网页时会启动其他应用程序如京东、淘宝。<a href="https://www.zhihu.com/question/35720092/answer/523563873" target="_blank" rel="noopener">对这一现象的说明和解决方案</a></p>
+<p>参考资料:<br><a href="http://info.siven.net/posts/d925bb5d.html" target="_blank" rel="noopener">Nginx SSL 结合Tomcat 重定向URL变成HTTP的问题</a></p>
+]]></content>
+      <tags>
+        <tag>后端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>influxdb+grafana+telegraf服务器统计</title>
+    <url>/2020/08/06/influxdb-grafana-telegraf%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BB%9F%E8%AE%A1/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h2 id="influxdb-grafana-telegraf服务器统计"><a href="#influxdb-grafana-telegraf服务器统计" class="headerlink" title="influxdb+grafana+telegraf服务器统计"></a>influxdb+grafana+telegraf服务器统计</h2><h3 id="influxdb"><a href="#influxdb" class="headerlink" title="influxdb"></a>influxdb</h3><blockquote>
+<p>类似mysql数据库,时序图的数据库<br> <a href="https://docs.influxdata.com/influxdb/v1.8/introduction/install/" target="_blank" rel="noopener">开源Influxdb安装指引</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">应用</th>
+<th align="center">配置文件</th>
+<th align="center">数据文件</th>
+<th align="center">命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">influx</td>
+<td align="center">/etc/influxdb/influxdb.conf<br>设置meta、data、wal数据存放地址</td>
+<td align="center">/var/lib/influxdb/…</td>
+<td align="center">influxd config: 输出influxdb的配置文件</td>
+</tr>
+</tbody></table>
+<p>备注：</p>
+<ul>
+<li>当前启动influxdb失败，可能存在meta、data、wal数据存放地址用户组没有访问权限导致的。<code>chown -R influxdb:influxdb [meta、data、wal数据存放地址]</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 第一步 设置influxdb的仓库源</span><br><span class="line">cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/influxdb.repo</span><br><span class="line">[influxdb]</span><br><span class="line">name = InfluxDB Repository - RHEL \$releasever</span><br><span class="line">baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable</span><br><span class="line">enabled = 1</span><br><span class="line">gpgcheck = 1</span><br><span class="line">gpgkey = https://repos.influxdata.com/influxdb.key</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># 第二步 启动influxdb和设置开机自启动服务</span><br><span class="line">sudo yum install influxdb</span><br><span class="line">sudo service influxdb start</span><br><span class="line">sudo chkconfig influxdb on</span><br><span class="line"></span><br><span class="line">//////////</span><br><span class="line">sudo yum install influxdb</span><br><span class="line">sudo systemctl start influxdb</span><br><span class="line">sudo systemctl enable influxdb</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+<p><strong>influxdb连接与操作</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">influx</td>
+<td align="center">连接influxdb的server</td>
+</tr>
+<tr>
+<td align="center">influx -precision rfc3339</td>
+<td align="center">以rfc3339协议格式连接influxdb的server</td>
+</tr>
+<tr>
+<td align="center">show databases</td>
+<td align="center">显示所有数据库</td>
+</tr>
+<tr>
+<td align="center">use [xxx]</td>
+<td align="center">进入[xxx]数据库</td>
+</tr>
+<tr>
+<td align="center">show measurements</td>
+<td align="center">显示[xxx]数据库中的表</td>
+</tr>
+<tr>
+<td align="center">其他命令跟mysql命令差不多</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p><strong>http访问influxdb</strong><br>默认端口 8086<br>eg: 192.168.100.100:8086</p>
+<h3 id="grafana"><a href="#grafana" class="headerlink" title="grafana"></a>grafana</h3><blockquote>
+<p>展示influxdb时序数据的Web应用<br><a href="https://grafana.com/docs/grafana/latest/installation/rpm/" target="_blank" rel="noopener">grafana centos 安装</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 第一步 设置grafana的仓库源</span><br><span class="line">vi /ect/yum.repos.d/grafana.repo</span><br><span class="line"></span><br><span class="line">[grafana]</span><br><span class="line">name=grafana</span><br><span class="line">baseurl=https://packages.grafana.com/oss/rpm</span><br><span class="line">repo_gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://packages.grafana.com/gpg.key</span><br><span class="line">sslverify=1</span><br><span class="line">sslcacert=/etc/pki/tls/certs/ca-bundle.crt</span><br><span class="line"></span><br><span class="line"># 第二步 启动grafana和设置开机自启动服务</span><br><span class="line">sudo yum install grafana</span><br><span class="line">sudo service grafana-server start</span><br><span class="line">sudo chkconfig --add grafana-server</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置grafana访问和数据源"><a href="#配置grafana访问和数据源" class="headerlink" title="配置grafana访问和数据源"></a>配置grafana访问和数据源</h4><blockquote>
+<p><a href="https://grafana.com/docs/grafana/latest/administration/configuration/" target="_blank" rel="noopener">grafana config配置</a><br><a href="https://grafana.com/docs/grafana/latest/features/datasources/add-a-data-source/" target="_blank" rel="noopener">grafana Web配置数据源</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">应用</th>
+<th align="center">配置文件</th>
+<th align="center">数据文件</th>
+<th align="center">命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">grafana</td>
+<td align="center">/etc/grafana/grafana.ini</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p><strong>修改访问grafana网页端口</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># The HTTP port  to use</span><br><span class="line">;http_port = 3000</span><br></pre></td></tr></table></figure>
+
+<p>默认管理员: admin  admin<br>eg:<br>访问地址: 192.168.100.100:3000</p>
+<p><img src="/images/grafanaWeb%E6%95%B0%E6%8D%AE%E6%BA%90%E9%85%8D%E7%BD%AE.png" alt="grafanaWeb数据源配置"></p>
+<h3 id="telegraf"><a href="#telegraf" class="headerlink" title="telegraf"></a>telegraf</h3><blockquote>
+<p>服务器性能数据cpu等性能统计<br><a href="https://docs.influxdata.com/telegraf/v1.12/introduction/installation/" target="_blank" rel="noopener">telegraf 安装</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 第一步 设置telegraf的仓库源</span><br><span class="line">cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/influxdb.repo</span><br><span class="line">  [influxdb]</span><br><span class="line">  name = InfluxDB Repository - RHEL \$releasever</span><br><span class="line">  baseurl = https://repos.influxdata.com/rhel/\$releasever/\$basearch/stable</span><br><span class="line">  enabled = 1</span><br><span class="line">  gpgcheck = 1</span><br><span class="line">  gpgkey = https://repos.influxdata.com/influxdb.key</span><br><span class="line">  EOF</span><br><span class="line"></span><br><span class="line"># 第二步 启动telegraf和设置开机自启动服务</span><br><span class="line">sudo yum install telegraf</span><br><span class="line">sudo service telegraf start</span><br><span class="line">sudo chkconfig telegraf on</span><br><span class="line"></span><br><span class="line">//////////</span><br><span class="line">sudo yum install telegraf</span><br><span class="line">sudo systemctl start telegraf</span><br><span class="line">sudo systemctl enable telegraf</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">应用</th>
+<th align="center">配置文件</th>
+<th align="center">数据文件</th>
+<th align="center">命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">telegraf</td>
+<td align="center">/etc/telegraf/telegraf.conf</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p><strong>修改config</strong></p>
+<blockquote>
+<p>设置指定influxdb数据源、数据库名称、当前服务器hostname</p>
+</blockquote>
+<p>urls = [“<a href="http://192.168.100.100:8086&quot;]" target="_blank" rel="noopener">http://192.168.100.100:8086&quot;]</a><br>database = “telegraf”<br>hostname = “172.18.0.x”  # (可以用开机脚本修改)</p>
+<p><strong>配置开机时自动修改hostname</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vi /etc/rc.local</span><br><span class="line"></span><br><span class="line"># centos6:</span><br><span class="line">IP=$(/sbin/ifconfig | /bin/awk &apos;/inet addr/&#123;print substr($2,6)&#125;&apos;|grep 172.16) &amp;&amp; /bin/sed -i -E &quot;s/hostname\s*=\s*\&quot;.*?\&quot;/hostname=\&quot;$IP\&quot;/&quot; /etc/telegraf/telegraf.conf</span><br><span class="line"></span><br><span class="line"># centos7:</span><br><span class="line">IP=$(/sbin/ifconfig | /bin/awk &apos;/inet /&#123;print substr($2,1)&#125;&apos;|grep 172.16) &amp;&amp; /bin/sed -i -E &quot;s/hostname\s*=\s*\&quot;.*?\&quot;/hostname=\&quot;$IP\&quot;/&quot; /etc/telegraf/telegraf.conf</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <tags>
         <tag>后端</tag>
@@ -1586,367 +1603,6 @@
       </tags>
   </entry>
   <entry>
-    <title>JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等</title>
-    <url>/2020/02/24/%E5%9B%BE%E7%89%87/JEPG%E3%80%81PNG%E3%80%81WEBP%E3%80%81GIF%E3%80%81SVG%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8-WEBP%E7%AD%89/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h4 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h4><p>&emsp; &emsp;Gif一个比较古老的图片格式。图片交换格式(GIF， Graphics Interchange Format)是一种位图图形文件格式，采用8位色最多256种索引颜色调色板描绘图像。GIF是一种压缩文档，使用LZW算法压缩算法进行编码，同时也有效减少了图像文件在网络上传输的时间。<br>&emsp; &emsp;近些年动态的表情包的大火，使得Gif图像重新派上用场。其支持多帧图片，从而实现动画效果（即帧动画），同时也可以设置透明色产生透明图片的。&emsp; 但是由于之前专利的原因，Gif的静态图像功能被PNG给替代了，目前Gif常用于颜色简单的动画上。<br>&emsp; &emsp;Gift也是因为最多支持8位256色，无法支持更加丰富色彩图片。Gift存在色阶过渡糟糕，图片具有颗粒感，不支持Alpha透明通道，边缘有杂边。在静态图像优势没有PNG效果好。</p>
-<a id="more"></a>
-
-<h4 id="APNG"><a href="#APNG" class="headerlink" title="APNG"></a>APNG</h4><p>&emsp; &emsp;APNG(Animated Portable Network Graphics)格式是PNG位图格式扩展，但未获得PNG组织官方认可。其扩展方式类似GIF 89a,仍对原版PNG保持向下兼容。APNG第一帧为标准PNG图像，剩余的动画和帧速等数据放在PNG扩展数据块上。因此支持原版PNG的软件会正确显示第一帧。<br>&emsp; &emsp;APNG的特点，支持24位真彩色图片，同时也支持 8位Alpha透明通道。其也能向下兼容PNG图像。<br><strong>APNG和GIF对比差异:</strong><br><img src="/images/GIF%E5%92%8CAPNG%E7%9A%84%E5%B7%AE%E5%BC%82.png" alt="GIF和APNG的差异"></p>
-<blockquote>
-<p>APNG实现原理参考：<a href="https://aotu.io/notes/2016/11/07/apng/index.html#APNG%20%E7%9A%84%E7%BB%84%E6%88%90" target="_blank" rel="noopener">APNG实现组成</a></p>
-</blockquote>
-<h4 id="WebP"><a href="#WebP" class="headerlink" title="WebP"></a>WebP</h4><p>WebP标准是Google定制的，迄今为止也只有Google发布的libwebp实现了该的编解码。Webp提供了有损压缩与无损压缩（可逆压缩）的图片文件格式,也支持静态模式图像和动态模式图像。其是8位ARGB四通道描绘图像。  </p>
-<blockquote>
-<p><a href="https://developers.google.com/speed/webp" target="_blank" rel="noopener">官网介绍</a></p>
-</blockquote>
-<h4 id="BPG"><a href="#BPG" class="headerlink" title="BPG"></a>BPG</h4><p>BPG(Better Portable Graphics) 是一种新的图片格式。其主要目的是为了替代JPEG图像，并且质量和文件大小做得更好。</p>
-<blockquote>
-<p><a href="https://bellard.org/bpg/" target="_blank" rel="noopener">官网介绍</a></p>
-</blockquote>
-<h4 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a>SVG</h4><p>&emsp; &emsp;SVG即可缩放矢量图形 (Scalable Vector Graphics)的简称, 是一种用来描述二维矢量图形的XML标记语言. SVG图形不依赖于分辨率, 因此图形不会因为放大而显示出明显的锯齿边缘.<br>&emsp; &emsp;SVG主要用来显示矢量图，例如一些形状、线和点的组合，所以目前很多主流的图标库都提供SVG格式的文件。</p>
-<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="https://blog.ibireme.com/2015/11/02/mobile_image_benchmark/" target="_blank" rel="noopener">移动端图片格式调研</a><br><a href="https://aotu.io/notes/2016/11/07/apng/index.html" target="_blank" rel="noopener">APNG及动态图像各类区别</a><br><a href="https://www.jianshu.com/p/261cd13757ce" target="_blank" rel="noopener">图像压缩技术：选择正确的图片格式</a><br><a href="https://www.geekhub.cn/a/1780.html" target="_blank" rel="noopener">动态图片技术 — 历史、格式与性能</a></p>
-]]></content>
-      <tags>
-        <tag>后端</tag>
-        <tag>前端</tag>
-        <tag>图片</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JEPG、PNG、WEBP、GIF、SVG的学习使用、 各种网络图片格式学习-JPEG</title>
-    <url>/2020/02/15/%E5%9B%BE%E7%89%87/JEPG%E3%80%81PNG%E3%80%81WEBP%E3%80%81GIF%E3%80%81SVG%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8-JPEG/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h5 id="GPEG"><a href="#GPEG" class="headerlink" title="GPEG"></a>GPEG</h5><h6 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h6><p>&ensp; &ensp; JPEG(Joint Photographic Experts Group:联合图像专家小组,1972年)是第一个国际图像压缩标准。JPEG压缩标准描述将图像转换为字节的数据串流(streaming)，没有说明如何将这些字节存储。     </p>
-<blockquote>
-<p>JPEG算法原理解析(整理像素点，以数学三角函数表示，通过哈夫曼树进行存储)<br><a href="https://thecodeway.com/blog/?p=69" target="_blank" rel="noopener">JPEG算法解密一</a><br><a href="https://thecodeway.com/blog/?p=353" target="_blank" rel="noopener">JPEG算法解密二</a><br><a href="https://thecodeway.com/blog/?p=480" target="_blank" rel="noopener">JPEG算法解密三</a><br><a href="https://thecodeway.com/blog/?p=522" target="_blank" rel="noopener">JPEG算法解密四</a><br><a href="https://thecodeway.com/blog/?p=690" target="_blank" rel="noopener">JPEG算法解密五</a><br><a href="https://blog.csdn.net/shelldon/article/details/54234433" target="_blank" rel="noopener">CSDN-JPEG图像压缩</a></p>
-</blockquote>
-<p>&ensp; &ensp; .jpeg/.jpg是最常用存储JPEG图像文件格式，是一种有损压缩格式。通常将图像压缩在很小的储存空间并且会将图像中重复或不重要的资料丢弃，因此容易造成图像数据的损伤。一般不建议将JPEG重复压缩会导致数据丢失越来越严重。   </p>
-<pre><code>JPEG压缩标准实现开源库：libjpeg、mozjpeg、miniJPEG
-[libjpeg](http://libjpeg.sourceforge.net/)    
-Libjpeg is a widely used C library for reading and writing JPEG image files. It was developed by Tom Lane and the Independent JPEG Group (IJG) during the 1990’s and it is now maintained by several developers using various services identified in the SourceForge summary.
-The latest release is version 6b of 27-Mar-1998. This is a stable and solid foundation for many application’s JPEG support.</code></pre><a id="more"></a>
-
-<p>1、JPEG是有损压缩算法。有损压缩就是为了将图片压缩到更小，利用人眼观察图片的特点改变某些丢弃掉一些人眼不易察觉的原始颜色信息，而这个是不可逆的。<br>2、其压缩算法可以精确控制压缩比，以图像质量换得存储空间。  Photoshop存储JPEG格式图片，提供11级压缩级别，以0—10级表示。其中0级压缩比最高，图像品质最差。即使采用细节几乎无损的10 级质量保存时，压缩比也可达 5：1。<br>3、它不支持透明背景图像，更加适合颜色复杂的图像。<br>4、JPEG存储图片一个像素使用24位表示，属于真彩色图片。</p>
-<p>后续针对JPEG第一代压缩标准的改进变化，依次出现了：<br>JPEG2000(2000年、支持有损和无损压缩，支持<a href="https://baike.baidu.com/item/%E6%B8%90%E8%BF%9B%E4%BC%A0%E8%BE%93" target="_blank" rel="noopener">渐进传输</a>、开源库:<a href="http://www.openjpeg.org/" target="_blank" rel="noopener">openJPEG</a>)、JPEG XR(2009年, 增加HDR支持)</p>
-<h6 id="JPEG的特性"><a href="#JPEG的特性" class="headerlink" title="JPEG的特性"></a>JPEG的特性</h6><p>1、支持摄影图像或写实图像的高级压缩，并且可利用压缩比例控制图像文件大小。<br>2、有损压缩会使图像数据质量下降，并且在编辑和重新保存JPG格式图像时，这种下降损失会累积。<br>3、JPEG不适用于所含颜色很少、具有大块颜色相近的区域或亮度差异十分明显的较简单的图片。<br>4、它并不适合于线条绘图（drawing）和其他文字或图示（iconic）的图形,因为它的压缩方法用在这些图形的型态上,会得到不适当的结果；<br>5、当它处理矢量图形和 Logo 等线条感较强、颜色对比强烈的图像时，人为压缩导致的图片模糊会相当明显。且不支持透明度处理。</p>
-<h6 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h6><p>1、大的背景图<br>2、轮播图<br>3、Banner图    </p>
-<blockquote>
-<p><strong>什么时候应该使用JPEG？</strong><br>&ensp; &ensp; 从上面介绍的JPEG的特性来看，它更适合用来存储具有丰富色彩层次的摄影或写实照片。这是因为色彩层次丰富的图像一般会由于阴影、反光或透视等效果形成明暗、深浅不同的区域，如果我们选择使用PNG8来储存的话，可能一些颜色在调色板上找不到，导致图像上一些数据的丢失，如果使用PNG24的话，它确实可以查找到图像不同层次的颜色，但它会因数据较多增大图片的体积，严重拖慢加载速度，在网站上也容易显示不全。所以，JPEG是最好的选择，它能在尽量压缩文件大小的情况下较好的还原图片的品质。为什么这里不使用SVG呢？SVG有自身的局限性，由于它是点和线精准计算的，一些位图如摄影元素SVG无法实现合适的缩放。<br>引用:<a href="https://www.qifeiye.com/%E6%A8%AA%E5%90%91%E5%AF%B9%E6%AF%94gifjpegpngsvg%EF%BC%8C%E6%95%99%E4%BD%A0%E5%A6%82%E4%BD%95%E5%90%88%E7%90%86%E9%80%89%E6%8B%A9%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/" target="_blank" rel="noopener">横向对比GIF/JPEG/PNG/SVG，教你如何合理选择图像格式</a></p>
-</blockquote>
-<h6 id="基准式JPEG和渐进式JPEG"><a href="#基准式JPEG和渐进式JPEG" class="headerlink" title="基准式JPEG和渐进式JPEG"></a>基准式JPEG和渐进式JPEG</h6><p>基准式JPEG和渐进式JPEG是两种不同编解码方式，还有主要是在网速比较慢的时候，图片加载方式也是不一样的。<br><img src="/images/%E5%9F%BA%E5%87%86%E5%BC%8FJPEG%E5%8A%A0%E8%BD%BD%E6%96%B9%E5%BC%8F.webp" alt="基准式JPEG"><br>基准式JPEG加载情况<br><img src="/images/%E6%B8%90%E8%BF%9B%E5%BC%8FJPEG%E5%8A%A0%E8%BD%BD%E6%96%B9%E5%BC%8F.webp" alt="渐进式JPEG"><br>渐进式JPEG加载情况</p>
-<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><p><a href="https://www.jianshu.com/p/d2817058c901" target="_blank" rel="noopener">使用渐进式 JPEG 来提升用户体验</a><br><a href="http://www.taoweng.site/index.php/archives/264/" target="_blank" rel="noopener">每个前端工程师都应该了解的图片知识</a><br><a href="https://www.jianshu.com/p/f5557c0e689e" target="_blank" rel="noopener">JPEG图片格式详解</a><br><a href="https://www.jianshu.com/p/ab96bf20f90e" target="_blank" rel="noopener">JPG？GIF？PNG？前端如何选择图片格式？</a><br><a href="https://zhuanlan.zhihu.com/p/41498458" target="_blank" rel="noopener">网站建设中使用的png和jpg两种图片格式都有哪些特点和区别</a><br><a href="https://www.qifeiye.com/%E6%A8%AA%E5%90%91%E5%AF%B9%E6%AF%94gifjpegpngsvg%EF%BC%8C%E6%95%99%E4%BD%A0%E5%A6%82%E4%BD%95%E5%90%88%E7%90%86%E9%80%89%E6%8B%A9%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/" target="_blank" rel="noopener">横向对比GIF/JPEG/PNG/SVG，教你如何合理选择图像格式</a>    </p>
-<p><a href="https://blog.csdn.net/cmsbupt/article/details/51178761" target="_blank" rel="noopener">下一代Web图像格式：JPEG、JPEG XR、JPEG2000、WebP、BPG</a></p>
-]]></content>
-      <tags>
-        <tag>后端</tag>
-        <tag>前端</tag>
-        <tag>图片</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JEPG、PNG、WEBP、GIF、SVG的学习使用、 各种网络图片格式学习-PNG</title>
-    <url>/2020/02/24/%E5%9B%BE%E7%89%87/JEPG%E3%80%81PNG%E3%80%81WEBP%E3%80%81GIF%E3%80%81SVG%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8-PNG/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h3 id="PNG"><a href="#PNG" class="headerlink" title="PNG"></a>PNG</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>&emsp;&emsp;来自维基百科介绍，便携式网络图形(Portable Network Graphics，PNG)是一种无损压缩位图图形格式，支持索引、灰色、RGB三种颜色方案以及Alpha通道等特性。PNG的开发目标是改善并取代Gif作为适合网络传输的格式而不需专利许可，所以被广泛应用于互联网及其他方面上。</p>
-<h4 id="PNG的特性"><a href="#PNG的特性" class="headerlink" title="PNG的特性"></a>PNG的特性</h4><p>1、无损压缩<br>2、支持索引透明和Alpha透明半透明<br>3、支持256色调色板技术(索引颜色)以产生小体积文件<br>4、使用循环冗余码检测损坏文件<br>5、支持渐近显示和流式读写<br>6、最新的PNG标准允许在一个文件内存储多幅图像（APNG）。</p>
-<a id="more"></a>
-
-<h4 id="PNG存储实现原理"><a href="#PNG存储实现原理" class="headerlink" title="PNG存储实现原理"></a>PNG存储实现原理</h4><p>这篇文章已经有较好的讲解。<a href="http://www.alloyteam.com/2017/03/the-story-of-png-get-images-and-pixel-content/#%E7%BB%93%E6%9E%84" target="_blank" rel="noopener">PNG存储原理讲解</a></p>
-<h4 id="PNG8、PNG24、PNG32差异"><a href="#PNG8、PNG24、PNG32差异" class="headerlink" title="PNG8、PNG24、PNG32差异"></a>PNG8、PNG24、PNG32差异</h4><table>
-<thead>
-<tr>
-<th>格式</th>
-<th>简介</th>
-<th>最高支持色彩通道</th>
-<th>索引色编辑支持</th>
-<th>透明支持</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>PNG8</td>
-<td>8位单通道，最多显示256种颜色</td>
-<td>256种索引色</td>
-<td>支持</td>
-<td>支持设定特定索引色为透明色（布尔透明）<br>支持为索引色附加8位透明度（256阶alpha透明）</td>
-</tr>
-<tr>
-<td>PNG24</td>
-<td>24位RGB三通道，真彩色图像</td>
-<td>约1600万颜色</td>
-<td>不支持</td>
-<td>不支持</td>
-</tr>
-<tr>
-<td>PNG32</td>
-<td>32位RGBA四通道，在原有的PNG24位基础上增加了Alpha通道来描述透明度</td>
-<td>约1600万颜色，外加256种半透明色</td>
-<td>不支持</td>
-<td>支持8位透明度（256阶alphat透明）</td>
-</tr>
-</tbody></table>
-<h4 id="PNG-索引透明和Alpha透明"><a href="#PNG-索引透明和Alpha透明" class="headerlink" title="PNG 索引透明和Alpha透明"></a>PNG 索引透明和Alpha透明</h4><p>索引透明只能表示透明和不透明，产生体积相对较小的，不过容易产生杂边锯齿。<br>Alpha透明是一个8位的灰度通道，该通道用256级灰度来记录图像中的透明度信息，定义透明、不透明和半透明区域，支持全透明和半透明。</p>
-<blockquote>
-<p>参考：<a href="https://www.cnblogs.com/peunzhang/archive/2013/05/30/3050394.html#png1" target="_blank" rel="noopener">https://www.cnblogs.com/peunzhang/archive/2013/05/30/3050394.html#png1</a></p>
-</blockquote>
-<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><p>1、小的LOGO,颜色简单且对比强烈图片和背景<br>2、颜色简单、对比度强的透明小图<br>3、颜色很少、具有大块颜色相近的区域或亮度差异十分明显的较简单的图片<br>4、用于页面结构的基本视觉元素，如容器的背景、按钮、导航的背景等应该尽量用PNG格式进行存储，这样才能更好的保证设计品质</p>
-<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="https://zh.wikipedia.org/wiki/PNG" target="_blank" rel="noopener">PNG特性、对比JPEG、GIF差异</a><br><a href="https://github.com/ericdum/mujiang.info/issues/4" target="_blank" rel="noopener">png8支持透明通道（一）</a><br><a href="http://www.alloyteam.com/2017/06/the-story-of-png-deinterlacing-algorithm/" target="_blank" rel="noopener">png逐行扫描和隔行扫描说明</a><br><a href="https://gameinstitute.qq.com/community/detail/107564" target="_blank" rel="noopener">深入解析png图片解码技术</a><br><a href="https://zhuanlan.zhihu.com/p/22496580" target="_blank" rel="noopener">图片格式中的小较真</a><br><a href="https://www.jianshu.com/p/ab96bf20f90e" target="_blank" rel="noopener">JPG？GIF？PNG？前端如何选择图片格式？</a><br><a href="https://zhuanlan.zhihu.com/p/41498458" target="_blank" rel="noopener">网站建设中使用的png和jpg两种图片格式都有哪些特点和区别</a>   </p>
-]]></content>
-      <tags>
-        <tag>后端</tag>
-        <tag>前端</tag>
-        <tag>图片</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>图片有关工具和网站</title>
-    <url>/2020/02/22/%E5%9B%BE%E7%89%87/%E5%9B%BE%E5%83%8F%E6%9C%89%E5%85%B3%E5%B7%A5%E5%85%B7%E5%92%8C%E7%BD%91%E7%AB%99/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h5 id="压缩网站和软件工具"><a href="#压缩网站和软件工具" class="headerlink" title="压缩网站和软件工具"></a>压缩网站和软件工具</h5><blockquote>
-<p>参考: <a href="https://blog.ibireme.com/2015/11/02/mobile_image_benchmark/#png" target="_blank" rel="noopener">https://blog.ibireme.com/2015/11/02/mobile_image_benchmark/#png</a></p>
-</blockquote>
-<h6 id="网站"><a href="#网站" class="headerlink" title="网站"></a>网站</h6><p><a href="https://pmt.sourceforge.io/pngcrush/" target="_blank" rel="noopener">Xcode自带PNG压缩工具pnycrush</a><br><a href="https://pngquant.org/" target="_blank" rel="noopener">pngquant</a><br><a href="https://tinify.cn/" target="_blank" rel="noopener">智能PNG和JPEG图片压缩</a><br><a href="https://zhitu.isux.us/" target="_blank" rel="noopener">腾讯智图</a><br><a href="http://www.bejson.com/convert/image_to_svg/" target="_blank" rel="noopener">在线jpg,png图片转SVG工具</a><br><a href="https://www.iconfont.cn/" target="_blank" rel="noopener">阿里矢量图标库</a><br><a href="https://www.favicon-generator.org/" target="_blank" rel="noopener">Favicon &amp; App Icon Generator</a><br><a href="http://www.uugai.com/" target="_blank" rel="noopener">完全免费的LOGO在线设计制作工具</a><br><a href="https://github.com/SamHerbert/SVG-Loaders" target="_blank" rel="noopener">SVG进度条</a></p>
-<a id="more"></a>
-
-<h6 id="软件工具"><a href="#软件工具" class="headerlink" title="软件工具"></a>软件工具</h6><p><a href="https://imageoptim.com/mac" target="_blank" rel="noopener">ImageOptim</a><br><a href="https://imagemagick.org/index.php" target="_blank" rel="noopener">imagemgick</a><br><a href="https://pmt.sourceforge.io/pngcrush/" target="_blank" rel="noopener">Pngcrush</a><br><a href="https://github.com/sharkdp/hexyl" target="_blank" rel="noopener">查看二进制工具-hexyl</a><br><a href="https://ridiculousfish.com/hexfiend/" target="_blank" rel="noopener">查看二进制工具-HexFiend</a><br><a href="https://sourceforge.net/projects/apngasm/" target="_blank" rel="noopener">创建APNG图片工具</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pngcrush 是 Xcode 自带的 PNG 压缩工具，相对于设计师用 Photoshop 生成的图片来说，它能取得不错的压缩效果。</span><br><span class="line">ImageOptim 则更进一步，对每张图用多种缩算法进行比对，选择压缩比更高的结果，进一步缩小了文件体积。</span><br><span class="line">TinyPNG.com 相对于其他工具来说，压缩比高得不像话。它启用了类似 GIF 那样的颜色索引表对 PNG 进行压缩，所以会导致颜色丰富的图片丢失掉一部分细节。如果使用 TinyPNG 的话，最好在压缩完成后让设计师看一下颜色效果是否可以接受。</span><br></pre></td></tr></table></figure>
-
-<h5 id="其他相关"><a href="#其他相关" class="headerlink" title="其他相关"></a>其他相关</h5><p>1、<a href="https://caniuse.com/" target="_blank" rel="noopener">图片格式浏览器支持情况网站</a>   </p>
-<h5 id="书籍"><a href="#书籍" class="headerlink" title="书籍:"></a>书籍:</h5><p>《探索图像文件的奥秘》</p>
-]]></content>
-      <tags>
-        <tag>后端</tag>
-        <tag>前端</tag>
-        <tag>图像</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Charles使用细节说明</title>
-    <url>/2020/05/17/%E5%B0%8F%E6%8A%80%E5%B7%A7/Charles%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82%E8%AF%B4%E6%98%8E/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<p>Charles是一款优秀HTTPS/HTTP网络代理工具</p>
-<blockquote>
-<p><a href="https://www.charlesproxy.com" target="_blank" rel="noopener">Charles官网地址</a><br><a href="https://xclient.info/s/charles.html" target="_blank" rel="noopener">Charles下载地址</a></p>
-</blockquote>
-<h4 id="Charles-gt-Map-Remote-Setting-gt-Edit-Mapping中preserve-host-in-header-fields的使用"><a href="#Charles-gt-Map-Remote-Setting-gt-Edit-Mapping中preserve-host-in-header-fields的使用" class="headerlink" title="Charles -&gt; Map Remote Setting -&gt; Edit Mapping中preserve host in header fields的使用"></a>Charles -&gt; Map Remote Setting -&gt; Edit Mapping中preserve host in header fields的使用</h4><p><img src="/images/Charles%E4%BF%9D%E6%8A%A4HostHeaderfields%E4%B8%80.png" alt="Charles 不勾选">  </p>
-<p><img src="/images/Charles%E4%BF%9D%E6%8A%A4HostHeaderFileds%E4%BA%8C.png" alt="Charles 勾选"></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>IDEA技巧、IDEA经验分享、IDEA学习、IDEA探索</title>
-    <url>/2019/02/12/%E5%B0%8F%E6%8A%80%E5%B7%A7/IDEA%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a><br><strong>* 提供IDEA使用小技巧 *</strong></p>
-<blockquote>
-<p>推荐一些本人亲身尝试，在实际开发中比较实用的小技巧，可以大大提高开发效率。</p>
-</blockquote>
-<h5 id="IDEA左侧显示打开代码文件和资源文件"><a href="#IDEA左侧显示打开代码文件和资源文件" class="headerlink" title="IDEA左侧显示打开代码文件和资源文件"></a>IDEA左侧显示打开代码文件和资源文件</h5><blockquote>
-<p>应用场景:默认IDEA的代码文件的Tab放在代码区的上方。但是实际开发，我们经常打开很多代码文件，左侧显示整体显示，可以提高管理打开代码文件。</p>
-</blockquote>
-<h6 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h6><p><img src="/images/IDEA%E5%B7%A6%E4%BE%A7%E6%98%BE%E7%A4%BA%E4%BB%A3%E7%A0%81%E6%96%87%E4%BB%B6%E6%88%AA%E5%9B%BE.jpeg" alt="IDEA左侧显示打开代码文件截图"></p>
-<a id="more"></a>
-<h6 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤:"></a>操作步骤:</h6><p><img src="/images/IDEA%E5%B7%A6%E4%BE%A7%E6%98%BE%E7%A4%BA%E4%BB%A3%E7%A0%81%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E6%88%AA%E5%9B%BE.jpeg" alt="IDEA左侧显示打开代码文件操作截图"></p>
-<h5 id="IDEA多个模块同名分支统一切换-（Multi-root-same-name-brances-change）"><a href="#IDEA多个模块同名分支统一切换-（Multi-root-same-name-brances-change）" class="headerlink" title="IDEA多个模块同名分支统一切换 （Multi-root same name brances change）"></a>IDEA多个模块同名分支统一切换 （Multi-root same name brances change）</h5><blockquote>
-<p>应用场景:默认IDEA的分支操作:模块分支统一操作(Common Local Branches)和单模块分支操作(Local Branches)。 对于某个模块同名的分支的处理很难处理。 (类似问题:<a href="https://stackoverflow.com/questions/13797331/intellij-switching-between-multiple-git-local-branches" target="_blank" rel="noopener">https://stackoverflow.com/questions/13797331/intellij-switching-between-multiple-git-local-branches</a>)</p>
-</blockquote>
-<p>灵感来自这篇文章:<a href="https://intellij-support.jetbrains.com/hc/en-us/community/posts/360000135790-Task-Management-does-not-respect-Execute-branch-operations-on-all-roots-setting" target="_blank" rel="noopener">Task Management does not respect “Execute branch operations on all roots” setting</a></p>
-<h6 id="操作步骤-1"><a href="#操作步骤-1" class="headerlink" title="操作步骤"></a>操作步骤</h6><p>Click “Tools” &gt; “Tasks &amp; Contexts” &gt; “Open Task”</p>
-<p><img src="/images/IDEA%E5%BC%80%E5%90%AF%E6%89%80%E6%9C%89%E6%A0%B9%E4%B8%8A%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C.jpeg" alt="IDEA开启所有根上分支操作"></p>
-<p><img src="/images/IDEATask%E7%9A%84%E4%BD%8D%E7%BD%AE.jpeg" alt="IDEATask的位置"></p>
-<p><img src="/images/IDEA%E7%9A%84Task%E6%93%8D%E4%BD%9C.jpeg" alt="IDEA的Task操作"></p>
-<h5 id="IDEA的编辑区不换行操作"><a href="#IDEA的编辑区不换行操作" class="headerlink" title="IDEA的编辑区不换行操作"></a>IDEA的编辑区不换行操作</h5><p><img src="/images/IDEA%E4%B8%8D%E6%8D%A2%E8%A1%8C%E6%93%8D%E4%BD%9C.jpg" alt="IDEA不换行操作"></p>
-<h5 id="IDEA的Commit-Changes显示提交的分支操作"><a href="#IDEA的Commit-Changes显示提交的分支操作" class="headerlink" title="IDEA的Commit Changes显示提交的分支操作"></a>IDEA的Commit Changes显示提交的分支操作</h5><p><img src="/images/IDEA%E6%8F%90%E4%BA%A4%E5%8F%98%E5%8C%96%E6%98%BE%E7%A4%BA%E5%88%86%E6%94%AF%E5%90%8D.jpg" alt="IDEA提交改变显示分支名"></p>
-<h5 id="IDEA设置serialVersionUID"><a href="#IDEA设置serialVersionUID" class="headerlink" title="IDEA设置serialVersionUID"></a>IDEA设置serialVersionUID</h5><p><img src="/images/IDEA%E7%9A%84%E8%AE%BE%E7%BD%AE%E6%98%BE%E7%A4%BAserialVersionUID.jpg" alt="IDEA设置serialVersionUID"></p>
-<h5 id="IDEA的翻译插件"><a href="#IDEA的翻译插件" class="headerlink" title="IDEA的翻译插件"></a>IDEA的翻译插件</h5><p>第一步安装插件：<br><img src="/images/Translation%E6%8F%92%E4%BB%B6%E4%B8%8B%E8%BD%BD.jpg" alt="Translation 插件下载"><br>第二步完毕后显示位置<br><img src="/images/Translation%E6%8F%92%E4%BB%B6%E6%98%BE%E7%A4%BA%E4%BD%8D%E7%BD%AE.jpg" alt="Translation 插件显示位置"><br>第三步设置插件选项<br>正则描述: <code>(@[a-z]+|/|\*|\{|\}|\#|(&lt;[/a-z]+&gt;))</code><br><img src="/images/Translation%E6%8F%92%E4%BB%B6%E8%AE%BE%E7%BD%AE.jpg" alt="Translation 插件设置"></p>
-<h5 id="IDEA-高效将远程分支变成本地分支"><a href="#IDEA-高效将远程分支变成本地分支" class="headerlink" title="IDEA 高效将远程分支变成本地分支"></a>IDEA 高效将远程分支变成本地分支</h5><blockquote>
-<p>将分支名称一致的多个项目远程分支变成对应项目本地分支操作<br><img src="/images/%E5%B0%86%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E5%8F%98%E6%88%90%E6%9C%AC%E5%9C%B0%E5%88%86%E6%94%AF.png" alt="将远程分支变成本地分支"></p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>IDEA</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac常见问题和技巧</title>
-    <url>/2020/05/17/%E5%B0%8F%E6%8A%80%E5%B7%A7/Mac%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%92%8C%E6%8A%80%E5%B7%A7/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h5 id="常见技巧"><a href="#常见技巧" class="headerlink" title="常见技巧"></a>常见技巧</h5><h5 id="优秀软件"><a href="#优秀软件" class="headerlink" title="优秀软件"></a>优秀软件</h5><h6 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h6><p>新版MacOs Catalina推荐默认使用命令脚本zsh，而不是bash。<br>对于遇到 no matches的提示解决方案</p>
-<blockquote>
-<p>参考来源:<a href="https://www.bartbusschots.ie/s/2019/06/12/bash-to-zsh-file-globbing-and-no-matches-found-errors/" target="_blank" rel="noopener">Bash to Zsh: File Globbing and ‘no matches found’ Errors</a></p>
-</blockquote>
-<p>在 ~/.zshrc 文件上添加：<br><code># only throw errors when no globs match anything</code><br><code>setopt CSH_NULL_GLOB</code></p>
-<hr>
-<p>新版MacOs Catalina增加一个硬盘上两个卷(Macintosh HD、 Macintosh HD Data)，并且有个卷是只读的(Macintosh HD)。System Integrity Protection 系统保护根路径变成只读卷（命令: csrutil）。</p>
-<blockquote>
-<p><a href="https://sspai.com/post/57052" target="_blank" rel="noopener">当 Mac 升级到 Catalina 时，苹果在硬盘里施了点魔法</a></p>
-</blockquote>
-<p>在只读卷新建文件/文件夹、在根目录创建data文件解决方案</p>
-<blockquote>
-<p><a href="https://blog.csdn.net/weixin_42619248/article/details/102503825" target="_blank" rel="noopener">可以通过在根路径下建立软连接连接到其他可读写的卷上，解决/data的问题</a></p>
-</blockquote>
-<ol>
-<li>关闭System Integrity Protection的只读卷保护</li>
-</ol>
-<ul>
-<li>重启苹果电脑</li>
-<li>重启过程中，长按住Command-R键重启进入恢复模式</li>
-<li>进入恢复模式，在Utilities菜单项中选择Terminal</li>
-<li>在Terminal控制台里面输入 <code>csrutil disable</code> 关闭系统保护</li>
-<li>输入<code>csrutil status</code>，查看系统保护状态</li>
-</ul>
-<ol start="2">
-<li>在恢复模式下，重启电脑<blockquote>
-<p>有时执行下面步骤，仍然出现read only system的提醒是可以<code>sudo mount -uw /</code> 强制重新挂载硬盘来解决</p>
-</blockquote>
-</li>
-</ol>
-<ul>
-<li>重启电脑成功后，就可以直接操作根目录路径文件、文件夹</li>
-<li>【建议】在<code>Macintosh HD Data</code>建立好文件夹、文件，然后在<code>Macintosh HD</code>创建软连接/硬链接到文件夹、文件</li>
-</ul>
-<ol start="3">
-<li>恢复System Integrity Protection的只读卷保护</li>
-</ol>
-<ul>
-<li>重启苹果电脑</li>
-<li>重启过程中，长按住Command-R键重启进入恢复模式</li>
-<li>进入恢复模式，在Utilities菜单项中选择Terminal</li>
-<li>在Terminal控制台里面输入 <code>csrutil enable</code> 开启系统保护</li>
-<li>输入<code>csrutil status</code>，查看系统保护状态</li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>Logger的学习与源码解析</title>
-    <url>/2020/08/16/%E6%9C%AA%E5%AE%8C%E6%88%90/Logger%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h3 id="导读"><a href="#导读" class="headerlink" title="导读"></a>导读</h3><h3 id="slf4j日志门面如何一统天下"><a href="#slf4j日志门面如何一统天下" class="headerlink" title="slf4j日志门面如何一统天下"></a>slf4j日志门面如何一统天下</h3><h3 id="slf4j-框架思考"><a href="#slf4j-框架思考" class="headerlink" title="slf4j 框架思考"></a>slf4j 框架思考</h3><h3 id="slf4j-源码解析"><a href="#slf4j-源码解析" class="headerlink" title="slf4j 源码解析"></a>slf4j 源码解析</h3><h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://www.cnblogs.com/youzhibing/p/6849843.html" target="_blank" rel="noopener">从源码来理解slf4j的绑定，以及logback对配置文件的加载</a><br><a href="https://www.jianshu.com/p/9916de96cb99" target="_blank" rel="noopener">Java 日志框架解析：设计模式、性能</a><br><a href="http://ifeve.com/disruptor/" target="_blank" rel="noopener">并发框架Disruptor译文</a></p>
-]]></content>
-      <tags>
-        <tag>后端</tag>
-        <tag>日志</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CPU架构学习</title>
-    <url>/2020/05/27/%E6%9C%AA%E5%AE%8C%E6%88%90/CPU%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<p>对于目前市面CPU架构拆分，命令上理解。i386<br><a href="https://nginx.org/en/linux_packages.html" target="_blank" rel="noopener">https://nginx.org/en/linux_packages.html</a><br><a href="https://github.com/xtaci/kcptun/releases" target="_blank" rel="noopener">https://github.com/xtaci/kcptun/releases</a></p>
-<ul>
-<li><p><a href="https://zhuanlan.zhihu.com/p/81472964" target="_blank" rel="noopener">CPU架构</a>  arm  x86  x86_64  ppc64</p>
-</li>
-<li><p><a href="https://wiki.centos.org/SpecialInterestGroup/AltArch/armhfp" target="_blank" rel="noopener">AltarchCentos学习</a></p>
-</li>
-</ul>
-]]></content>
-  </entry>
-  <entry>
-    <title>hexo搭建github-bolg总结</title>
-    <url>/2020/06/25/%E6%9C%AA%E5%AE%8C%E6%88%90/hexo%E6%90%AD%E5%BB%BAgithub-bolg%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><p><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">hexo官网</a><br><a href="https://zhuanlan.zhihu.com/p/31411755" target="_blank" rel="noopener">修改hexo sitemap 生成插件中的链接模板</a><br><a href="https://wizardforcel.gitbooks.io/markdown-simple-world/content/" target="_blank" rel="noopener">Markdown - 简单的世界</a></p>
-]]></content>
-      <tags>
-        <tag>学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>人人都该懂点产品思维（一）</title>
-    <url>/2020/04/25/%E8%AF%BB%E4%B9%A6/%E4%BA%BA%E4%BA%BA%E9%83%BD%E8%AF%A5%E6%87%82%E7%82%B9%E4%BA%A7%E5%93%81%E6%80%9D%E7%BB%B4%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h3 id="推荐语"><a href="#推荐语" class="headerlink" title="推荐语"></a>推荐语</h3><p>&emsp;&emsp;本书以生动的笔触，以场景代入的方法，从是什么、为什么、怎么样介绍了一名产品经理的必备素质以及专业技能，对竞品分析、A/B测试、数据分析、PRD撰写、埋点、搜索、推送等做了深入阐述，每一部分都既有理论说明，又有实例分析，深入浅出，面面俱到。此外，还指出了在做好产品经理这一角色时必须具备的职业能力以及技巧，如关注APP榜单、高效会议、跟进进度，甚至专业邮件撰写方法。总结出来的方法论，如六步法：用、问、数、比、溯、试，非常精炼又极其其实用，对实际工作很有指导作用。</p>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><h4 id="17页"><a href="#17页" class="headerlink" title="17页"></a>17页</h4><p>&emsp;&emsp;转载一段看来的关于价值投资的判断，我觉得同样适用于个人的职业选择：</p>
-<ul>
-<li>这是不是一家全方位领先竞争者的公司？（现在）</li>
-<li>这是不是一个快速增长、有着清晰增长路线图的公司？（未来）</li>
-<li>这是不是总体上在你的认知范围内最佳选择？（有效前沿）</li>
-</ul>
-<h3 id="第一章："><a href="#第一章：" class="headerlink" title="第一章："></a>第一章：</h3><h4 id="005页"><a href="#005页" class="headerlink" title="005页"></a>005页</h4><p>&emsp;&emsp;对于没有丰富经验的产品小白而言，由于没有负责过大项目，做的很多事情都偏向于执行，所以面试中并不会过多纠结过往的项目（行业认知），更多考查的是解决问题的思路、遇到挑战时的应对和分析。对于问题的回答并不要求面面俱到，而是希望在有限时间里，应试者能够展现出自己是如何拆解问题、做重要优先级划分的，并争取做到逻辑自洽。</p>
-<h4 id="008页"><a href="#008页" class="headerlink" title="008页"></a>008页</h4><p>&emsp;&emsp;这款App核心卖点在于实时美颜，调研相机的同时，就在进行美白和瘦脸的操作，用户就不需要拍照后在P图了。<strong>把两步变成一步，路径的缩短就带来了产品价值</strong>。</p>
-<p>&emsp;&emsp;作为产品经理，需要对市场保持足够的敏感。有哪些新的、热的应用，就算不是我们的竞品领域，同样也需要关注。<strong>他山之石可以攻玉，它们或许能够给我们带来不一样的想法</strong></p>
-<h4 id="059页"><a href="#059页" class="headerlink" title="059页"></a>059页</h4><p>&emsp;&emsp;对于一个新手产品经理来说，先做人，再做事；请先做一个称职的职场新人，再来着手产品经理的工作。<br>&emsp;&emsp;能力固能是需要培养，互信更是需哟啊培养的。对于职场新人来说，只有真正赢得直属领导和团队的信任，才能得到更多项目历练的机会，进而有培养能力一展拳脚的可能性。那如何建立互信呢？不是喝酒吃饭套交情，这里是职场，请用自己的产出说话。</p>
-<blockquote>
-<p>自己理解：职场中信任是特别重要。刚才公司那会听到同事在大会上说感谢公司领导信任。当时没懂为什么要着重说明这件事情，后来渐渐明白我自己所做的每一件事情都是领导对自己信任和对自己能力认可。如果没有这些的话，可能自己只会停留在原地。</p>
-</blockquote>
-<h4 id="060页"><a href="#060页" class="headerlink" title="060页"></a>060页</h4><p>&emsp;&emsp;一种情况是在任务碰到困难，请及时向领导和资深同时求助，不要做闷葫芦自己钻研。及时请求帮助没什么不好意思的，作为新人，不懂不会是正常的，不懂装懂才是可怕的。如果因为自己的羞恼使得产出延迟，进而拖累了整个团队进度，那才是该不好意思的。我们常会碰到这样的新人，在项目的最后期限快到时询问他，才反馈说因为碰到了问题解决不了而延期，这样的情况才让领导和团队疯狂。    </p>
-]]></content>
-      <tags>
-        <tag>读书</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>互联网项目管理实践精粹（一）</title>
-    <url>/2020/09/08/%E8%AF%BB%E4%B9%A6/%E4%BA%92%E8%81%94%E7%BD%91%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E5%AE%9E%E8%B7%B5%E7%B2%BE%E7%B2%B9%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h3 id="项目经理"><a href="#项目经理" class="headerlink" title="项目经理"></a>项目经理</h3><blockquote>
-<p>项目经理角色是组织战略与项目团队之间联系的纽带，也是确保项目团队工作价值并对项目结果负责和主要负责人。</p>
-</blockquote>
-<h4 id="核心责任"><a href="#核心责任" class="headerlink" title="核心责任"></a>核心责任</h4><ul>
-<li><p>管理维护项目待办事项列表，确保项目团队明晰列表内容及产品需求优先级；</p>
-</li>
-<li><p>指导和引导项目团队按照标准制度流程，高效地进行项目设计、开发与实现；</p>
-</li>
-<li><p>多项目的全程项目生命周期管理，确保项目团队各成员了解的信息真实对等；</p>
-</li>
-<li><p>整合协调公司内外部项目资源，扫清障碍、打通经脉，高效地推动推动项目落地；</p>
-</li>
-<li><p>参与组织级项目管理体系建设，提升项目管理能力，激发项目团队工作热情；</p>
-</li>
-<li><p>合理安排项目资源，制订并执行项目计划，管理项目从立项到上线的全部过程；</p>
-</li>
-<li><p>及时发现项目中可能存在的风险并提前预警，制订项目风险应对和应急方案；</p>
-</li>
-<li><p>与各职能部门高效沟通，快速推动项目问题和难点的解决，并定期总结汇报；</p>
-</li>
-<li><p>研究并推广应用先进的互联网项目管理工具，促进项目管理信息化和自动化。</p>
-<a id="more"></a>
-
-</li>
-</ul>
-<h4 id="如何了解某个职位责任？"><a href="#如何了解某个职位责任？" class="headerlink" title="如何了解某个职位责任？"></a>如何了解某个职位责任？</h4><ol>
-<li>这个职位具体扮演角色包括哪些核心职责？</li>
-<li>如果想要担任这个角色需要哪些认知资格？</li>
-<li>公司中其他角色和这个角色有哪些关联和依赖？</li>
-<li>这个角色隶属于公司哪个部门，以及该部门是如何运作的？</li>
-<li>设立这个角色的公司隶属于哪个行业？通常都是什么规模类型？</li>
-<li>这个行业的发展现状和未来前景如何？有哪些比较知名公司</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>读书</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>人人都该懂点产品思维（二）</title>
-    <url>/2020/06/26/%E8%AF%BB%E4%B9%A6/%E4%BA%BA%E4%BA%BA%E9%83%BD%E8%AF%A5%E6%87%82%E7%82%B9%E4%BA%A7%E5%93%81%E6%80%9D%E7%BB%B4%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h3 id="第二章-初学乍练-改进已有功能点"><a href="#第二章-初学乍练-改进已有功能点" class="headerlink" title="第二章 初学乍练: 改进已有功能点"></a>第二章 初学乍练: 改进已有功能点</h3><h4 id="74页"><a href="#74页" class="headerlink" title="74页"></a>74页</h4><p>&emsp;&emsp;有价值的用户是指最终能够给公司带来收入的用户，我们追求这部分人群的长期留存就是为了保证这份收入的稳定性和可持续性。<br>&emsp;&emsp;在价值的定义上，根据具体付费方不同，可以大致分为C端收费、B端收费两类。在不同的产品中，其盈利方式和有价值用户的定义有所不同。</p>
-<ul>
-<li>信息流产品为例，有价值的用户可能是那些点击信息流广告的用户;</li>
-<li>以游戏产品为例，有价值的用户可能是付费的氪金玩家;</li>
-<li>以职场社交产品为例，有机质的用可能是活跃在这一产品上的、可被招聘和挖掘的职业用户。<br>&emsp;&emsp;无论收益途径如何，用户价值都会被归结到特定渠道的生命周期价值LTV(Life Time Value)上，无论是用户产品还是商业产品，都应该聚焦提升用户的生命周期价值上。</li>
-</ul>
-<blockquote>
-<p>渗透率=现有需求量/潜在需求量</p>
-</blockquote>
-<h4 id="80页"><a href="#80页" class="headerlink" title="80页"></a>80页</h4><p>&emsp;&emsp;现在早就不是产品经理拍脑袋决定上线时代了，我们需要更为完善的A/B测试来验证我们的判断</p>
-<h4 id="83页"><a href="#83页" class="headerlink" title="83页"></a>83页</h4><p>&emsp;&emsp;我们在实验中常用的几个基础用户特征维度有：新老用户（功能的深度用户和浅度用户，一般升级频率比较高、活跃度比较高的用户可能更容易尝鲜，也更容易推高部分数据）、系统类型（如Android和Ios平台之分，Ios内部又有不同手机厂商之分，特定平台和手机厂商的用户可能表现出更好的留存或付费意愿等）用户、男女用户等。</p>
-]]></content>
-      <tags>
-        <tag>读书</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>非暴力沟通</title>
-    <url>/2020/07/19/%E8%AF%BB%E4%B9%A6/%E9%9D%9E%E6%9A%B4%E5%8A%9B%E6%B2%9F%E9%80%9A/</url>
-    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
-<h3 id="区分观察与评论"><a href="#区分观察与评论" class="headerlink" title="区分观察与评论"></a>区分观察与评论</h3><h4 id="027页"><a href="#027页" class="headerlink" title="027页"></a>027页</h4><p>以下这首歌反映了观察与评论的区别。<br>我未见过懒惰的人;<br>我见过<br>有个人有时在下午睡觉，<br>在雨天不出门，<br>但他不是个懒惰的人。<br>请在说我胡言乱语之前，<br>想一想，他是个懒惰的人，还是<br>他的行为被我们称为“懒惰”？<br>我从未见过愚蠢的孩子；<br>我见过有个孩子有时做的事<br>我不理解<br>或不接受我的吩咐做事情；<br>但他不是愚蠢的孩子。<br>请在你说他愚蠢之前，<br>想一想，他是个愚蠢的孩子，还是<br>他懂的事情与你不一样？    </p>
-<p>我使劲看了又看<br>但从未看到厨师；<br>我看到有个人把食物<br>调配在一起，<br>打起了火，<br>。。。。。。。。</p>
-]]></content>
-      <tags>
-        <tag>读书</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>字符集、字符编码、字符排序方式</title>
     <url>/2020/08/15/%E5%AD%97%E7%AC%A6%E9%9B%86%E3%80%81%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E3%80%81%E5%AD%97%E7%AC%A6%E6%8E%92%E5%BA%8F%E6%96%B9%E5%BC%8F/</url>
     <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
@@ -2165,6 +1821,383 @@ The latest release is version 6b of 27-Mar-1998. This is a stable and solid foun
         <tag>后端</tag>
         <tag>字符</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>JEPG、PNG、WEBP、GIF、SVG的学习使用-WEBP等</title>
+    <url>/2020/02/24/%E5%9B%BE%E7%89%87/JEPG%E3%80%81PNG%E3%80%81WEBP%E3%80%81GIF%E3%80%81SVG%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8-WEBP%E7%AD%89/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h4 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h4><p>&emsp; &emsp;Gif一个比较古老的图片格式。图片交换格式(GIF， Graphics Interchange Format)是一种位图图形文件格式，采用8位色最多256种索引颜色调色板描绘图像。GIF是一种压缩文档，使用LZW算法压缩算法进行编码，同时也有效减少了图像文件在网络上传输的时间。<br>&emsp; &emsp;近些年动态的表情包的大火，使得Gif图像重新派上用场。其支持多帧图片，从而实现动画效果（即帧动画），同时也可以设置透明色产生透明图片的。&emsp; 但是由于之前专利的原因，Gif的静态图像功能被PNG给替代了，目前Gif常用于颜色简单的动画上。<br>&emsp; &emsp;Gift也是因为最多支持8位256色，无法支持更加丰富色彩图片。Gift存在色阶过渡糟糕，图片具有颗粒感，不支持Alpha透明通道，边缘有杂边。在静态图像优势没有PNG效果好。</p>
+<a id="more"></a>
+
+<h4 id="APNG"><a href="#APNG" class="headerlink" title="APNG"></a>APNG</h4><p>&emsp; &emsp;APNG(Animated Portable Network Graphics)格式是PNG位图格式扩展，但未获得PNG组织官方认可。其扩展方式类似GIF 89a,仍对原版PNG保持向下兼容。APNG第一帧为标准PNG图像，剩余的动画和帧速等数据放在PNG扩展数据块上。因此支持原版PNG的软件会正确显示第一帧。<br>&emsp; &emsp;APNG的特点，支持24位真彩色图片，同时也支持 8位Alpha透明通道。其也能向下兼容PNG图像。<br><strong>APNG和GIF对比差异:</strong><br><img src="/images/GIF%E5%92%8CAPNG%E7%9A%84%E5%B7%AE%E5%BC%82.png" alt="GIF和APNG的差异"></p>
+<blockquote>
+<p>APNG实现原理参考：<a href="https://aotu.io/notes/2016/11/07/apng/index.html#APNG%20%E7%9A%84%E7%BB%84%E6%88%90" target="_blank" rel="noopener">APNG实现组成</a></p>
+</blockquote>
+<h4 id="WebP"><a href="#WebP" class="headerlink" title="WebP"></a>WebP</h4><p>WebP标准是Google定制的，迄今为止也只有Google发布的libwebp实现了该的编解码。Webp提供了有损压缩与无损压缩（可逆压缩）的图片文件格式,也支持静态模式图像和动态模式图像。其是8位ARGB四通道描绘图像。  </p>
+<blockquote>
+<p><a href="https://developers.google.com/speed/webp" target="_blank" rel="noopener">官网介绍</a></p>
+</blockquote>
+<h4 id="BPG"><a href="#BPG" class="headerlink" title="BPG"></a>BPG</h4><p>BPG(Better Portable Graphics) 是一种新的图片格式。其主要目的是为了替代JPEG图像，并且质量和文件大小做得更好。</p>
+<blockquote>
+<p><a href="https://bellard.org/bpg/" target="_blank" rel="noopener">官网介绍</a></p>
+</blockquote>
+<h4 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a>SVG</h4><p>&emsp; &emsp;SVG即可缩放矢量图形 (Scalable Vector Graphics)的简称, 是一种用来描述二维矢量图形的XML标记语言. SVG图形不依赖于分辨率, 因此图形不会因为放大而显示出明显的锯齿边缘.<br>&emsp; &emsp;SVG主要用来显示矢量图，例如一些形状、线和点的组合，所以目前很多主流的图标库都提供SVG格式的文件。</p>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="https://blog.ibireme.com/2015/11/02/mobile_image_benchmark/" target="_blank" rel="noopener">移动端图片格式调研</a><br><a href="https://aotu.io/notes/2016/11/07/apng/index.html" target="_blank" rel="noopener">APNG及动态图像各类区别</a><br><a href="https://www.jianshu.com/p/261cd13757ce" target="_blank" rel="noopener">图像压缩技术：选择正确的图片格式</a><br><a href="https://www.geekhub.cn/a/1780.html" target="_blank" rel="noopener">动态图片技术 — 历史、格式与性能</a></p>
+]]></content>
+      <tags>
+        <tag>后端</tag>
+        <tag>前端</tag>
+        <tag>图片</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JEPG、PNG、WEBP、GIF、SVG的学习使用、 各种网络图片格式学习-JPEG</title>
+    <url>/2020/02/15/%E5%9B%BE%E7%89%87/JEPG%E3%80%81PNG%E3%80%81WEBP%E3%80%81GIF%E3%80%81SVG%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8-JPEG/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h5 id="GPEG"><a href="#GPEG" class="headerlink" title="GPEG"></a>GPEG</h5><h6 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h6><p>&ensp; &ensp; JPEG(Joint Photographic Experts Group:联合图像专家小组,1972年)是第一个国际图像压缩标准。JPEG压缩标准描述将图像转换为字节的数据串流(streaming)，没有说明如何将这些字节存储。     </p>
+<blockquote>
+<p>JPEG算法原理解析(整理像素点，以数学三角函数表示，通过哈夫曼树进行存储)<br><a href="https://thecodeway.com/blog/?p=69" target="_blank" rel="noopener">JPEG算法解密一</a><br><a href="https://thecodeway.com/blog/?p=353" target="_blank" rel="noopener">JPEG算法解密二</a><br><a href="https://thecodeway.com/blog/?p=480" target="_blank" rel="noopener">JPEG算法解密三</a><br><a href="https://thecodeway.com/blog/?p=522" target="_blank" rel="noopener">JPEG算法解密四</a><br><a href="https://thecodeway.com/blog/?p=690" target="_blank" rel="noopener">JPEG算法解密五</a><br><a href="https://blog.csdn.net/shelldon/article/details/54234433" target="_blank" rel="noopener">CSDN-JPEG图像压缩</a></p>
+</blockquote>
+<p>&ensp; &ensp; .jpeg/.jpg是最常用存储JPEG图像文件格式，是一种有损压缩格式。通常将图像压缩在很小的储存空间并且会将图像中重复或不重要的资料丢弃，因此容易造成图像数据的损伤。一般不建议将JPEG重复压缩会导致数据丢失越来越严重。   </p>
+<pre><code>JPEG压缩标准实现开源库：libjpeg、mozjpeg、miniJPEG
+[libjpeg](http://libjpeg.sourceforge.net/)    
+Libjpeg is a widely used C library for reading and writing JPEG image files. It was developed by Tom Lane and the Independent JPEG Group (IJG) during the 1990’s and it is now maintained by several developers using various services identified in the SourceForge summary.
+The latest release is version 6b of 27-Mar-1998. This is a stable and solid foundation for many application’s JPEG support.</code></pre><a id="more"></a>
+
+<p>1、JPEG是有损压缩算法。有损压缩就是为了将图片压缩到更小，利用人眼观察图片的特点改变某些丢弃掉一些人眼不易察觉的原始颜色信息，而这个是不可逆的。<br>2、其压缩算法可以精确控制压缩比，以图像质量换得存储空间。  Photoshop存储JPEG格式图片，提供11级压缩级别，以0—10级表示。其中0级压缩比最高，图像品质最差。即使采用细节几乎无损的10 级质量保存时，压缩比也可达 5：1。<br>3、它不支持透明背景图像，更加适合颜色复杂的图像。<br>4、JPEG存储图片一个像素使用24位表示，属于真彩色图片。</p>
+<p>后续针对JPEG第一代压缩标准的改进变化，依次出现了：<br>JPEG2000(2000年、支持有损和无损压缩，支持<a href="https://baike.baidu.com/item/%E6%B8%90%E8%BF%9B%E4%BC%A0%E8%BE%93" target="_blank" rel="noopener">渐进传输</a>、开源库:<a href="http://www.openjpeg.org/" target="_blank" rel="noopener">openJPEG</a>)、JPEG XR(2009年, 增加HDR支持)</p>
+<h6 id="JPEG的特性"><a href="#JPEG的特性" class="headerlink" title="JPEG的特性"></a>JPEG的特性</h6><p>1、支持摄影图像或写实图像的高级压缩，并且可利用压缩比例控制图像文件大小。<br>2、有损压缩会使图像数据质量下降，并且在编辑和重新保存JPG格式图像时，这种下降损失会累积。<br>3、JPEG不适用于所含颜色很少、具有大块颜色相近的区域或亮度差异十分明显的较简单的图片。<br>4、它并不适合于线条绘图（drawing）和其他文字或图示（iconic）的图形,因为它的压缩方法用在这些图形的型态上,会得到不适当的结果；<br>5、当它处理矢量图形和 Logo 等线条感较强、颜色对比强烈的图像时，人为压缩导致的图片模糊会相当明显。且不支持透明度处理。</p>
+<h6 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h6><p>1、大的背景图<br>2、轮播图<br>3、Banner图    </p>
+<blockquote>
+<p><strong>什么时候应该使用JPEG？</strong><br>&ensp; &ensp; 从上面介绍的JPEG的特性来看，它更适合用来存储具有丰富色彩层次的摄影或写实照片。这是因为色彩层次丰富的图像一般会由于阴影、反光或透视等效果形成明暗、深浅不同的区域，如果我们选择使用PNG8来储存的话，可能一些颜色在调色板上找不到，导致图像上一些数据的丢失，如果使用PNG24的话，它确实可以查找到图像不同层次的颜色，但它会因数据较多增大图片的体积，严重拖慢加载速度，在网站上也容易显示不全。所以，JPEG是最好的选择，它能在尽量压缩文件大小的情况下较好的还原图片的品质。为什么这里不使用SVG呢？SVG有自身的局限性，由于它是点和线精准计算的，一些位图如摄影元素SVG无法实现合适的缩放。<br>引用:<a href="https://www.qifeiye.com/%E6%A8%AA%E5%90%91%E5%AF%B9%E6%AF%94gifjpegpngsvg%EF%BC%8C%E6%95%99%E4%BD%A0%E5%A6%82%E4%BD%95%E5%90%88%E7%90%86%E9%80%89%E6%8B%A9%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/" target="_blank" rel="noopener">横向对比GIF/JPEG/PNG/SVG，教你如何合理选择图像格式</a></p>
+</blockquote>
+<h6 id="基准式JPEG和渐进式JPEG"><a href="#基准式JPEG和渐进式JPEG" class="headerlink" title="基准式JPEG和渐进式JPEG"></a>基准式JPEG和渐进式JPEG</h6><p>基准式JPEG和渐进式JPEG是两种不同编解码方式，还有主要是在网速比较慢的时候，图片加载方式也是不一样的。<br><img src="/images/%E5%9F%BA%E5%87%86%E5%BC%8FJPEG%E5%8A%A0%E8%BD%BD%E6%96%B9%E5%BC%8F.webp" alt="基准式JPEG"><br>基准式JPEG加载情况<br><img src="/images/%E6%B8%90%E8%BF%9B%E5%BC%8FJPEG%E5%8A%A0%E8%BD%BD%E6%96%B9%E5%BC%8F.webp" alt="渐进式JPEG"><br>渐进式JPEG加载情况</p>
+<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><p><a href="https://www.jianshu.com/p/d2817058c901" target="_blank" rel="noopener">使用渐进式 JPEG 来提升用户体验</a><br><a href="http://www.taoweng.site/index.php/archives/264/" target="_blank" rel="noopener">每个前端工程师都应该了解的图片知识</a><br><a href="https://www.jianshu.com/p/f5557c0e689e" target="_blank" rel="noopener">JPEG图片格式详解</a><br><a href="https://www.jianshu.com/p/ab96bf20f90e" target="_blank" rel="noopener">JPG？GIF？PNG？前端如何选择图片格式？</a><br><a href="https://zhuanlan.zhihu.com/p/41498458" target="_blank" rel="noopener">网站建设中使用的png和jpg两种图片格式都有哪些特点和区别</a><br><a href="https://www.qifeiye.com/%E6%A8%AA%E5%90%91%E5%AF%B9%E6%AF%94gifjpegpngsvg%EF%BC%8C%E6%95%99%E4%BD%A0%E5%A6%82%E4%BD%95%E5%90%88%E7%90%86%E9%80%89%E6%8B%A9%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F/" target="_blank" rel="noopener">横向对比GIF/JPEG/PNG/SVG，教你如何合理选择图像格式</a>    </p>
+<p><a href="https://blog.csdn.net/cmsbupt/article/details/51178761" target="_blank" rel="noopener">下一代Web图像格式：JPEG、JPEG XR、JPEG2000、WebP、BPG</a></p>
+]]></content>
+      <tags>
+        <tag>后端</tag>
+        <tag>前端</tag>
+        <tag>图片</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JEPG、PNG、WEBP、GIF、SVG的学习使用、 各种网络图片格式学习-PNG</title>
+    <url>/2020/02/24/%E5%9B%BE%E7%89%87/JEPG%E3%80%81PNG%E3%80%81WEBP%E3%80%81GIF%E3%80%81SVG%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8-PNG/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h3 id="PNG"><a href="#PNG" class="headerlink" title="PNG"></a>PNG</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>&emsp;&emsp;来自维基百科介绍，便携式网络图形(Portable Network Graphics，PNG)是一种无损压缩位图图形格式，支持索引、灰色、RGB三种颜色方案以及Alpha通道等特性。PNG的开发目标是改善并取代Gif作为适合网络传输的格式而不需专利许可，所以被广泛应用于互联网及其他方面上。</p>
+<h4 id="PNG的特性"><a href="#PNG的特性" class="headerlink" title="PNG的特性"></a>PNG的特性</h4><p>1、无损压缩<br>2、支持索引透明和Alpha透明半透明<br>3、支持256色调色板技术(索引颜色)以产生小体积文件<br>4、使用循环冗余码检测损坏文件<br>5、支持渐近显示和流式读写<br>6、最新的PNG标准允许在一个文件内存储多幅图像（APNG）。</p>
+<a id="more"></a>
+
+<h4 id="PNG存储实现原理"><a href="#PNG存储实现原理" class="headerlink" title="PNG存储实现原理"></a>PNG存储实现原理</h4><p>这篇文章已经有较好的讲解。<a href="http://www.alloyteam.com/2017/03/the-story-of-png-get-images-and-pixel-content/#%E7%BB%93%E6%9E%84" target="_blank" rel="noopener">PNG存储原理讲解</a></p>
+<h4 id="PNG8、PNG24、PNG32差异"><a href="#PNG8、PNG24、PNG32差异" class="headerlink" title="PNG8、PNG24、PNG32差异"></a>PNG8、PNG24、PNG32差异</h4><table>
+<thead>
+<tr>
+<th>格式</th>
+<th>简介</th>
+<th>最高支持色彩通道</th>
+<th>索引色编辑支持</th>
+<th>透明支持</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PNG8</td>
+<td>8位单通道，最多显示256种颜色</td>
+<td>256种索引色</td>
+<td>支持</td>
+<td>支持设定特定索引色为透明色（布尔透明）<br>支持为索引色附加8位透明度（256阶alpha透明）</td>
+</tr>
+<tr>
+<td>PNG24</td>
+<td>24位RGB三通道，真彩色图像</td>
+<td>约1600万颜色</td>
+<td>不支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>PNG32</td>
+<td>32位RGBA四通道，在原有的PNG24位基础上增加了Alpha通道来描述透明度</td>
+<td>约1600万颜色，外加256种半透明色</td>
+<td>不支持</td>
+<td>支持8位透明度（256阶alphat透明）</td>
+</tr>
+</tbody></table>
+<h4 id="PNG-索引透明和Alpha透明"><a href="#PNG-索引透明和Alpha透明" class="headerlink" title="PNG 索引透明和Alpha透明"></a>PNG 索引透明和Alpha透明</h4><p>索引透明只能表示透明和不透明，产生体积相对较小的，不过容易产生杂边锯齿。<br>Alpha透明是一个8位的灰度通道，该通道用256级灰度来记录图像中的透明度信息，定义透明、不透明和半透明区域，支持全透明和半透明。</p>
+<blockquote>
+<p>参考：<a href="https://www.cnblogs.com/peunzhang/archive/2013/05/30/3050394.html#png1" target="_blank" rel="noopener">https://www.cnblogs.com/peunzhang/archive/2013/05/30/3050394.html#png1</a></p>
+</blockquote>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><p>1、小的LOGO,颜色简单且对比强烈图片和背景<br>2、颜色简单、对比度强的透明小图<br>3、颜色很少、具有大块颜色相近的区域或亮度差异十分明显的较简单的图片<br>4、用于页面结构的基本视觉元素，如容器的背景、按钮、导航的背景等应该尽量用PNG格式进行存储，这样才能更好的保证设计品质</p>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="https://zh.wikipedia.org/wiki/PNG" target="_blank" rel="noopener">PNG特性、对比JPEG、GIF差异</a><br><a href="https://github.com/ericdum/mujiang.info/issues/4" target="_blank" rel="noopener">png8支持透明通道（一）</a><br><a href="http://www.alloyteam.com/2017/06/the-story-of-png-deinterlacing-algorithm/" target="_blank" rel="noopener">png逐行扫描和隔行扫描说明</a><br><a href="https://gameinstitute.qq.com/community/detail/107564" target="_blank" rel="noopener">深入解析png图片解码技术</a><br><a href="https://zhuanlan.zhihu.com/p/22496580" target="_blank" rel="noopener">图片格式中的小较真</a><br><a href="https://www.jianshu.com/p/ab96bf20f90e" target="_blank" rel="noopener">JPG？GIF？PNG？前端如何选择图片格式？</a><br><a href="https://zhuanlan.zhihu.com/p/41498458" target="_blank" rel="noopener">网站建设中使用的png和jpg两种图片格式都有哪些特点和区别</a>   </p>
+]]></content>
+      <tags>
+        <tag>后端</tag>
+        <tag>前端</tag>
+        <tag>图片</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>图片有关工具和网站</title>
+    <url>/2020/02/22/%E5%9B%BE%E7%89%87/%E5%9B%BE%E5%83%8F%E6%9C%89%E5%85%B3%E5%B7%A5%E5%85%B7%E5%92%8C%E7%BD%91%E7%AB%99/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h5 id="压缩网站和软件工具"><a href="#压缩网站和软件工具" class="headerlink" title="压缩网站和软件工具"></a>压缩网站和软件工具</h5><blockquote>
+<p>参考: <a href="https://blog.ibireme.com/2015/11/02/mobile_image_benchmark/#png" target="_blank" rel="noopener">https://blog.ibireme.com/2015/11/02/mobile_image_benchmark/#png</a></p>
+</blockquote>
+<h6 id="网站"><a href="#网站" class="headerlink" title="网站"></a>网站</h6><p><a href="https://pmt.sourceforge.io/pngcrush/" target="_blank" rel="noopener">Xcode自带PNG压缩工具pnycrush</a><br><a href="https://pngquant.org/" target="_blank" rel="noopener">pngquant</a><br><a href="https://tinify.cn/" target="_blank" rel="noopener">智能PNG和JPEG图片压缩</a><br><a href="https://zhitu.isux.us/" target="_blank" rel="noopener">腾讯智图</a><br><a href="http://www.bejson.com/convert/image_to_svg/" target="_blank" rel="noopener">在线jpg,png图片转SVG工具</a><br><a href="https://www.iconfont.cn/" target="_blank" rel="noopener">阿里矢量图标库</a><br><a href="https://www.favicon-generator.org/" target="_blank" rel="noopener">Favicon &amp; App Icon Generator</a><br><a href="http://www.uugai.com/" target="_blank" rel="noopener">完全免费的LOGO在线设计制作工具</a><br><a href="https://github.com/SamHerbert/SVG-Loaders" target="_blank" rel="noopener">SVG进度条</a></p>
+<a id="more"></a>
+
+<h6 id="软件工具"><a href="#软件工具" class="headerlink" title="软件工具"></a>软件工具</h6><p><a href="https://imageoptim.com/mac" target="_blank" rel="noopener">ImageOptim</a><br><a href="https://imagemagick.org/index.php" target="_blank" rel="noopener">imagemgick</a><br><a href="https://pmt.sourceforge.io/pngcrush/" target="_blank" rel="noopener">Pngcrush</a><br><a href="https://github.com/sharkdp/hexyl" target="_blank" rel="noopener">查看二进制工具-hexyl</a><br><a href="https://ridiculousfish.com/hexfiend/" target="_blank" rel="noopener">查看二进制工具-HexFiend</a><br><a href="https://sourceforge.net/projects/apngasm/" target="_blank" rel="noopener">创建APNG图片工具</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pngcrush 是 Xcode 自带的 PNG 压缩工具，相对于设计师用 Photoshop 生成的图片来说，它能取得不错的压缩效果。</span><br><span class="line">ImageOptim 则更进一步，对每张图用多种缩算法进行比对，选择压缩比更高的结果，进一步缩小了文件体积。</span><br><span class="line">TinyPNG.com 相对于其他工具来说，压缩比高得不像话。它启用了类似 GIF 那样的颜色索引表对 PNG 进行压缩，所以会导致颜色丰富的图片丢失掉一部分细节。如果使用 TinyPNG 的话，最好在压缩完成后让设计师看一下颜色效果是否可以接受。</span><br></pre></td></tr></table></figure>
+
+<h5 id="其他相关"><a href="#其他相关" class="headerlink" title="其他相关"></a>其他相关</h5><p>1、<a href="https://caniuse.com/" target="_blank" rel="noopener">图片格式浏览器支持情况网站</a>   </p>
+<h5 id="书籍"><a href="#书籍" class="headerlink" title="书籍:"></a>书籍:</h5><p>《探索图像文件的奥秘》</p>
+]]></content>
+      <tags>
+        <tag>后端</tag>
+        <tag>前端</tag>
+        <tag>图像</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Logger的学习与源码解析</title>
+    <url>/2020/08/16/%E6%9C%AA%E5%AE%8C%E6%88%90/Logger%E7%9A%84%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h3 id="导读"><a href="#导读" class="headerlink" title="导读"></a>导读</h3><h3 id="slf4j日志门面如何一统天下"><a href="#slf4j日志门面如何一统天下" class="headerlink" title="slf4j日志门面如何一统天下"></a>slf4j日志门面如何一统天下</h3><h3 id="slf4j-框架思考"><a href="#slf4j-框架思考" class="headerlink" title="slf4j 框架思考"></a>slf4j 框架思考</h3><h3 id="slf4j-源码解析"><a href="#slf4j-源码解析" class="headerlink" title="slf4j 源码解析"></a>slf4j 源码解析</h3><h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://www.cnblogs.com/youzhibing/p/6849843.html" target="_blank" rel="noopener">从源码来理解slf4j的绑定，以及logback对配置文件的加载</a><br><a href="https://www.jianshu.com/p/9916de96cb99" target="_blank" rel="noopener">Java 日志框架解析：设计模式、性能</a><br><a href="http://ifeve.com/disruptor/" target="_blank" rel="noopener">并发框架Disruptor译文</a></p>
+]]></content>
+      <tags>
+        <tag>后端</tag>
+        <tag>日志</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>IDEA技巧、IDEA经验分享、IDEA学习、IDEA探索</title>
+    <url>/2019/02/12/%E5%B0%8F%E6%8A%80%E5%B7%A7/IDEA%E5%B0%8F%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a><br><strong>* 提供IDEA使用小技巧 *</strong></p>
+<blockquote>
+<p>推荐一些本人亲身尝试，在实际开发中比较实用的小技巧，可以大大提高开发效率。</p>
+</blockquote>
+<h5 id="IDEA左侧显示打开代码文件和资源文件"><a href="#IDEA左侧显示打开代码文件和资源文件" class="headerlink" title="IDEA左侧显示打开代码文件和资源文件"></a>IDEA左侧显示打开代码文件和资源文件</h5><blockquote>
+<p>应用场景:默认IDEA的代码文件的Tab放在代码区的上方。但是实际开发，我们经常打开很多代码文件，左侧显示整体显示，可以提高管理打开代码文件。</p>
+</blockquote>
+<h6 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h6><p><img src="/images/IDEA%E5%B7%A6%E4%BE%A7%E6%98%BE%E7%A4%BA%E4%BB%A3%E7%A0%81%E6%96%87%E4%BB%B6%E6%88%AA%E5%9B%BE.jpeg" alt="IDEA左侧显示打开代码文件截图"></p>
+<a id="more"></a>
+<h6 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤:"></a>操作步骤:</h6><p><img src="/images/IDEA%E5%B7%A6%E4%BE%A7%E6%98%BE%E7%A4%BA%E4%BB%A3%E7%A0%81%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E6%88%AA%E5%9B%BE.jpeg" alt="IDEA左侧显示打开代码文件操作截图"></p>
+<h5 id="IDEA多个模块同名分支统一切换-（Multi-root-same-name-brances-change）"><a href="#IDEA多个模块同名分支统一切换-（Multi-root-same-name-brances-change）" class="headerlink" title="IDEA多个模块同名分支统一切换 （Multi-root same name brances change）"></a>IDEA多个模块同名分支统一切换 （Multi-root same name brances change）</h5><blockquote>
+<p>应用场景:默认IDEA的分支操作:模块分支统一操作(Common Local Branches)和单模块分支操作(Local Branches)。 对于某个模块同名的分支的处理很难处理。 (类似问题:<a href="https://stackoverflow.com/questions/13797331/intellij-switching-between-multiple-git-local-branches" target="_blank" rel="noopener">https://stackoverflow.com/questions/13797331/intellij-switching-between-multiple-git-local-branches</a>)</p>
+</blockquote>
+<p>灵感来自这篇文章:<a href="https://intellij-support.jetbrains.com/hc/en-us/community/posts/360000135790-Task-Management-does-not-respect-Execute-branch-operations-on-all-roots-setting" target="_blank" rel="noopener">Task Management does not respect “Execute branch operations on all roots” setting</a></p>
+<h6 id="操作步骤-1"><a href="#操作步骤-1" class="headerlink" title="操作步骤"></a>操作步骤</h6><p>Click “Tools” &gt; “Tasks &amp; Contexts” &gt; “Open Task”</p>
+<p><img src="/images/IDEA%E5%BC%80%E5%90%AF%E6%89%80%E6%9C%89%E6%A0%B9%E4%B8%8A%E5%88%86%E6%94%AF%E6%93%8D%E4%BD%9C.jpeg" alt="IDEA开启所有根上分支操作"></p>
+<p><img src="/images/IDEATask%E7%9A%84%E4%BD%8D%E7%BD%AE.jpeg" alt="IDEATask的位置"></p>
+<p><img src="/images/IDEA%E7%9A%84Task%E6%93%8D%E4%BD%9C.jpeg" alt="IDEA的Task操作"></p>
+<h5 id="IDEA的编辑区不换行操作"><a href="#IDEA的编辑区不换行操作" class="headerlink" title="IDEA的编辑区不换行操作"></a>IDEA的编辑区不换行操作</h5><p><img src="/images/IDEA%E4%B8%8D%E6%8D%A2%E8%A1%8C%E6%93%8D%E4%BD%9C.jpg" alt="IDEA不换行操作"></p>
+<h5 id="IDEA的Commit-Changes显示提交的分支操作"><a href="#IDEA的Commit-Changes显示提交的分支操作" class="headerlink" title="IDEA的Commit Changes显示提交的分支操作"></a>IDEA的Commit Changes显示提交的分支操作</h5><p><img src="/images/IDEA%E6%8F%90%E4%BA%A4%E5%8F%98%E5%8C%96%E6%98%BE%E7%A4%BA%E5%88%86%E6%94%AF%E5%90%8D.jpg" alt="IDEA提交改变显示分支名"></p>
+<h5 id="IDEA设置serialVersionUID"><a href="#IDEA设置serialVersionUID" class="headerlink" title="IDEA设置serialVersionUID"></a>IDEA设置serialVersionUID</h5><p><img src="/images/IDEA%E7%9A%84%E8%AE%BE%E7%BD%AE%E6%98%BE%E7%A4%BAserialVersionUID.jpg" alt="IDEA设置serialVersionUID"></p>
+<h5 id="IDEA的翻译插件"><a href="#IDEA的翻译插件" class="headerlink" title="IDEA的翻译插件"></a>IDEA的翻译插件</h5><p>第一步安装插件：<br><img src="/images/Translation%E6%8F%92%E4%BB%B6%E4%B8%8B%E8%BD%BD.jpg" alt="Translation 插件下载"><br>第二步完毕后显示位置<br><img src="/images/Translation%E6%8F%92%E4%BB%B6%E6%98%BE%E7%A4%BA%E4%BD%8D%E7%BD%AE.jpg" alt="Translation 插件显示位置"><br>第三步设置插件选项<br>正则描述: <code>(@[a-z]+|/|\*|\{|\}|\#|(&lt;[/a-z]+&gt;))</code><br><img src="/images/Translation%E6%8F%92%E4%BB%B6%E8%AE%BE%E7%BD%AE.jpg" alt="Translation 插件设置"></p>
+<h5 id="IDEA-高效将远程分支变成本地分支"><a href="#IDEA-高效将远程分支变成本地分支" class="headerlink" title="IDEA 高效将远程分支变成本地分支"></a>IDEA 高效将远程分支变成本地分支</h5><blockquote>
+<p>将分支名称一致的多个项目远程分支变成对应项目本地分支操作<br><img src="/images/%E5%B0%86%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E5%8F%98%E6%88%90%E6%9C%AC%E5%9C%B0%E5%88%86%E6%94%AF.png" alt="将远程分支变成本地分支"></p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>IDEA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mac常见问题和技巧</title>
+    <url>/2020/05/17/%E5%B0%8F%E6%8A%80%E5%B7%A7/Mac%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%92%8C%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h5 id="常见技巧"><a href="#常见技巧" class="headerlink" title="常见技巧"></a>常见技巧</h5><h5 id="优秀软件"><a href="#优秀软件" class="headerlink" title="优秀软件"></a>优秀软件</h5><h6 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h6><p>新版MacOs Catalina推荐默认使用命令脚本zsh，而不是bash。<br>对于遇到 no matches的提示解决方案</p>
+<blockquote>
+<p>参考来源:<a href="https://www.bartbusschots.ie/s/2019/06/12/bash-to-zsh-file-globbing-and-no-matches-found-errors/" target="_blank" rel="noopener">Bash to Zsh: File Globbing and ‘no matches found’ Errors</a></p>
+</blockquote>
+<p>在 ~/.zshrc 文件上添加：<br><code># only throw errors when no globs match anything</code><br><code>setopt CSH_NULL_GLOB</code></p>
+<hr>
+<p>新版MacOs Catalina增加一个硬盘上两个卷(Macintosh HD、 Macintosh HD Data)，并且有个卷是只读的(Macintosh HD)。System Integrity Protection 系统保护根路径变成只读卷（命令: csrutil）。</p>
+<blockquote>
+<p><a href="https://sspai.com/post/57052" target="_blank" rel="noopener">当 Mac 升级到 Catalina 时，苹果在硬盘里施了点魔法</a></p>
+</blockquote>
+<p>在只读卷新建文件/文件夹、在根目录创建data文件解决方案</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/weixin_42619248/article/details/102503825" target="_blank" rel="noopener">可以通过在根路径下建立软连接连接到其他可读写的卷上，解决/data的问题</a></p>
+</blockquote>
+<ol>
+<li>关闭System Integrity Protection的只读卷保护</li>
+</ol>
+<ul>
+<li>重启苹果电脑</li>
+<li>重启过程中，长按住Command-R键重启进入恢复模式</li>
+<li>进入恢复模式，在Utilities菜单项中选择Terminal</li>
+<li>在Terminal控制台里面输入 <code>csrutil disable</code> 关闭系统保护</li>
+<li>输入<code>csrutil status</code>，查看系统保护状态</li>
+</ul>
+<ol start="2">
+<li>在恢复模式下，重启电脑<blockquote>
+<p>有时执行下面步骤，仍然出现read only system的提醒是可以<code>sudo mount -uw /</code> 强制重新挂载硬盘来解决</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li>重启电脑成功后，就可以直接操作根目录路径文件、文件夹</li>
+<li>【建议】在<code>Macintosh HD Data</code>建立好文件夹、文件，然后在<code>Macintosh HD</code>创建软连接/硬链接到文件夹、文件</li>
+</ul>
+<ol start="3">
+<li>恢复System Integrity Protection的只读卷保护</li>
+</ol>
+<ul>
+<li>重启苹果电脑</li>
+<li>重启过程中，长按住Command-R键重启进入恢复模式</li>
+<li>进入恢复模式，在Utilities菜单项中选择Terminal</li>
+<li>在Terminal控制台里面输入 <code>csrutil enable</code> 开启系统保护</li>
+<li>输入<code>csrutil status</code>，查看系统保护状态</li>
+</ul>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>新版本 Mac Big Sur 11.1 以上规则不适用了，因为苹果解决了这个bug。<br><a href="http://www.au92.com/post/macos-big-sur-readonly/" target="_blank" rel="noopener">MacOS Big Sur (11.0.1、11.1)无法在根目录创建文件夹的解决方案</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Charles使用细节说明</title>
+    <url>/2020/05/17/%E5%B0%8F%E6%8A%80%E5%B7%A7/Charles%E4%BD%BF%E7%94%A8%E7%BB%86%E8%8A%82%E8%AF%B4%E6%98%8E/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<p>Charles是一款优秀HTTPS/HTTP网络代理工具</p>
+<blockquote>
+<p><a href="https://www.charlesproxy.com" target="_blank" rel="noopener">Charles官网地址</a><br><a href="https://xclient.info/s/charles.html" target="_blank" rel="noopener">Charles下载地址</a></p>
+</blockquote>
+<h4 id="Charles-gt-Map-Remote-Setting-gt-Edit-Mapping中preserve-host-in-header-fields的使用"><a href="#Charles-gt-Map-Remote-Setting-gt-Edit-Mapping中preserve-host-in-header-fields的使用" class="headerlink" title="Charles -&gt; Map Remote Setting -&gt; Edit Mapping中preserve host in header fields的使用"></a>Charles -&gt; Map Remote Setting -&gt; Edit Mapping中preserve host in header fields的使用</h4><p><img src="/images/Charles%E4%BF%9D%E6%8A%A4HostHeaderfields%E4%B8%80.png" alt="Charles 不勾选">  </p>
+<p><img src="/images/Charles%E4%BF%9D%E6%8A%A4HostHeaderFileds%E4%BA%8C.png" alt="Charles 勾选"></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>第一份工作总结</title>
+    <url>/2020/10/06/%E6%80%BB%E7%BB%93/%E7%AC%AC%E4%B8%80%E4%BB%BD%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>&emsp;&emsp;2017-09 ~ 2020-08这段时间，是我的第一份工作。这一份工作是从大四实习开始至毕业后两年。在这里，认识好多优秀领导和优秀同事。因此这篇文章希望自己能够向这些优秀领导和优秀同事学习。同时，还想讲讲自己在这段时间锻炼与错误。</p>
+<h4 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h4><p>&emsp;&emsp;</p>
+<h4 id="优秀领导"><a href="#优秀领导" class="headerlink" title="优秀领导"></a>优秀领导</h4><p>&emsp;&emsp;</p>
+<h4 id="优秀同事"><a href="#优秀同事" class="headerlink" title="优秀同事"></a>优秀同事</h4><h4 id="锻炼与成长"><a href="#锻炼与成长" class="headerlink" title="锻炼与成长"></a>锻炼与成长</h4><h4 id="过失与错误"><a href="#过失与错误" class="headerlink" title="过失与错误"></a>过失与错误</h4><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4>]]></content>
+      <tags>
+        <tag>感悟与思考</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo搭建github-bolg总结</title>
+    <url>/2020/06/25/%E6%9C%AA%E5%AE%8C%E6%88%90/hexo%E6%90%AD%E5%BB%BAgithub-bolg%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><p><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">hexo官网</a><br><a href="https://zhuanlan.zhihu.com/p/31411755" target="_blank" rel="noopener">修改hexo sitemap 生成插件中的链接模板</a><br><a href="https://wizardforcel.gitbooks.io/markdown-simple-world/content/" target="_blank" rel="noopener">Markdown - 简单的世界</a></p>
+]]></content>
+      <tags>
+        <tag>学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>人人都该懂点产品思维（一）</title>
+    <url>/2020/04/25/%E8%AF%BB%E4%B9%A6/%E4%BA%BA%E4%BA%BA%E9%83%BD%E8%AF%A5%E6%87%82%E7%82%B9%E4%BA%A7%E5%93%81%E6%80%9D%E7%BB%B4%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h3 id="推荐语"><a href="#推荐语" class="headerlink" title="推荐语"></a>推荐语</h3><p>&emsp;&emsp;本书以生动的笔触，以场景代入的方法，从是什么、为什么、怎么样介绍了一名产品经理的必备素质以及专业技能，对竞品分析、A/B测试、数据分析、PRD撰写、埋点、搜索、推送等做了深入阐述，每一部分都既有理论说明，又有实例分析，深入浅出，面面俱到。此外，还指出了在做好产品经理这一角色时必须具备的职业能力以及技巧，如关注APP榜单、高效会议、跟进进度，甚至专业邮件撰写方法。总结出来的方法论，如六步法：用、问、数、比、溯、试，非常精炼又极其其实用，对实际工作很有指导作用。</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><h4 id="17页"><a href="#17页" class="headerlink" title="17页"></a>17页</h4><p>&emsp;&emsp;转载一段看来的关于价值投资的判断，我觉得同样适用于个人的职业选择：</p>
+<ul>
+<li>这是不是一家全方位领先竞争者的公司？（现在）</li>
+<li>这是不是一个快速增长、有着清晰增长路线图的公司？（未来）</li>
+<li>这是不是总体上在你的认知范围内最佳选择？（有效前沿）</li>
+</ul>
+<h3 id="第一章："><a href="#第一章：" class="headerlink" title="第一章："></a>第一章：</h3><h4 id="005页"><a href="#005页" class="headerlink" title="005页"></a>005页</h4><p>&emsp;&emsp;对于没有丰富经验的产品小白而言，由于没有负责过大项目，做的很多事情都偏向于执行，所以面试中并不会过多纠结过往的项目（行业认知），更多考查的是解决问题的思路、遇到挑战时的应对和分析。对于问题的回答并不要求面面俱到，而是希望在有限时间里，应试者能够展现出自己是如何拆解问题、做重要优先级划分的，并争取做到逻辑自洽。</p>
+<h4 id="008页"><a href="#008页" class="headerlink" title="008页"></a>008页</h4><p>&emsp;&emsp;这款App核心卖点在于实时美颜，调研相机的同时，就在进行美白和瘦脸的操作，用户就不需要拍照后在P图了。<strong>把两步变成一步，路径的缩短就带来了产品价值</strong>。</p>
+<p>&emsp;&emsp;作为产品经理，需要对市场保持足够的敏感。有哪些新的、热的应用，就算不是我们的竞品领域，同样也需要关注。<strong>他山之石可以攻玉，它们或许能够给我们带来不一样的想法</strong></p>
+<h4 id="059页"><a href="#059页" class="headerlink" title="059页"></a>059页</h4><p>&emsp;&emsp;对于一个新手产品经理来说，先做人，再做事；请先做一个称职的职场新人，再来着手产品经理的工作。<br>&emsp;&emsp;能力固能是需要培养，互信更是需哟啊培养的。对于职场新人来说，只有真正赢得直属领导和团队的信任，才能得到更多项目历练的机会，进而有培养能力一展拳脚的可能性。那如何建立互信呢？不是喝酒吃饭套交情，这里是职场，请用自己的产出说话。</p>
+<blockquote>
+<p>自己理解：职场中信任是特别重要。刚才公司那会听到同事在大会上说感谢公司领导信任。当时没懂为什么要着重说明这件事情，后来渐渐明白我自己所做的每一件事情都是领导对自己信任和对自己能力认可。如果没有这些的话，可能自己只会停留在原地。</p>
+</blockquote>
+<h4 id="060页"><a href="#060页" class="headerlink" title="060页"></a>060页</h4><p>&emsp;&emsp;一种情况是在任务碰到困难，请及时向领导和资深同时求助，不要做闷葫芦自己钻研。及时请求帮助没什么不好意思的，作为新人，不懂不会是正常的，不懂装懂才是可怕的。如果因为自己的羞恼使得产出延迟，进而拖累了整个团队进度，那才是该不好意思的。我们常会碰到这样的新人，在项目的最后期限快到时询问他，才反馈说因为碰到了问题解决不了而延期，这样的情况才让领导和团队疯狂。    </p>
+]]></content>
+      <tags>
+        <tag>读书</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>人人都该懂点产品思维（二）</title>
+    <url>/2020/06/26/%E8%AF%BB%E4%B9%A6/%E4%BA%BA%E4%BA%BA%E9%83%BD%E8%AF%A5%E6%87%82%E7%82%B9%E4%BA%A7%E5%93%81%E6%80%9D%E7%BB%B4%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h3 id="第二章-初学乍练-改进已有功能点"><a href="#第二章-初学乍练-改进已有功能点" class="headerlink" title="第二章 初学乍练: 改进已有功能点"></a>第二章 初学乍练: 改进已有功能点</h3><h4 id="74页"><a href="#74页" class="headerlink" title="74页"></a>74页</h4><p>&emsp;&emsp;有价值的用户是指最终能够给公司带来收入的用户，我们追求这部分人群的长期留存就是为了保证这份收入的稳定性和可持续性。<br>&emsp;&emsp;在价值的定义上，根据具体付费方不同，可以大致分为C端收费、B端收费两类。在不同的产品中，其盈利方式和有价值用户的定义有所不同。</p>
+<ul>
+<li>信息流产品为例，有价值的用户可能是那些点击信息流广告的用户;</li>
+<li>以游戏产品为例，有价值的用户可能是付费的氪金玩家;</li>
+<li>以职场社交产品为例，有机质的用可能是活跃在这一产品上的、可被招聘和挖掘的职业用户。<br>&emsp;&emsp;无论收益途径如何，用户价值都会被归结到特定渠道的生命周期价值LTV(Life Time Value)上，无论是用户产品还是商业产品，都应该聚焦提升用户的生命周期价值上。</li>
+</ul>
+<blockquote>
+<p>渗透率=现有需求量/潜在需求量</p>
+</blockquote>
+<h4 id="80页"><a href="#80页" class="headerlink" title="80页"></a>80页</h4><p>&emsp;&emsp;现在早就不是产品经理拍脑袋决定上线时代了，我们需要更为完善的A/B测试来验证我们的判断</p>
+<h4 id="83页"><a href="#83页" class="headerlink" title="83页"></a>83页</h4><p>&emsp;&emsp;我们在实验中常用的几个基础用户特征维度有：新老用户（功能的深度用户和浅度用户，一般升级频率比较高、活跃度比较高的用户可能更容易尝鲜，也更容易推高部分数据）、系统类型（如Android和Ios平台之分，Ios内部又有不同手机厂商之分，特定平台和手机厂商的用户可能表现出更好的留存或付费意愿等）用户、男女用户等。</p>
+]]></content>
+      <tags>
+        <tag>读书</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>非暴力沟通</title>
+    <url>/2020/07/19/%E8%AF%BB%E4%B9%A6/%E9%9D%9E%E6%9A%B4%E5%8A%9B%E6%B2%9F%E9%80%9A/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h3 id="区分观察与评论"><a href="#区分观察与评论" class="headerlink" title="区分观察与评论"></a>区分观察与评论</h3><h4 id="027页"><a href="#027页" class="headerlink" title="027页"></a>027页</h4><p>以下这首歌反映了观察与评论的区别。<br>我未见过懒惰的人;<br>我见过<br>有个人有时在下午睡觉，<br>在雨天不出门，<br>但他不是个懒惰的人。<br>请在说我胡言乱语之前，<br>想一想，他是个懒惰的人，还是<br>他的行为被我们称为“懒惰”？<br>我从未见过愚蠢的孩子；<br>我见过有个孩子有时做的事<br>我不理解<br>或不接受我的吩咐做事情；<br>但他不是愚蠢的孩子。<br>请在你说他愚蠢之前，<br>想一想，他是个愚蠢的孩子，还是<br>他懂的事情与你不一样？    </p>
+<p>我使劲看了又看<br>但从未看到厨师；<br>我看到有个人把食物<br>调配在一起，<br>打起了火，<br>。。。。。。。。</p>
+]]></content>
+      <tags>
+        <tag>读书</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>互联网项目管理实践精粹（一）</title>
+    <url>/2020/09/08/%E8%AF%BB%E4%B9%A6/%E4%BA%92%E8%81%94%E7%BD%91%E9%A1%B9%E7%9B%AE%E7%AE%A1%E7%90%86%E5%AE%9E%E8%B7%B5%E7%B2%BE%E7%B2%B9%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<h3 id="项目经理"><a href="#项目经理" class="headerlink" title="项目经理"></a>项目经理</h3><blockquote>
+<p>项目经理角色是组织战略与项目团队之间联系的纽带，也是确保项目团队工作价值并对项目结果负责和主要负责人。</p>
+</blockquote>
+<h4 id="核心责任"><a href="#核心责任" class="headerlink" title="核心责任"></a>核心责任</h4><ul>
+<li><p>管理维护项目待办事项列表，确保项目团队明晰列表内容及产品需求优先级；</p>
+</li>
+<li><p>指导和引导项目团队按照标准制度流程，高效地进行项目设计、开发与实现；</p>
+</li>
+<li><p>多项目的全程项目生命周期管理，确保项目团队各成员了解的信息真实对等；</p>
+</li>
+<li><p>整合协调公司内外部项目资源，扫清障碍、打通经脉，高效地推动推动项目落地；</p>
+</li>
+<li><p>参与组织级项目管理体系建设，提升项目管理能力，激发项目团队工作热情；</p>
+</li>
+<li><p>合理安排项目资源，制订并执行项目计划，管理项目从立项到上线的全部过程；</p>
+</li>
+<li><p>及时发现项目中可能存在的风险并提前预警，制订项目风险应对和应急方案；</p>
+</li>
+<li><p>与各职能部门高效沟通，快速推动项目问题和难点的解决，并定期总结汇报；</p>
+</li>
+<li><p>研究并推广应用先进的互联网项目管理工具，促进项目管理信息化和自动化。</p>
+<a id="more"></a>
+
+</li>
+</ul>
+<h4 id="如何了解某个职位责任？"><a href="#如何了解某个职位责任？" class="headerlink" title="如何了解某个职位责任？"></a>如何了解某个职位责任？</h4><ol>
+<li>这个职位具体扮演角色包括哪些核心职责？</li>
+<li>如果想要担任这个角色需要哪些认知资格？</li>
+<li>公司中其他角色和这个角色有哪些关联和依赖？</li>
+<li>这个角色隶属于公司哪个部门，以及该部门是如何运作的？</li>
+<li>设立这个角色的公司隶属于哪个行业？通常都是什么规模类型？</li>
+<li>这个行业的发展现状和未来前景如何？有哪些比较知名公司</li>
+</ol>
+<h4 id="第7章项目管理过程持续改进"><a href="#第7章项目管理过程持续改进" class="headerlink" title="第7章项目管理过程持续改进"></a>第7章项目管理过程持续改进</h4><blockquote>
+<p>项目管理过程持续改进的有效落地，需要将复杂的事情简单化、专业的事情模板化、简单的事情量化、量化的事情专业化、专业的事情模板化，并要求做的过程管理化、管理规范化、规范制度化、制度流程化、流程信息化。</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>读书</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CPU架构学习</title>
+    <url>/2020/05/27/%E6%9C%AA%E5%AE%8C%E6%88%90/CPU%E6%9E%B6%E6%9E%84%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p><a href="https://github.com/drgonroot/drgonroot.github.io/issues/new" target="_blank" rel="noopener">吐槽、建议、解惑入口网址</a></p>
+<p>对于目前市面CPU架构拆分，命令上理解。i386<br><a href="https://nginx.org/en/linux_packages.html" target="_blank" rel="noopener">https://nginx.org/en/linux_packages.html</a><br><a href="https://github.com/xtaci/kcptun/releases" target="_blank" rel="noopener">https://github.com/xtaci/kcptun/releases</a></p>
+<ul>
+<li><p><a href="https://zhuanlan.zhihu.com/p/81472964" target="_blank" rel="noopener">CPU架构</a>  arm  x86  x86_64  ppc64</p>
+</li>
+<li><p><a href="https://wiki.centos.org/SpecialInterestGroup/AltArch/armhfp" target="_blank" rel="noopener">AltarchCentos学习</a></p>
+</li>
+</ul>
+]]></content>
   </entry>
   <entry>
     <title>图像基础知识、图像基础属性、图像哪些你不知道的小知识点 (一)</title>
